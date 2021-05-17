@@ -1,0 +1,47 @@
+﻿@page "/"
+@namespace Surveymatic.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <title>Surveymatic</title>
+    <base href="~/" />
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <link href="css/site.css" rel="stylesheet" />
+    <link href="Surveymatic.styles.css" rel="stylesheet" />
+	<link rel="stylesheet" href="./theme-wet-boew/css/theme.min.css">
+	<noscript>
+		<link rel="stylesheet" href="./wet-boew/css/noscript.min.css">
+	</noscript>
+
+	<meta name="description" content="Web Experience Toolkit (WET) test page">
+	@* <link rel="canonical" href="https://wet-boew.github.io/wet-boew/index-en.html"> *@
+	<link rel="alternate" hreflang="fr" href="index-fr.html">
+	@* <link href="./theme-wet-boew/assets/favicon.ico" rel="icon" type="image/x-icon"> *@
+</head>
+<body vocab="http://schema.org/" resource="#wb-webpage" typeof="WebPage">
+    <component type="typeof(App)" render-mode="ServerPrerendered" />
+
+    <div id="blazor-error-ui">
+        <environment include="Staging,Production">
+            An error has occurred. This application may no longer respond until reloaded.
+        </environment>
+        <environment include="Development">
+            An unhandled exception has occurred. See browser dev tools for details.
+        </environment>
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+
+    <script src="_framework/blazor.server.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="./wet-boew/js/wet-boew.js"></script>
+
+</body>
+</html>
