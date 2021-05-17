@@ -82,8 +82,15 @@ using Surveymatic.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
-    public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 3 "c:\Y23\app\Surveymatic\Pages\SurveyViewer.razor"
+using Surveymatic.Data;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/surveyViewer")]
+    public partial class SurveyViewer : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -91,21 +98,35 @@ using Surveymatic.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 11 "c:\Y23\app\Surveymatic\Pages\Counter.razor"
+#line 39 "c:\Y23\app\Surveymatic\Pages\SurveyViewer.razor"
        
-    private int currentCount = 0;
+    List<SurveyItem> survey;
+    List<int> surveyScores = new List<int>();
+    int currentScore = 0;
 
-    [Parameter]
-    public int IncrementAmount { get; set; } = 3;
-
-    private void IncrementCount()
+    protected override async Task OnInitializedAsync()
     {
-        currentCount += IncrementAmount;
+        survey = await SurveyRepository.GetSurveyAsync();
+    }
+
+    void UpdateScore(int chosenAnswerIndex, int surveyIndex)
+    {
+        var surveyItem = survey[surveyIndex];
+
+        if (chosenAnswerIndex == surveyItem.AnswerIndex)
+        {
+            surveyScores[surveyIndex] = surveyItem.Score;
+        } else
+        {
+            surveyScores[surveyIndex] = 0;
+        }
+        currentScore = surveyScores.Sum();
     }
 
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private SurveyService SurveyRepository { get; set; }
     }
 }
 #pragma warning restore 1591

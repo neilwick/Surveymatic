@@ -8,26 +8,24 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\neilw\\.nuget\\packages\\": {}
+    "C:\\Users\\Georg\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\web3r\\Surveymatic\\Surveymatic.csproj",
+      "projectUniqueName": "C:\\Y23\\app\\Surveymatic\\Surveymatic.csproj",
       "projectName": "Surveymatic",
-      "projectPath": "D:\\web3r\\Surveymatic\\Surveymatic.csproj",
-      "packagesPath": "C:\\Users\\neilw\\.nuget\\packages\\",
-      "outputPath": "D:\\web3r\\Surveymatic\\obj\\",
+      "projectPath": "C:\\Y23\\app\\Surveymatic\\Surveymatic.csproj",
+      "packagesPath": "C:\\Users\\Georg\\.nuget\\packages\\",
+      "outputPath": "C:\\Y23\\app\\Surveymatic\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\neilw\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Georg\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -63,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
