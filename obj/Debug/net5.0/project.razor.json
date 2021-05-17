@@ -12,39 +12,6 @@
   "ProjectWorkspaceState": {
     "TagHelpers": [
       {
-        "HashCode": 659469825,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Pages.Index",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Index"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Pages.Index"
-        }
-      },
-      {
-        "HashCode": 1599691635,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Pages.Index",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.Pages.Index"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Pages.Index",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1040533001,
         "Kind": "Components.Component",
         "Name": "Surveymatic.Pages.Counter",
@@ -127,6 +94,39 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Surveymatic.Pages.FetchData",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 659469825,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Pages.Index",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Index"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Pages.Index"
+        }
+      },
+      {
+        "HashCode": 1599691635,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Pages.Index",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.Pages.Index"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Pages.Index",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
