@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Surveymatic.Pages
+namespace Surveymatic.Shared
 {
     #line hidden
     using System;
@@ -82,14 +82,33 @@ using Surveymatic.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/")]
-    public partial class Index : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class FrenchHelp : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 10 "c:\Users\Chris\Desktop\web and desktop program school work\.FinalProject\Surveymatic\Shared\FrenchHelp.razor"
+      
+
+    [Parameter]
+    public int HelpId { get; set; }
+
+    [Parameter]
+    public string Help_Tag { get; set; }
+
+    [Parameter]
+    public String Title { get; set; }
+
+    [Parameter]
+    public String Content { get; set; }
+
+
+#line default
+#line hidden
+#nullable disable
     }
 }
 #pragma warning restore 1591
