@@ -131,6 +131,177 @@
         }
       },
       {
+        "HashCode": -1000206321,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.App",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "App"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.App"
+        }
+      },
+      {
+        "HashCode": -1366731959,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.App",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.App"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.App",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1879624755,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.ShowYouTube",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "ShowYouTube"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Url",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Url"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "Caption",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Caption"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.ShowYouTube"
+        }
+      },
+      {
+        "HashCode": -874429013,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.ShowYouTube",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.Shared.ShowYouTube"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Url",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Url"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          },
+          {
+            "Kind": "Components.Component",
+            "Name": "Caption",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Caption"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.ShowYouTube",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 322587271,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.SurveyPrompt",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt"
+        }
+      },
+      {
+        "HashCode": -304856660,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.SurveyPrompt",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.Shared.SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": 222455758,
         "Kind": "Components.Component",
         "Name": "Surveymatic.Shared.MainLayout",
@@ -256,177 +427,6 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Surveymatic.Shared.NavMenu",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 322587271,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.SurveyPrompt",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt"
-        }
-      },
-      {
-        "HashCode": -304856660,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.SurveyPrompt",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.Shared.SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -1879624755,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.ShowYouTube",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "ShowYouTube"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Url",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Url"
-            }
-          },
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          },
-          {
-            "Kind": "Components.Component",
-            "Name": "Caption",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Caption"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.ShowYouTube"
-        }
-      },
-      {
-        "HashCode": -874429013,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.ShowYouTube",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.Shared.ShowYouTube"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Url",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Url"
-            }
-          },
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          },
-          {
-            "Kind": "Components.Component",
-            "Name": "Caption",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Caption"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.ShowYouTube",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": -1000206321,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.App",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "App"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.App"
-        }
-      },
-      {
-        "HashCode": -1366731959,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.App",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.App"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.App",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
