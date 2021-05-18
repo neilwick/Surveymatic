@@ -1,6 +1,6 @@
 using System;
 
-namespace mouseover_prototype.Data
+namespace Surveymatic.Data
 {
     public class EnglishHelp
     {

@@ -12,59 +12,6 @@
   "ProjectWorkspaceState": {
     "TagHelpers": [
       {
-        "HashCode": -1040533001,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Pages.Counter",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Counter"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "IncrementAmount",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "IncrementAmount"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Pages.Counter"
-        }
-      },
-      {
-        "HashCode": 724198155,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Pages.Counter",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.Pages.Counter"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "IncrementAmount",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "IncrementAmount"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Pages.Counter",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": 1348702241,
         "Kind": "Components.Component",
         "Name": "Surveymatic.Pages.FetchData",
@@ -131,35 +78,55 @@
         }
       },
       {
-        "HashCode": -1000206321,
+        "HashCode": -1040533001,
         "Kind": "Components.Component",
-        "Name": "Surveymatic.App",
+        "Name": "Surveymatic.Pages.Counter",
         "AssemblyName": "Surveymatic",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "App"
+            "TagName": "Counter"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "IncrementAmount",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "IncrementAmount"
+            }
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.App"
+          "Common.TypeName": "Surveymatic.Pages.Counter"
         }
       },
       {
-        "HashCode": -1366731959,
+        "HashCode": 724198155,
         "Kind": "Components.Component",
-        "Name": "Surveymatic.App",
+        "Name": "Surveymatic.Pages.Counter",
         "AssemblyName": "Surveymatic",
         "CaseSensitive": true,
         "TagMatchingRules": [
           {
-            "TagName": "Surveymatic.App"
+            "TagName": "Surveymatic.Pages.Counter"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "IncrementAmount",
+            "TypeName": "System.Int32",
+            "Metadata": {
+              "Common.PropertyName": "IncrementAmount"
+            }
           }
         ],
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.App",
+          "Common.TypeName": "Surveymatic.Pages.Counter",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -398,39 +365,6 @@
         }
       },
       {
-        "HashCode": -391012424,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.NavMenu",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "NavMenu"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.NavMenu"
-        }
-      },
-      {
-        "HashCode": -1827191929,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.NavMenu",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.Shared.NavMenu"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.NavMenu",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -698655035,
         "Kind": "Components.Component",
         "Name": "Surveymatic.Shared.EnglishHelp",
@@ -532,6 +466,39 @@
         }
       },
       {
+        "HashCode": -391012424,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.NavMenu",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "NavMenu"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.NavMenu"
+        }
+      },
+      {
+        "HashCode": -1827191929,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.NavMenu",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.Shared.NavMenu"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.NavMenu",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": -70462100,
         "Kind": "Components.Component",
         "Name": "Surveymatic.Shared.FrenchHelp",
@@ -629,6 +596,39 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Surveymatic.Shared.FrenchHelp",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": -1000206321,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.App",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "App"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.App"
+        }
+      },
+      {
+        "HashCode": -1366731959,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.App",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.App"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.App",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
