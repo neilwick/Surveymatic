@@ -12,39 +12,6 @@
   "ProjectWorkspaceState": {
     "TagHelpers": [
       {
-        "HashCode": 659469825,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Pages.Index",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Index"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Pages.Index"
-        }
-      },
-      {
-        "HashCode": 1599691635,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Pages.Index",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.Pages.Index"
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Pages.Index",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1487625999,
         "Kind": "Components.Component",
         "Name": "Surveymatic.Pages.SurveyViewer",
@@ -74,6 +41,39 @@
         "Metadata": {
           "Runtime.Name": "Components.IComponent",
           "Common.TypeName": "Surveymatic.Pages.SurveyViewer",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 659469825,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Pages.Index",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Index"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Pages.Index"
+        }
+      },
+      {
+        "HashCode": 1599691635,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Pages.Index",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.Pages.Index"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Pages.Index",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -196,6 +196,92 @@
         }
       },
       {
+        "HashCode": 322587271,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.SurveyPrompt",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt"
+        }
+      },
+      {
+        "HashCode": -304856660,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.SurveyPrompt",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.Shared.SurveyPrompt"
+          }
+        ],
+        "BoundAttributes": [
+          {
+            "Kind": "Components.Component",
+            "Name": "Title",
+            "TypeName": "System.String",
+            "Metadata": {
+              "Common.PropertyName": "Title"
+            }
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
+        "HashCode": 593120910,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.AccessControl",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "AccessControl"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.AccessControl"
+        }
+      },
+      {
+        "HashCode": 1547493542,
+        "Kind": "Components.Component",
+        "Name": "Surveymatic.Shared.AccessControl",
+        "AssemblyName": "Surveymatic",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "Surveymatic.Shared.AccessControl"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "Components.IComponent",
+          "Common.TypeName": "Surveymatic.Shared.AccessControl",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
+        }
+      },
+      {
         "HashCode": 222455758,
         "Kind": "Components.Component",
         "Name": "Surveymatic.Shared.MainLayout",
@@ -288,59 +374,6 @@
           "Runtime.Name": "Components.None",
           "Common.TypeName": "Surveymatic.Shared.MainLayout.Body",
           "Components.IsSpecialKind": "Components.ChildContent",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
-        "HashCode": 322587271,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.SurveyPrompt",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt"
-        }
-      },
-      {
-        "HashCode": -304856660,
-        "Kind": "Components.Component",
-        "Name": "Surveymatic.Shared.SurveyPrompt",
-        "AssemblyName": "Surveymatic",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Surveymatic.Shared.SurveyPrompt"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "Title",
-            "TypeName": "System.String",
-            "Metadata": {
-              "Common.PropertyName": "Title"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Surveymatic.Shared.SurveyPrompt",
           "Components.NameMatch": "Components.FullyQualifiedNameMatch"
         }
       },
@@ -16028,6 +16061,21 @@
       "FilePath": "c:\\Y23\\app\\Surveymatic\\Pages\\Index.razor",
       "TargetPath": "Pages\\Index.razor",
       "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Y23\\app\\Surveymatic\\Shared\\AccessControl.razor",
+      "TargetPath": "Shared\\AccessControl.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "c:\\Y23\\app\\Surveymatic\\Pages\\Logout.cshtml",
+      "TargetPath": "Pages\\Logout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Y23\\app\\Surveymatic\\Pages\\Login.cshtml",
+      "TargetPath": "Pages\\Login.cshtml",
+      "FileKind": "mvc"
     },
     {
       "FilePath": "c:\\Y23\\app\\Surveymatic\\Shared\\SurveyPrompt.razor",

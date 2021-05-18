@@ -176,3 +176,14 @@ C:\Y23\app\Surveymatic\obj\Debug\net5.0\ref\Surveymatic.dll
 C:\Y23\app\Surveymatic\obj\Debug\net5.0\Surveymatic.pdb
 C:\Y23\app\Surveymatic\obj\Debug\net5.0\Surveymatic.genruntimeconfig.cache
 C:\Y23\app\Surveymatic\obj\Debug\net5.0\Surveymatic.csproj.CopyComplete
+C:\Y23\app\Surveymatic\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+C:\Y23\app\Surveymatic\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Y23\app\Surveymatic\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Y23\app\Surveymatic\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Y23\app\Surveymatic\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Y23\app\Surveymatic\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Y23\app\Surveymatic\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Y23\app\Surveymatic\obj\Debug\net5.0\RazorDeclaration\Shared\AccessControl.razor.g.cs
+C:\Y23\app\Surveymatic\obj\Debug\net5.0\Razor\Shared\AccessControl.razor.g.cs
+C:\Y23\app\Surveymatic\obj\Debug\net5.0\Razor\Pages\Login.cshtml.g.cs
+C:\Y23\app\Surveymatic\obj\Debug\net5.0\Razor\Pages\Logout.cshtml.g.cs
