@@ -1,0 +1,68 @@
+@page "/surveyViewer"
+
+@attribute [Authorize]
+
+ @using Surveymatic.Data
+ @inject SurveyService SurveyRepository
+
+ <h1>Welcome to Survey!</h1>
+ <p>Your current score is @currentScore</p>
+
+@if (survey == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    int surveyIndex = 0;
+    @foreach (var surveyItem in survey)
+    {
+        <section>
+            <h3>@surveyItem.Question</h3>
+            <div class="form-check">
+            @{
+                int choiceIndex = 0;
+                surveyScores.Add(0);
+            }
+            @foreach (var choice in surveyItem.Choices)
+            {
+                int currentSurveyIndex = surveyIndex;
+                <input class="form-check-input" type="radio" name="@surveyIndex" value="@choiceIndex" @onchange="@((eventArgs) => UpdateScore(Convert.ToInt32(eventArgs.Value), currentSurveyIndex))"/>@choice<br>
+
+                choiceIndex++;
+            }
+            </div>
+
+        </section>
+
+        surveyIndex++;
+    }
+
+
+}
+
+@code {
+    List<SurveyItem> survey;
+    List<int> surveyScores = new List<int>();
+    int currentScore = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        survey = await SurveyRepository.GetSurveyAsync();
+    }
+
+    void UpdateScore(int chosenAnswerIndex, int surveyIndex)
+    {
+        var surveyItem = survey[surveyIndex];
+
+        if (chosenAnswerIndex == surveyItem.AnswerIndex)
+        {
+            surveyScores[surveyIndex] = surveyItem.Score;
+        } else
+        {
+            surveyScores[surveyIndex] = 0;
+        }
+        currentScore = surveyScores.Sum();
+    }
+}
