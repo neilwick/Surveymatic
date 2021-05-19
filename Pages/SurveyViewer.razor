@@ -8,6 +8,28 @@
  <h1>Welcome to Survey!</h1>
  <p>Your current score is @currentScore</p>
 
+<div class="wb-frm">
+	<form action="#" method="get">
+		<fieldset class="chkbxrdio-grp">
+			<legend><span class="field-name">WET example stacked radio buttons with implicit labels</span></legend>
+			<ul class="form-group list-unstyled">
+				<li class="radio">
+					<label for="fruits1b"><input type="radio" name="example2" value="1" id="fruits1b" />Apple</label>
+				</li>
+				<li class="radio">
+					<label for="fruits2b"><input type="radio" name="example2" value="2" id="fruits2b" />Orange</label>
+				</li>
+				<li class="radio">
+					<label for="fruits3b"><input type="radio" name="example2" value="3" id="fruits3b" />Kiwi</label>
+				</li>
+				<li class="radio">
+					<label for="fruits4b"><input type="radio" name="example2" value="4" id="fruits4b" />Other</label>
+				</li>
+			</ul>
+		</fieldset>
+    </form>
+</div>
+
 @if (survey == null)
 {
     <p><em>Loading...</em></p>
