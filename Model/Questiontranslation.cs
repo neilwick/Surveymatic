@@ -7,7 +7,7 @@ namespace Surveymatic.Model
 {
     public partial class QuestionTranslation
     {
-        public int QuestionTranslatonId { get; set; }
+        public int QuestionTranslationId { get; set; }
         public int QuestionId { get; set; }
         public string Language { get; set; }
         public int Type { get; set; }
