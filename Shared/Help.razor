@@ -1,0 +1,33 @@
+@using Data
+@using Model
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<HelpContext> DbFactory
+
+<div>
+    <div title="@HelpTag">
+        <h2>@HelpTag</h2>
+        <p>@Content</p>
+    </div>
+
+</div>
+
+@code{
+
+
+    public int HelpId { get; set; }
+
+    [Parameter]
+    public string HelpTag { get; set; }
+
+    public String Content { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var db = DbFactory.CreateDbContext();
+        //var item = await db.Help.Where(h => h.HelpTag == HelpTag).FirstOrDefaultAsync<HelpEntry>();
+        var item = await db.Help.Where(h => h.HelpTag == HelpTag).Include(e => e.Entries).ToListAsync();
+
+        Content = item[0].Entries.Where(e => e.Language == "en").FirstOrDefault().Content;
+        //var x = item[0].Entries;
+    }
+}

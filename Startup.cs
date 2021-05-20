@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,7 @@ using Surveymatic.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
+
 
 namespace Surveymatic
 {
@@ -25,8 +27,17 @@ namespace Surveymatic
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-                services.AddRazorPages();
-                services.AddServerSideBlazor();
+            services.AddRazorPages();
+            // services.AddDbContext<HelpContext>(options =>
+            //        options.UseSqlite(Configuration.GetConnectionString("HelpContext")));
+            services.AddDbContextFactory<HelpContext>(options =>
+                options.UseMySql(
+                    Configuration.GetConnectionString("SurveyMaticContext"),
+                    new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
+                )
+            );
+            services.AddServerSideBlazor();
+            services.AddSingleton<WeatherForecastService>();
 
                 services.Configure<CookiePolicyOptions>(options =>
                 {
