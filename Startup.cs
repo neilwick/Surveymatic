@@ -37,7 +37,6 @@ namespace Surveymatic
                 )
             );
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
 
                 services.Configure<CookiePolicyOptions>(options =>
                 {
