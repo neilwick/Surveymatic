@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Surveymatic.Model
 {
-    public partial class Surveytranslation
+    public partial class SurveyTranslation
     {
         public int SurveyTranslationId { get; set; }
         public int SurveyId { get; set; }

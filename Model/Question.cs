@@ -10,7 +10,7 @@ namespace Surveymatic.Model
         public Question()
         {
             Answers = new HashSet<Answer>();
-            Questiontranslations = new HashSet<Questiontranslation>();
+            Questiontranslations = new HashSet<QuestionTranslation>();
         }
 
         public int QuestionId { get; set; }
@@ -19,6 +19,6 @@ namespace Surveymatic.Model
 
         public virtual Survey Survey { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
-        public virtual ICollection<Questiontranslation> Questiontranslations { get; set; }
+        public virtual ICollection<QuestionTranslation> Questiontranslations { get; set; }
     }
 }
