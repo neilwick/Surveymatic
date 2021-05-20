@@ -448,3 +448,6 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 appsettings.json
+
+# Migrations folder
+[Mm]igrations/
