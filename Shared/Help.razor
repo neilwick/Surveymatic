@@ -1,7 +1,9 @@
 @using Data
 @using Model
+@using Services
 @using Microsoft.EntityFrameworkCore
 @inject IDbContextFactory<HelpContext> DbFactory
+@inject ISessionService Session
 
 <div>
     <div title="@HelpTag">
@@ -24,10 +26,8 @@
     protected override async Task OnInitializedAsync()
     {
         using var db = DbFactory.CreateDbContext();
-        //var item = await db.Help.Where(h => h.HelpTag == HelpTag).FirstOrDefaultAsync<HelpEntry>();
         var item = await db.Help.Where(h => h.HelpTag == HelpTag).Include(e => e.Entries).ToListAsync();
 
-        Content = item[0].Entries.Where(e => e.Language == "en").FirstOrDefault().Content;
-        //var x = item[0].Entries;
+        Content = item[0].Entries.Where(e => e.Language == Session.Language).FirstOrDefault().Content;
     }
 }

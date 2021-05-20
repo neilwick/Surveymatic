@@ -36,39 +36,40 @@ namespace Surveymatic
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
                 )
             );
+
             services.AddServerSideBlazor();
 
-                services.Configure<CookiePolicyOptions>(options =>
-                {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
                     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => true;
-                    options.MinimumSameSitePolicy = SameSiteMode.None;
-                });
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
 
-                // Add authentication services
-                services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                })
-                .AddCookie()
-                .AddOpenIdConnect("Auth0", options =>
-                {
+            // Add authentication services
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+            .AddCookie()
+            .AddOpenIdConnect("Auth0", options =>
+            {
                     // Set the authority to your Auth0 domain
                     options.Authority = $"https://{Configuration["Auth0:Domain"]}";
 
                     // Configure the Auth0 Client ID and Client Secret
                     options.ClientId = Configuration["Auth0:ClientId"];
-                    options.ClientSecret = Configuration["Auth0:ClientSecret"];
+                options.ClientSecret = Configuration["Auth0:ClientSecret"];
 
                     // Set response type to code
                     options.ResponseType = "code";
 
                     // Configure the scope
                     options.Scope.Clear();
-                    options.Scope.Add("openid");
-                    options.Scope.Add("profile");   
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
 
                     // Set the callback path, so Auth0 will call back to http://localhost:3000/callback
                     // Also ensure that you have added the URL as an Allowed Callback URL in your Auth0 dashboard
@@ -77,11 +78,11 @@ namespace Surveymatic
                     // Configure the Claims Issuer to be Auth0
                     options.ClaimsIssuer = "Auth0";
 
-                    options.Events = new OpenIdConnectEvents
-                    {
-                    // handle the logout redirection
-                    OnRedirectToIdentityProviderForSignOut = (context) =>
-                        {
+                options.Events = new OpenIdConnectEvents
+                {
+                        // handle the logout redirection
+                        OnRedirectToIdentityProviderForSignOut = (context) =>
+                            {
                         var logoutUri = $"https://{Configuration["Auth0:Domain"]}/v2/logout?client_id={Configuration["Auth0:ClientId"]}";
 
                         var postLogoutUri = context.Properties.RedirectUri;
@@ -89,9 +90,9 @@ namespace Surveymatic
                         {
                             if (postLogoutUri.StartsWith("/"))
                             {
-                            // transform to absolute
-                            var request = context.Request;
-                            postLogoutUri = request.Scheme + "://" + request.Host + request.PathBase + postLogoutUri;
+                                    // transform to absolute
+                                    var request = context.Request;
+                                postLogoutUri = request.Scheme + "://" + request.Host + request.PathBase + postLogoutUri;
                             }
                             logoutUri += $"&returnTo={ Uri.EscapeDataString(postLogoutUri)}";
                         }
@@ -100,17 +101,18 @@ namespace Surveymatic
                         context.HandleResponse();
 
                         return Task.CompletedTask;
-                        }
-                    };
-                });
+                    }
+                };
+            });
 
-                services.AddHttpContextAccessor();
-               services.AddSingleton<SurveyService>();
+            services.AddHttpContextAccessor();
+            services.AddSingleton<SurveyService>();
+            services.AddTransient<ISessionService, Session>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-            {
+        {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -135,6 +137,6 @@ namespace Surveymatic
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
-            }
+        }
     }
 }
