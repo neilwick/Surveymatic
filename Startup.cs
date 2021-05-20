@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveymatic.Data;
+
 
 namespace Surveymatic
 {
@@ -26,6 +28,14 @@ namespace Surveymatic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            // services.AddDbContext<HelpContext>(options =>
+            //        options.UseSqlite(Configuration.GetConnectionString("HelpContext")));
+            services.AddDbContextFactory<HelpContext>(options =>
+                options.UseMySql(
+                    Configuration.GetConnectionString("SurveyMaticContext"),
+                    new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
+                )
+            );
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
         }

@@ -1,6 +1,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-
+using Surveymatic.Model;
 
 namespace Surveymatic.Data
 {
@@ -10,7 +10,7 @@ namespace Surveymatic.Data
         {
 
         }
-        public DbSet<EnglishHelp> EnglishHelp { get; set; }
-        public DbSet<FrenchHelp> FrenchHelp { get; set; }
+        public DbSet<Help> Help { get; set; }
+        public DbSet<HelpEntry> HelpEntry { get; set; }
     }
 }
