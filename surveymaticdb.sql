@@ -13,24 +13,19 @@
 
 
 -- Dumping database structure for surveymaticdb
-DROP DATABASE IF EXISTS `surveymaticdb`;
 CREATE DATABASE IF NOT EXISTS `surveymaticdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `surveymaticdb`;
 
 -- Dumping structure for table surveymaticdb.answer
-DROP TABLE IF EXISTS `answer`;
 CREATE TABLE IF NOT EXISTS `answer` (
   `AnswerID` int(11) NOT NULL AUTO_INCREMENT,
-  `SurveyID` int(11) NOT NULL DEFAULT 0,
   `QuestionID` int(11) NOT NULL DEFAULT 0,
   `PersonID` int(11) NOT NULL DEFAULT 0,
   `AnswerINT` int(11) NOT NULL DEFAULT 0,
   `AnswerTXT` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`AnswerID`),
-  KEY `FK_answer_survey` (`SurveyID`),
   KEY `FK_answer_question` (`QuestionID`),
-  CONSTRAINT `FK_answer_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`QuestionID`),
-  CONSTRAINT `FK_answer_survey` FOREIGN KEY (`SurveyID`) REFERENCES `survey` (`SurveyId`)
+  CONSTRAINT `FK_answer_question` FOREIGN KEY (`QuestionID`) REFERENCES `question` (`QuestionID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table surveymaticdb.answer: ~0 rows (approximately)
@@ -38,7 +33,6 @@ CREATE TABLE IF NOT EXISTS `answer` (
 /*!40000 ALTER TABLE `answer` ENABLE KEYS */;
 
 -- Dumping structure for table surveymaticdb.question
-DROP TABLE IF EXISTS `question`;
 CREATE TABLE IF NOT EXISTS `question` (
   `QuestionID` int(11) NOT NULL AUTO_INCREMENT,
   `SurveyID` int(11) NOT NULL DEFAULT 0,
@@ -53,7 +47,6 @@ CREATE TABLE IF NOT EXISTS `question` (
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 
 -- Dumping structure for table surveymaticdb.questiontranslation
-DROP TABLE IF EXISTS `questiontranslation`;
 CREATE TABLE IF NOT EXISTS `questiontranslation` (
   `QuestionTranslatonID` int(11) NOT NULL,
   `QuestionID` int(11) NOT NULL,
@@ -70,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `questiontranslation` (
 /*!40000 ALTER TABLE `questiontranslation` ENABLE KEYS */;
 
 -- Dumping structure for table surveymaticdb.survey
-DROP TABLE IF EXISTS `survey`;
 CREATE TABLE IF NOT EXISTS `survey` (
   `SurveyId` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` int(11) NOT NULL DEFAULT 0,
@@ -82,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `survey` (
 /*!40000 ALTER TABLE `survey` ENABLE KEYS */;
 
 -- Dumping structure for table surveymaticdb.surveytranslation
-DROP TABLE IF EXISTS `surveytranslation`;
 CREATE TABLE IF NOT EXISTS `surveytranslation` (
   `SurveyTranslationID` int(11) NOT NULL AUTO_INCREMENT,
   `SurveyID` int(11) NOT NULL DEFAULT 0,

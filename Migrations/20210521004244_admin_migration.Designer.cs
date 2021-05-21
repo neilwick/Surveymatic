@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Surveymatic.Data;
 
 namespace Surveymatic.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    partial class HelpContextModelSnapshot : ModelSnapshot
+    [Migration("20210521004244_admin_migration")]
+    partial class admin_migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,7 +101,7 @@ namespace Surveymatic.Migrations
 
             modelBuilder.Entity("Surveymatic.Model.QuestionTranslation", b =>
                 {
-                    b.Property<int>("QuestionTranslationId")
+                    b.Property<int>("QuestionTranslatonId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -115,11 +117,7 @@ namespace Surveymatic.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-<<<<<<< HEAD
-                    b.HasKey("QuestionTranslationId");
-=======
                     b.HasKey("QuestionTranslatonId");
->>>>>>> fec8f8a21e1b3b9e19685ee5a698011b8dc49462
 
                     b.HasIndex("QuestionId");
 
@@ -213,11 +211,7 @@ namespace Surveymatic.Migrations
             modelBuilder.Entity("Surveymatic.Model.SurveyTranslation", b =>
                 {
                     b.HasOne("Surveymatic.Model.Survey", "Survey")
-<<<<<<< HEAD
-                        .WithMany("SurveyTranslations")
-=======
                         .WithMany("Surveytranslations")
->>>>>>> fec8f8a21e1b3b9e19685ee5a698011b8dc49462
                         .HasForeignKey("SurveyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -241,11 +235,7 @@ namespace Surveymatic.Migrations
                 {
                     b.Navigation("Questions");
 
-<<<<<<< HEAD
-                    b.Navigation("SurveyTranslations");
-=======
                     b.Navigation("Surveytranslations");
->>>>>>> fec8f8a21e1b3b9e19685ee5a698011b8dc49462
                 });
 #pragma warning restore 612, 618
         }

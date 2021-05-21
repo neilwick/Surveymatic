@@ -18,6 +18,5 @@ namespace Surveymatic.Data
         public virtual DbSet<QuestionTranslation> QuestionTranslations { get; set; }
         public virtual DbSet<Survey> Surveys { get; set; }
         public virtual DbSet<SurveyTranslation> SurveyTranslations { get; set; }
-
     }
 }

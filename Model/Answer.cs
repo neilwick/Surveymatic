@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -7,6 +8,7 @@ namespace Surveymatic.Model
 {
     public partial class Answer
     {
+        [Key]
         public int AnswerId { get; set; }
    
         public int QuestionId { get; set; }
