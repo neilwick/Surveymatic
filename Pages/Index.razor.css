@@ -1,0 +1,9 @@
+.site-index{
+
+    align-items: center;
+    text-align: center;
+}
+.col-md-12{
+    display: flex;
+}
+

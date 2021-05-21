@@ -2,12 +2,32 @@
 @inject AuthenticationStateProvider AuthState
 @attribute [Authorize]
 
-<h1>Welcome, @Username!</h1>
-You can only see this content if you're authenticated.
-<br />
-<img src="@Picture">
 
-@code { 
+<div class="site-index">
+
+  <h1>Welcome, @Username!</h1>
+  <p>You can only see this content if you're authenticated.</p>
+  <main role="main" property="mainContentOfPage" class="container">
+    <div class="row mrgn-tp-lg">
+      <div class="col-md-12">
+        <section class="col-md-6">
+          <ul class="list-unstyled">
+            <li><a class="btn btn-lg btn-primary btn-block" href="/helptest">English</a></li>
+          </ul>
+        </section>
+        <section class="col-md-6" lang="fr">
+          <ul class="list-unstyled">
+            <li><a class="btn btn-lg btn-primary btn-block" href="/helptest">Français</a></li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+  <img src="img/SurveyMatic.png">
+</div>
+
+
+@code {
   private string Username = "Anonymous User";
   private string Picture = "";
 
@@ -16,14 +36,14 @@ You can only see this content if you're authenticated.
     var state = await AuthState.GetAuthenticationStateAsync();
 
     Username = state.User.Claims
-                .Where(c => c.Type.Equals("name"))
-                .Select(c => c.Value)
-                .FirstOrDefault() ?? string.Empty;
+    .Where(c => c.Type.Equals("name"))
+    .Select(c => c.Value)
+    .FirstOrDefault() ?? string.Empty;
 
     Picture = state.User.Claims
-                .Where(c => c.Type.Equals("picture"))
-                .Select(c => c.Value)
-                .FirstOrDefault() ?? string.Empty;
+    .Where(c => c.Type.Equals("picture"))
+    .Select(c => c.Value)
+    .FirstOrDefault() ?? string.Empty;
 
     await base.OnInitializedAsync();
   }
