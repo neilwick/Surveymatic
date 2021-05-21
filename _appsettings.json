@@ -9,8 +9,7 @@
   "AllowedHosts": "*",
   "MariaDbVersion": "10.4.18-MariaDB",
   "ConnectionStrings": {
-    "SurveyMaticContext": "server=localhost;database=survey;user=root;treattinyasboolean=true",
-    "HelpContext": "Filename=HelpDb.db"
+    "SurveyMaticContext": "server=localhost;database=survey;user=root;treattinyasboolean=true"
   },
   "Auth0": {
     "Domain": "dev-gtolk.us.auth0.com",
