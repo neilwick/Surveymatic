@@ -8,6 +8,7 @@ namespace Surveymatic.Model
         [Key]
         public int HelpEntryId { get; set; }
         public Help Help { get; set; }
+        public string Title { get; set; }
         public string Language { get; set; }
 
         public string Content { get; set; }

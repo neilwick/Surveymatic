@@ -1,8 +1,8 @@
 @page "/"
 @inject AuthenticationStateProvider AuthState
 @attribute [Authorize]
-
-
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject Services.ISessionService Session
 <div class="site-index">
 
   <h1>Welcome, @Username!</h1>
@@ -12,12 +12,18 @@
       <div class="col-md-12">
         <section class="col-md-6">
           <ul class="list-unstyled">
-            <li><a class="btn btn-lg btn-primary btn-block" href="/helptest">English</a></li>
+            <li>
+              <NavLink @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="helptest">
+                English</NavLink>
+            </li>
           </ul>
         </section>
         <section class="col-md-6" lang="fr">
           <ul class="list-unstyled">
-            <li><a class="btn btn-lg btn-primary btn-block" href="/helptest">Français</a></li>
+            <li>
+              <NavLink @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="helptest">
+                Français</NavLink>
+            </li>
           </ul>
         </section>
       </div>
@@ -28,8 +34,20 @@
 
 
 @code {
+
+
+
   private string Username = "Anonymous User";
   private string Picture = "";
+
+  protected void SetLanguage(string lang)
+  {
+
+    Session.Language = lang;
+    LocalStorage.SetItemAsStringAsync("lang", lang);
+
+
+  }
 
   protected override async Task OnInitializedAsync()
   {
@@ -46,5 +64,7 @@
     .FirstOrDefault() ?? string.Empty;
 
     await base.OnInitializedAsync();
+
   }
+
 }

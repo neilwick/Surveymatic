@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Surveymatic.Services;
-
+using Blazored.LocalStorage;
 namespace Surveymatic
 {
     public class Startup
@@ -36,7 +36,7 @@ namespace Surveymatic
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
                 )
             );
-
+            services.AddBlazoredLocalStorage();
             services.AddServerSideBlazor();
 
             services.Configure<CookiePolicyOptions>(options =>

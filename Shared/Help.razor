@@ -4,10 +4,11 @@
 @using Microsoft.EntityFrameworkCore
 @inject IDbContextFactory<HelpContext> DbFactory
 @inject ISessionService Session
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 
 <div>
     <div title="@HelpTag">
-        <h2>@HelpTag</h2>
+        <h2>@Title</h2>
         <p>@Content</p>
     </div>
 
@@ -22,11 +23,16 @@
 
     public String Content { get; set; }
 
+    public String Title { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
+
         using var db = DbFactory.CreateDbContext();
         var item = await db.Help.Where(h => h.HelpTag == HelpTag).Include(e => e.Entries).ToListAsync();
+        var he = item[0].Entries.Where(e => e.Language == Session.Language).FirstOrDefault();
 
-        Content = item[0].Entries.Where(e => e.Language == Session.Language).FirstOrDefault().Content;
-    }
+        Content = he.Content;
+        Title = he.Title;
+    } //check to see if item is not null and make sure that "he" isnt empty for the language we are looking go
 }
