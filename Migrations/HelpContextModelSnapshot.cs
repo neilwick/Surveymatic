@@ -209,7 +209,7 @@ namespace Surveymatic.Migrations
             modelBuilder.Entity("Surveymatic.Model.SurveyTranslation", b =>
                 {
                     b.HasOne("Surveymatic.Model.Survey", "Survey")
-                        .WithMany("Surveytranslations")
+                        .WithMany("SurveyTranslations")
                         .HasForeignKey("SurveyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -233,7 +233,7 @@ namespace Surveymatic.Migrations
                 {
                     b.Navigation("Questions");
 
-                    b.Navigation("Surveytranslations");
+                    b.Navigation("SurveyTranslations");
                 });
 #pragma warning restore 612, 618
         }
