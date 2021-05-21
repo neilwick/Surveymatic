@@ -1,4 +1,8 @@
 @page "/surveyViewer"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using Model
+@inject IDbContextFactory<HelpContext> ContextFactory
 
 @attribute [Authorize]
 
@@ -6,8 +10,12 @@
  @inject SurveyService SurveyRepository
 
  <h1>Welcome to Survey!</h1>
- <p>Your current score is @currentScore</p>
+ 
 
+
+
+
+<p>Your current score is @currentScore</p>
 <div class="wb-frm">
 	<form action="#" method="get">
 		<fieldset class="chkbxrdio-grp">
@@ -65,6 +73,11 @@ else
 }
 
 @code {
+     
+    
+
+
+
     List<SurveyItem> survey;
     List<int> surveyScores = new List<int>();
     int currentScore = 0;

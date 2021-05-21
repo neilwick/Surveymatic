@@ -35,14 +35,9 @@ namespace Surveymatic.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SurveyId")
-                        .HasColumnType("int");
-
                     b.HasKey("AnswerId");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("SurveyId");
 
                     b.ToTable("Answers");
                 });
@@ -177,15 +172,7 @@ namespace Surveymatic.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Surveymatic.Model.Survey", "Survey")
-                        .WithMany("Answers")
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Question");
-
-                    b.Navigation("Survey");
                 });
 
             modelBuilder.Entity("Surveymatic.Model.HelpEntry", b =>
@@ -244,8 +231,6 @@ namespace Surveymatic.Migrations
 
             modelBuilder.Entity("Surveymatic.Model.Survey", b =>
                 {
-                    b.Navigation("Answers");
-
                     b.Navigation("Questions");
 
                     b.Navigation("SurveyTranslations");

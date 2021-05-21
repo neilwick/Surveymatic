@@ -9,8 +9,8 @@ using Surveymatic.Data;
 namespace Surveymatic.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    [Migration("20210520222406_fixdeleteDb")]
-    partial class fixdeleteDb
+    [Migration("20210521134041_fixDB")]
+    partial class fixDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,14 +37,9 @@ namespace Surveymatic.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SurveyId")
-                        .HasColumnType("int");
-
                     b.HasKey("AnswerId");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("SurveyId");
 
                     b.ToTable("Answers");
                 });
@@ -179,15 +174,7 @@ namespace Surveymatic.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Surveymatic.Model.Survey", "Survey")
-                        .WithMany("Answers")
-                        .HasForeignKey("SurveyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Question");
-
-                    b.Navigation("Survey");
                 });
 
             modelBuilder.Entity("Surveymatic.Model.HelpEntry", b =>
@@ -213,7 +200,7 @@ namespace Surveymatic.Migrations
             modelBuilder.Entity("Surveymatic.Model.QuestionTranslation", b =>
                 {
                     b.HasOne("Surveymatic.Model.Question", "Question")
-                        .WithMany("Questiontranslations")
+                        .WithMany("QuestionTranslations")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -241,13 +228,11 @@ namespace Surveymatic.Migrations
                 {
                     b.Navigation("Answers");
 
-                    b.Navigation("Questiontranslations");
+                    b.Navigation("QuestionTranslations");
                 });
 
             modelBuilder.Entity("Surveymatic.Model.Survey", b =>
                 {
-                    b.Navigation("Answers");
-
                     b.Navigation("Questions");
 
                     b.Navigation("SurveyTranslations");
