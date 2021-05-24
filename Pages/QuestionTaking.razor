@@ -9,10 +9,35 @@
 
  @using Surveymatic.Data
  @inject SurveyService SurveyRepository
+ 
 
 
  <h1>Survey</h1>
-<h2>Select Survey</h2>
+<div>
+    <table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Instruction</th>
+    </tr>
+    </thead>
+    <tbody>
+         @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
+    {
+        <tr>
+            <td>@surveyTranslation.Title</td>
+             <td>@surveyTranslation.Description</td>
+              <td>@surveyTranslation.Instruction</td>
+
+        </tr>
+
+    }
+
+    </tbody>
+</table>
+</div>
+
 <div class="row">
     <div class="col-md-4">
 
@@ -35,7 +60,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <h3>Please answer “YES” or “NO” to each question:</h3>
+                <h4>Please answer “YES” or “NO” to each question:</h4>
             </div>
             <div class="form-group">
                 <ul>
@@ -59,13 +84,14 @@
 
             </div>
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-primary" />
-                <button @onclick="submitSurvey">submit1</button>
+                <input type="submit" value="Submit" class="btn btn-primary"  @onclick="submitSurvey" />
+                @* <button @onclick="submitSurvey">submit1</button> *@
             </div>
             @* </EditForm> *@
             @*</form>*@
     </div>
 </div>
+
 
 
 @code {
@@ -75,6 +101,7 @@
     private string success = "";
     private string answerTxt;
     private int answerInt;
+    //private int PersonId;
     private List<Survey> surveys = new List<Survey>();
     private List<SurveyTranslation> surveyTranslations = new List<SurveyTranslation>();
     private List<Answer> answers = new List<Answer>();
@@ -94,8 +121,10 @@
 
     protected override async Task OnInitializedAsync()
     {
+        
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = await db.SurveyTranslations.Where(q =>q.Language == "en" ).ToListAsync();
+        
         //  Console.WriteLine("count" + surveyTranslations.Count);    
 
     }
@@ -107,8 +136,6 @@
         //  title = string.Empty;
 
         int surveyId = int.Parse(e.Value.ToString());
-
-
 
         using var db = ContextFactory.CreateDbContext();
 
@@ -124,10 +151,11 @@
     {
         try
         {
-            var result = new Answer { AnswerTxt = answerTxt, AnswerInt = answerInt };
-            using var db = ContextFactory.CreateDbContext();
+             using var db = ContextFactory.CreateDbContext();
+            var result = new Answer { AnswerTxt = answerTxt, AnswerInt = answerInt , PersonId =1 };
+         //  db.questionTranslations[0].Question.Answers.Add(result);
 
-            db.Answers.Add(result);
+           // db.Answers.Add(result);
             var item = await db.SaveChangesAsync();
 
 
@@ -141,11 +169,11 @@
 
     }
 
-    void FormSubmitted(EditContext editContext)
+    @* void FormSubmitted(EditContext editContext)
     {
         bool formIsValid = editContext.Validate();
 
-    }
+    } *@
 
 
 }
