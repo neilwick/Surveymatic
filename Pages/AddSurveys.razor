@@ -1,4 +1,4 @@
-@page "/addsurvey" 
+@page "/addsurvey"
 
 @using Surveymatic.Model;
 @using Surveymatic.Data;
@@ -17,15 +17,15 @@
                 <label for="subjectInput">Title</label>
                 <InputText class="form-control" id="subjectInput" @bind-Value="surveytranslation.Title" />
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label for="subjectInput">Description</label>
                 <InputText class="form-control" id="subjectInput" @bind-Value="surveytranslation.Description " />
-            </div>   
+            </div>
 
-              <div class="form-group">
+            <div class="form-group">
                 <label for="subjectInput">Instruction</label>
                 <InputText class="form-control" id="subjectInput" @bind-Value="surveytranslation.Instruction" />
-            </div>                     
+            </div>
 
             <div class="form-group">
                 <label for="categoryInput">Language</label>
@@ -49,21 +49,23 @@
 @code {
     private SurveyTranslation surveytranslation = new SurveyTranslation();
     private string success = "";
-    public void HandleValidSubmit()
+    public async Task HandleValidSubmit()
     {
         try
         {
 
- 
+            var survey = new Survey();
             using var db = DbFactory.CreateDbContext();
 
-             db.SurveyTranslations.Add(surveytranslation);
-             db.SaveChangesAsync();
+            db.Surveys.Add(survey);
+            surveytranslation.Survey = survey;
+            db.SurveyTranslations.Add(surveytranslation);
+            await db.SaveChangesAsync();
 
-           // _context.SurveyTranslations.Add(surveytranslation);
-           // _context.SaveChangesAsync();
+            // _context.SurveyTranslations.Add(surveytranslation);
+            // _context.SaveChangesAsync();
 
-           success = "success";
+            success = "success";
         }
         catch
         {
@@ -74,6 +76,6 @@
         base.StateHasChanged();
 
 
-        
+
     }
 }
