@@ -1,44 +1,18 @@
-@page "/surveyViewer"
+ @page "/surveyTaking"
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
 @inject IDbContextFactory<HelpContext> ContextFactory
-    
 
+ 
 @attribute [Authorize]
 
  @using Surveymatic.Data
  @inject SurveyService SurveyRepository
- 
 
 
- <h1>Survey</h1>
-<div>
-    <table class="table">
-    <thead>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Instruction</th>
-    </tr>
-    </thead>
-    <tbody>
-         @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
-    {
-        <tr>
-            <td>@surveyTranslation.Title</td>
-             <td>@surveyTranslation.Description</td>
-              <td>@surveyTranslation.Instruction</td>
-
-        </tr>
-
-    }
-
-    </tbody>
-</table>
-</div>
-
-<div class="row">
+ <h1>Survey Choice</h1>
+ <div class="row">
     <div class="col-md-4">
 
         @* <EditForm Model=@questionTranslations OnSubmit=@FormSubmitted> *@
@@ -60,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <h4>Please answer “YES” or “NO” to each question:</h4>
+                <h2>Please answer “YES” or “NO” to each question:</h2>
             </div>
             <div class="form-group">
                 <ul>
@@ -92,8 +66,6 @@
     </div>
 </div>
 
-
-
 @code {
     private string surveyId { get; set; }
     private string title{ get; set; }
@@ -108,24 +80,38 @@
 
     private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
 
+  
 
-    private List<Answer> GetAnswerById(int id)
-    {
-        using (var db = ContextFactory.CreateDbContext())
-        {
-            var answers = db.Answers.Where(a => a.QuestionId == id);
-            return answers.ToList();
-        }
-
-    }
+    
 
     protected override async Task OnInitializedAsync()
     {
         
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = await db.SurveyTranslations.Where(q =>q.Language == "en" ).ToListAsync();
+       // Refresh();
         
         //  Console.WriteLine("count" + surveyTranslations.Count);    
+
+    }
+
+    @* public async Task Refresh()
+    {
+        using (var db = ContextFactory.CreateDbContext())
+        {
+          var survey =  await db.SurveyTranslations.Select(s => new{SurveyTranslation = s}).ToListAsync;
+           
+        }
+
+    } *@
+    private List<Answer> GetAnswerById(int id)
+    {
+       
+        using (var db = ContextFactory.CreateDbContext())
+        {
+            var answers = db.Answers.Where(a => a.QuestionId == id);
+            return answers.ToList();
+        }
 
     }
 
@@ -168,6 +154,8 @@
         }
 
     }
+
+    
 
     @* void FormSubmitted(EditContext editContext)
     {
