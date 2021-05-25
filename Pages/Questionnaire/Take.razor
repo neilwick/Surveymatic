@@ -3,28 +3,33 @@
 @using Microsoft.EntityFrameworkCore
 @using Model
 @inject IDbContextFactory<HelpContext> dBContextFactory
+@using Model.SurveyResponse
 @using Pages
 @using Surveymatic.Data
 
 <div class="card">
-   <h1>Survey Choice</h1>
+    <h1>Survey Choice</h1>
     <div class="card-body">
         <form>
- 
-            <div class="form-group">
-                 @surveyContent.Title
 
-                 @foreach (var q in survey.Questions)
-                 {                    
-                     <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />     
-                                                                   
+            <div class="form-group">
+
+                @if (surveyContent != null)
+                {
+                    @foreach (var q in survey.Questions)
+                    {
+
+                        <h3>@q.QuestionId.ToString()</h3>
+                        <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />
+
+                    }
                 }
-            </div>                        
+            </div>
             <div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-        
+
     </div>
 </div>
 
@@ -32,9 +37,19 @@
 
 @code {
 
-    public void AnswerClick(bool response){
-        
-        
+    public async Task AnswerClick(QuestionResponse response)
+    {
+        // creates an answer entry in the db, this happens onclick -> should be moved to submit?
+        var answer = new Answer
+        {
+            AnswerTxt = "",
+            AnswerInt = response.value ? 1 : 0,
+            PersonId = 1,
+            QuestionId = response.Question.QuestionId
+        };
+        using var db = dBContextFactory.CreateDbContext();
+        db.Answers.Add(answer);
+        await db.SaveChangesAsync();
 
     }
 
@@ -49,7 +64,7 @@
 
 
     private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
-   private List<Answer> answers = new List<Answer>();
+    private List<Answer> answers = new List<Answer>();
 
 
 
@@ -58,13 +73,19 @@
 
         using var db = dBContextFactory.CreateDbContext();
         int nid = Int16.Parse(id);
-        survey = await db.Surveys
+        survey = await (db.Surveys
         .Where(q => q.SurveyId == nid)
-        .Include(s => s.SurveyTranslations)
-        .Include(qu => qu.Questions)
-        .FirstOrDefaultAsync();
+        .Include(q => q.Questions)
+        .FirstAsync());
 
-        foreach (var st in survey.SurveyTranslations)
+        var t = await db.SurveyTranslations.Where(q => q.SurveyId == nid).ToListAsync();
+
+
+
+
+
+
+        foreach (var st in t)
         {
             if (surveyContent == null)
             {
@@ -77,13 +98,6 @@
         }
 
     }
-    public void HandleValidSubmit() {}
-    
-    }
+    public void HandleValidSubmit() { }
 
-
-
-
-    
-
-   
+}

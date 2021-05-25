@@ -1,40 +1,48 @@
 @using Data
 @using Model
+
 @using Microsoft.EntityFrameworkCore
+@using Model.SurveyResponse
 @inject IDbContextFactory<HelpContext> DbFactory
 
 <div>
-     @if (questionContent != null)
-            {
-    <div>
-        <h2>
-           
-                @questionContent.Text
-            
+    @if (questionContent != null)
+    {
+        <div>
+            <h2>
 
-        </h2>
-        <p>  <input @onclick="@(() => OnClick.InvokeAsync(true))" type="radio" id="true" name="response" value="true"/>
-            <label for="true" >True</label>
-            <input type="radio" @onclick="@(() => OnClick.InvokeAsync(false))" id="false" name="response" value="false"/> 
-             <label for="false" >False</label>  </p>
-    </div>
-}
+                @questionContent.Text
+
+
+            </h2>
+            <p> <input @onclick="@(() => setValue(true))" type="radio" id="true" name="response" value="true" />
+                <label for="true">True</label>
+                <input type="radio" @onclick="@(() => setValue(false))" id="false" name="response" value="false" />
+                <label for="false">False</label>
+            </p>
+        </div>
+    }
 </div>
 
 @code{
 
     [Parameter]
-    public EventCallback<bool> OnClick {get; set;}
-
-
-    public string Language = "en";
+    public EventCallback<QuestionResponse> OnClick { get; set; }
 
     [Parameter]
     public string id { get; set; }
 
+    public bool value { get; set; }
+    public string Language = "en";
     public QuestionTranslation questionContent { get; set; }
 
     public Question question { get; set; }
+
+    private void setValue(bool val)
+    {
+        value = val;
+        OnClick.InvokeAsync(new QuestionResponse { value = val, Question = question });
+    }
     protected override async Task OnInitializedAsync()
     {
         using var db = DbFactory.CreateDbContext();
@@ -55,7 +63,8 @@
             }
         }
     }
-     private  void submitSurvey() {
+    private void submitSurvey()
+    {
 
-     }
+    }
 }
