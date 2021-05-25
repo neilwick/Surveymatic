@@ -4,9 +4,9 @@ using Surveymatic.Model;
 
 namespace Surveymatic.Data
 {
-    public class HelpContext : DbContext
+    public class SurveymaticContext : DbContext
     {
-        public HelpContext(DbContextOptions<HelpContext> options) : base(options)
+        public SurveymaticContext(DbContextOptions<SurveymaticContext> options) : base(options)
         {
 
         }

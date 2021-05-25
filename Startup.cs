@@ -31,9 +31,9 @@ namespace Surveymatic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            // services.AddDbContext<HelpContext>(options =>
-            //        options.UseSqlite(Configuration.GetConnectionString("HelpContext")));
-            services.AddDbContextFactory<HelpContext>(options =>
+            // services.AddDbContext<SurveymaticContext>(options =>
+            //        options.UseSqlite(Configuration.GetConnectionString("SurveymaticContext")));
+            services.AddDbContextFactory<SurveymaticContext>(options =>
                 options.UseMySql(
                     Configuration.GetConnectionString("SurveyMaticContext"),
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
@@ -68,7 +68,7 @@ namespace Surveymatic
                 services.AddSingleton<SurveyService>();
                 services.AddScoped<ISessionService, Session>();
         }
-        
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
