@@ -1,0 +1,20 @@
+﻿@page "/LogOut"
+@using Model.LoginData
+<h4 class="username">logged out successfully</h4>
+
+@code
+{
+
+    protected override void OnInitialized()
+    {
+        UserInfo.Email = "";
+        UserInfo.PreferredLanguage = "";
+        UserInfo.LoggedIn = "";
+
+
+    }
+
+
+
+
+}

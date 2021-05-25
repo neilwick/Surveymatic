@@ -1,0 +1,101 @@
+﻿@page "/Register"
+@using Microsoft.EntityFrameworkCore
+@using Model.LoginData
+@using Model
+@using Data
+@inject IDbContextFactory<HelpContext> DbFactory
+@using CryptoHelper
+@inject NavigationManager navigate
+@inject RegistrationForm registrationFormUser
+
+<h1>Register</h1>
+<hr />
+<h4>@message</h4>
+
+<div class="newsiteuser-form">
+
+    <EditForm Model=@registrationFormUser OnValidSubmit=@HandleValidSubmit>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <InputText id="Email" class="form-control" @bind-Value="registrationFormUser.Email" />
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <InputText id="Password" type="password" class="form-control" @bind-Value="registrationFormUser.Password" />
+        </div>
+
+        <div class="form-group">
+            <label for="ConfirmPassword">Confirm Password</label>
+            <InputText id="ConfirmPassword" type="password" class="form-control"
+                @bind-Value="registrationFormUser.ConfirmPassword" />
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+    </EditForm>
+</div>
+
+
+@code
+{
+    string message = "";
+    string encrypedString = "";
+    public SiteUser newsiteuser = new SiteUser();
+    private string passwordToConfirm = "";
+
+    // LogInVerify
+    string baseUrl = "https://localhost:44304/LogInVerify/";
+
+
+    private async void HandleValidSubmit()
+    {
+        using var _context = DbFactory.CreateDbContext();
+        try
+        {
+            var userInDatabase = _context.SiteUsers.Where(x => x.Email == registrationFormUser.Email).FirstOrDefault();
+            if (userInDatabase == null)
+            {
+                if (registrationFormUser.Password == registrationFormUser.ConfirmPassword)
+                {
+
+                    encrypedString = Crypto.HashPassword(registrationFormUser.Password);
+                    newsiteuser.Email = registrationFormUser.Email;
+                    newsiteuser.Password = encrypedString;
+                    _context.SiteUsers.Add(newsiteuser);
+                    await _context.SaveChangesAsync();
+
+                    UserInfo.Email = registrationFormUser.Email;
+
+                    navigate.NavigateTo("/RegistrationConfirm");
+                }
+
+            }
+            else
+            {
+                message = "Exsit email address! Please use another one ! ";
+            }
+
+        }
+        catch (DbUpdateException e)
+        {
+            var info = e.Message;
+        }
+        catch (Exception ex)
+        {
+            var message = ex.Message;
+
+            base.StateHasChanged();
+        }
+        newsiteuser = new SiteUser();
+        base.StateHasChanged();
+    }
+
+
+    protected override void OnInitialized()
+    {
+        registrationFormUser = new RegistrationForm();
+    }
+
+}

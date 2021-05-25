@@ -1,0 +1,91 @@
+﻿@page "/LogIn"
+
+@using Microsoft.EntityFrameworkCore
+@using Model.LoginData
+@using Model
+@using Data
+@inject ForgotPassForm forgotPassUser
+@inject IDbContextFactory<HelpContext> DbFactory
+@inject NavigationManager navigate
+@inject SiteUser siteuser
+@using CryptoHelper
+@inject NavigationManager navigate
+@inject SiteUser loggedUser
+@inject LoginForm loginformUser
+
+
+
+<h1>LogIn</h1>
+<hr />
+<h4>@message</h4>
+<div class="newsiteuser-form">
+    <EditForm Model=@loginformUser OnValidSubmit=@HandleValidSubmit>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <InputText id="Email" class="form-control" @bind-Value="loginformUser.Email" />
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <InputText id="Password" type="password" class="form-control" @bind-Value="loginformUser.Password" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">LogIn</button>
+    </EditForm>
+</div>
+<br />
+<a href="ForgotPass">Forgot Password ?</a>
+
+
+@code
+{
+    string message = "";
+    private SiteUser newsiteuser;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        //newsiteuser = new SiteUser();
+        loginformUser = new LoginForm();
+    }
+
+
+    private void HandleValidSubmit()
+    {
+        using var _context = DbFactory.CreateDbContext();
+        try
+        {
+            var userInDatabase = _context.SiteUsers.Where(x => x.Email == loginformUser.Email).FirstOrDefault();
+
+            //if (userInDatabase != null && userInDatabase.Password == encrypedPasswordFromUI)
+
+            var verify = Crypto.VerifyHashedPassword(userInDatabase.Password, loginformUser.Password);
+
+
+            if (userInDatabase != null && Crypto.VerifyHashedPassword(userInDatabase.Password, loginformUser.Password))
+            {
+                UserInfo.Email = loginformUser.Email;
+                UserInfo.LoggedIn = "Yes";
+
+                loggedUser = userInDatabase;
+
+
+
+                navigate.NavigateTo("/Admin");
+                //navigate.NavigateTo("/Admin/" + loggedUser.Email);
+            }
+            else
+            {
+                message = "Wrong email or password ! Log in failed. Try again";
+
+            }
+        }
+        catch (Exception ex)
+        {
+            var info = ex.Message;
+        }
+    }
+
+}

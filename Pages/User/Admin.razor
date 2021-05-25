@@ -1,0 +1,53 @@
+﻿@page "/Admin"
+@using Surveymatic.Model.LoginData
+
+@if (UserInfo.LoggedIn == "Yes")
+{
+    <h1>Welcome</h1>
+    <h4 class="username">user: @UserInfo.Email, logged in time : @DateTime.Now</h4>
+    <hr />
+    <h4>Dashboard </h4>
+    <hr />
+    <table style="width:85%">
+        <tr>
+            <td>
+                <div>
+                    <a href="UserManage">User Manage</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a href="SurveyManage">Survey Manage</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a href="ReportManage">Report Manage</a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a href="Logout">Log out</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <a href="ChangePassword">Change Password </a>
+}
+else
+{
+    <h2>Please sign in</h2>
+    @*<a href="ChangePassword">Change Password </a>*@
+}
+
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        //UserInfo.LoggedIn
+    }
+
+
+}
