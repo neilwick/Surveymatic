@@ -1,0 +1,165 @@
+@page "/take/{id}"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using Model
+@inject IDbContextFactory<HelpContext> dBContextFactory
+@using Shared
+@using Surveymatic.Data
+
+
+
+<h1>Survey Choice</h1>
+<div class="row">
+    <div class="col-md-4">
+        @surveyContent.Title
+
+        @foreach (var q in survey.Questions)
+        {
+            <QuestionComponent id="@q.QuestionId.ToString()" />
+
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string id { get; set; }
+
+
+    private Survey survey;
+    private SurveyTranslation surveyContent;
+
+    const string Language = "en";
+
+
+    private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        using var db = dBContextFactory.CreateDbContext();
+        int nid = Int16.Parse(id);
+        survey = db.Surveys
+        .Where(q => q.SurveyId == nid)
+        .Include(s => s.SurveyTranslations)
+        .Include(qu => qu.Questions)
+        .FirstOrDefault();
+
+        foreach (var st in survey.SurveyTranslations)
+        {
+            if (surveyContent == null)
+            {
+                surveyContent = st;
+            }
+            else if (st.Language == Language)
+            {
+                surveyContent = st;
+            }
+        }
+
+
+
+    }
+
+
+
+    /* private Answer GetAnswerById(int id)
+    {
+    foreach (var ans in answers)
+    {
+    if (ans.QuestionId == id)
+    {
+    return ans;
+    }
+    }
+    return null;
+    @* using (var db = ContextFactory.CreateDbContext())
+    {
+    var answers = db.Answers.Where(a => a.QuestionId == id);
+    return answers.FirstOrDefault();
+    } *@
+
+    }
+
+
+    private async Task SurveyChoice(ChangeEventArgs e)
+    {
+
+    // surveys.Clear();
+    // title = string.Empty;
+
+    int surveyId = int.Parse(e.Value.ToString());
+
+    using var db = ContextFactory.CreateDbContext();
+
+    questionTranslations = await db.QuestionTranslations.Include(qt => qt.Question.Answers)
+    .Where(q => q.Language == "en" && q.Question.SurveyId == surveyId).ToListAsync();
+
+    @* questionTranslations = await db.QuestionTranslations.ToListAsync(); *@
+
+    answers.Clear();
+    foreach (var q in questionTranslations)
+    {
+    answers.Add(new Answer
+    {
+    QuestionId = q.QuestionId,
+    AnswerInt = 0,
+    AnswerTxt = "No",
+    PersonId = 100
+
+        });
+        }
+
+
+    }
+
+    private async void submitSurvey()
+    {
+    try
+    {
+
+    using (var db = ContextFactory.CreateDbContext())
+    {
+    foreach (var ans in answers)
+    {
+    db.Answers.Add(new Answer
+    {
+    QuestionId = ans.QuestionId,
+    AnswerInt = ans.AnswerInt,
+    AnswerTxt = ans.AnswerTxt,
+    PersonId = 100
+    });
+    }
+
+    await db.SaveChangesAsync();
+
+    }
+
+    success = "saved successfully";
+    }
+    catch
+    {
+    base.StateHasChanged();
+    success = "unsuccessfully";
+    }
+
+    }
+    private void cancelSurvey()
+        {
+
+    }
+
+
+    void FormSubmitted(EditContext editContext)
+    {
+    bool formIsValid = editContext.Validate();
+
+        }
+
+    */
+
+
+}

@@ -1,0 +1,52 @@
+@using Data
+@using Model
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<HelpContext> DbFactory
+
+<div>
+    <div>
+        <h2>
+            @if (questionContent != null)
+            {
+                @questionContent.Text
+            }
+
+        </h2>
+        <p></p>
+    </div>
+
+</div>
+
+@code{
+
+    public string Language = "en";
+
+    [Parameter]
+    public string id { get; set; }
+
+    public QuestionTranslation questionContent { get; set; }
+
+    public Question question { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        using var db = DbFactory.CreateDbContext();
+        int qid = Int16.Parse(id);
+        question = await db.Questions.Where(q => q.QuestionId == qid).Include(e =>
+        e.QuestionTranslations).FirstOrDefaultAsync();
+
+
+        foreach (var qt in question.QuestionTranslations)
+        {
+            if (questionContent == null)
+            {
+                questionContent = qt;
+            }
+            else if (qt.Language == Language)
+            {
+                questionContent = qt;
+            }
+        }
+
+
+    }
+}
