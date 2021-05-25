@@ -4,20 +4,28 @@
 @inject IDbContextFactory<HelpContext> DbFactory
 
 <div>
+     @if (questionContent != null)
+            {
     <div>
         <h2>
-            @if (questionContent != null)
-            {
+           
                 @questionContent.Text
-            }
+            
 
         </h2>
-        <p></p>
+        <p>  <input @onclick="@(() => OnClick.InvokeAsync(true))" type="radio" id="true" name="response" value="true"/>
+            <label for="true" >True</label>
+            <input type="radio" @onclick="@(() => OnClick.InvokeAsync(false))" id="false" name="response" value="false"/> 
+             <label for="false" >False</label>  </p>
     </div>
-
+}
 </div>
 
 @code{
+
+    [Parameter]
+    public EventCallback<bool> OnClick {get; set;}
+
 
     public string Language = "en";
 
@@ -46,7 +54,8 @@
                 questionContent = qt;
             }
         }
-
-
     }
+     private  void submitSurvey() {
+
+     }
 }
