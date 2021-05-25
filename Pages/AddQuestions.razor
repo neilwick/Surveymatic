@@ -46,15 +46,32 @@
 @code {
     private QuestionTranslation questiontranslation = new QuestionTranslation();
     private string success = "";
-    public void HandleValidSubmit()
+    public async Task HandleValidSubmit()
     {
         try
         {
+
+            {
+
+/////////////////////////////////
+//var table =db.QuestionTranslations;
+//Console.WriteLine(table);
+//////////////////////////////////
+
+             
+             var survey = new Survey();
+             var question = new Question();
+            
             using var db = DbFactory.CreateDbContext();
 
-             db.QuestionTranslations.Add(questiontranslation);
-             var item = db.SaveChangesAsync();
+            survey.Questions.Add(question);
+            db.Surveys.Add(survey); 
+            db.Questions.Add(question);
+            questiontranslation.Question= question;
+            db.QuestionTranslations.Add(questiontranslation);
+            await db.SaveChangesAsync();
 
+            }
 
            success = "success";
         }
@@ -66,12 +83,12 @@
 
 
             //from Lab5/Pages/Blog.razor
-            var entry = new QuestionTranslation{ Language = questiontranslation.Language, Text = questiontranslation.Text, Type = questiontranslation.Type };
-            using (var ctx = DbFactory.CreateDbContext())
-            {
-                ctx.QuestionTranslations.Add(entry);
-                var item = ctx.SaveChangesAsync();
-            }
+           // var entry = new QuestionTranslation{ Language = questiontranslation.Language, Text = questiontranslation.Text, Type = questiontranslation.Type };
+          //  using (var ctx = DbFactory.CreateDbContext())
+          //  {
+          //      ctx.QuestionTranslations.Add(entry);
+           //     var item = ctx.SaveChangesAsync();
+          //  }
 
         
 }

@@ -49,19 +49,19 @@
 @code {
     private SurveyTranslation surveytranslation = new SurveyTranslation();
     private string success = "";
-    public void HandleValidSubmit()
+    public async Task HandleValidSubmit()
     {
         try
         {
-
- 
+            var survey = new Survey();
+            
             using var db = DbFactory.CreateDbContext();
 
-             db.SurveyTranslations.Add(surveytranslation);
-             db.SaveChangesAsync();
+            db.Surveys.Add(survey);
+            surveytranslation.Survey= survey;
+            db.SurveyTranslations.Add(surveytranslation);
 
-           // _context.SurveyTranslations.Add(surveytranslation);
-           // _context.SaveChangesAsync();
+            await db.SaveChangesAsync();
 
            success = "success";
         }
@@ -70,7 +70,7 @@
             base.StateHasChanged();
             success = "no success";
         }
-        surveytranslation = new SurveyTranslation();
+        //surveytranslation = new SurveyTranslation();
         base.StateHasChanged();
 
 

@@ -9,8 +9,8 @@ using Surveymatic.Data;
 namespace Surveymatic.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    [Migration("20210521004244_admin_migration")]
-    partial class admin_migration
+    [Migration("20210524113104_new database")]
+    partial class newdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,19 +145,26 @@ namespace Surveymatic.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<string>("Instruction")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.Property<string>("Language")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("SurveyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .HasColumnType("longtext");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("SurveyTranslationId");
 
