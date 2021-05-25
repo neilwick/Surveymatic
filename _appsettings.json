@@ -10,10 +10,5 @@
   "MariaDbVersion": " 10.4.18-MariaDB",
   "ConnectionStrings": {
     "SurveyMaticContext": "server=localhost;database=survey;user=root;treattinyasboolean=true"
-  },
-  "Auth0": {
-    "Domain": "dev-gtolk.us.auth0.com",
-    "ClientId": "9vPXDTr8SHloqHrSUpHDaTlIx2CB4Oae",
-    "ClientSecret": "Ll8-xPSxaMKwHgP8m7QhpCyGeZr5eLJppDw8pRRuIGAo0GGTLGP3Qh2dR6VrX5A6"
   }
 }

@@ -1,12 +1,15 @@
 ﻿@page "/"
 @namespace Surveymatic.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
     Layout = null;
+    var lang = "en";
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="@lang">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,10 +19,11 @@
     <link href="css/site.css" rel="stylesheet" />
     <link href="Surveymatic.styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="./theme-wet-boew/css/theme.min.css">
-	<noscript>
-		<link rel="stylesheet" href="./wet-boew/css/noscript.min.css">
-	</noscript>
+    <noscript>
+        <link rel="stylesheet" href="./wet-boew/css/noscript.min.css">
+    </noscript>
 </head>
+
 <body>
     <component type="typeof(App)" render-mode="ServerPrerendered" />
 
@@ -36,6 +40,7 @@
 
     <script src="_framework/blazor.server.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="./wet-boew/js/wet-boew.js"></script>
+    <script src="./wet-boew/js/wet-boew.js"></script>
 </body>
+
 </html>

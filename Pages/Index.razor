@@ -1,30 +1,70 @@
 @page "/"
 @inject AuthenticationStateProvider AuthState
 @attribute [Authorize]
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject Services.ISessionService Session
+<div class="site-index">
 
-<h1>Welcome, @Username!</h1>
-You can only see this content if you're authenticated.
-<br />
-<img src="@Picture">
+  <h1>Welcome, @Username!</h1>
+  <p>You can only see this content if you're authenticated.</p>
+  <main role="main" property="mainContentOfPage" class="container">
+    <div class="row mrgn-tp-lg">
+      <div class="col-md-12">
+        <section class="col-md-6">
+          <ul class="list-unstyled">
+            <li>
+              <NavLink @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="helptest">
+                English</NavLink>
+            </li>
+          </ul>
+        </section>
+        <section class="col-md-6" lang="fr">
+          <ul class="list-unstyled">
+            <li>
+              <NavLink @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="helptest">
+                Français</NavLink>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+  <img src="img/SurveyMatic.png">
+</div>
 
-@code { 
+
+@code {
+
+
+
   private string Username = "Anonymous User";
   private string Picture = "";
+
+  protected void SetLanguage(string lang)
+  {
+
+    Session.Language = lang;
+    LocalStorage.SetItemAsStringAsync("lang", lang);
+
+
+  }
 
   protected override async Task OnInitializedAsync()
   {
     var state = await AuthState.GetAuthenticationStateAsync();
 
     Username = state.User.Claims
-                .Where(c => c.Type.Equals("name"))
-                .Select(c => c.Value)
-                .FirstOrDefault() ?? string.Empty;
+    .Where(c => c.Type.Equals("name"))
+    .Select(c => c.Value)
+    .FirstOrDefault() ?? string.Empty;
 
     Picture = state.User.Claims
-                .Where(c => c.Type.Equals("picture"))
-                .Select(c => c.Value)
-                .FirstOrDefault() ?? string.Empty;
+    .Where(c => c.Type.Equals("picture"))
+    .Select(c => c.Value)
+    .FirstOrDefault() ?? string.Empty;
 
     await base.OnInitializedAsync();
+
   }
+
 }

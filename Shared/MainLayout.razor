@@ -1,4 +1,7 @@
+@using Services
 @inherits LayoutComponentBase
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject ISessionService Session
 
 <div class="page">
     <div class="sidebar">
@@ -8,8 +11,8 @@
     <div class="main">
         <div class="top-row px-4">
 
-            <AccessControl /> 
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <AccessControl />
+            <a href="/helptest" target="_blank">Help</a>
         </div>
 
         <div class="content px-4">
@@ -17,3 +20,9 @@
         </div>
     </div>
 </div>
+@code{
+    protected override async Task OnAfterRenderAsync(bool first)
+    {
+        Session.Language = await LocalStorage.GetItemAsStringAsync("lang");
+    }
+}
