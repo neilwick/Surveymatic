@@ -51,21 +51,12 @@
 @code {
     private string surveyId { get; set; }
     private string title{ get; set; }
-    int AnswerCode = 0;
-    private string success = "";
-    private string answerTxt;
-    private int answerInt;
-    //private int PersonId;
     private List<Survey> surveys = new List<Survey>();
     private List<SurveyTranslation> surveyTranslations = new List<SurveyTranslation>();
     private List<Answer> answers = new List<Answer>();
 
     private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
-
   
-
-    
-
     protected override async Task OnInitializedAsync()
     {
         

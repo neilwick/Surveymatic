@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <h2>Please answer “YES” or “NO” to each question:</h2>
+                <h2>Please answer “YES” or “NO”,TRUE or FALSE to each question:</h2>
             </div>
             <div class="form-group">
                 <ul>
@@ -42,14 +42,25 @@
                     {
                     <li>
                         <h3>@questionTranslation.Text</h3>
-                        @foreach (Answer answer in questionTranslation.Question.Answers)
-                        {
-                            @*<p><input id="1" name="ss" type="radio" value="@answer.AnswerInt">@answer.AnswerTxt</p>*@
+                        <label>
+                                <input name="@questionTranslation.QuestionId"   type="radio"  
+                                  checked="@(@GetAnswerById(questionTranslation.QuestionId).AnswerInt == 1)"   
+                                  value="1" bind="GetAnswerById(questionTranslation.QuestionId).AnswerInt"
+                                  /> Yes
+                            </label>
                             <label>
-                                <input name="answer" type="radio" value="@answer.AnswerInt" bind="@answer.AnswerInt">@answer.AnswerTxt
+                                <input name="@questionTranslation.QuestionId" type="radio" 
+                                   checked="@(@GetAnswerById(questionTranslation.QuestionId).AnswerInt == 0)"   
+                                  value="0"  bind="GetAnswerById(questionTranslation.QuestionId).AnswerInt" /> No
                             </label>
 
-                        }
+                        @* @foreach (Answer answer in questionTranslation.Question.Answers)
+                        {
+                            <label>
+                                <input name="@questionTranslation.QuestionId" type="radio" value="yes"  onchange="">
+                            </label>
+                            
+                        } *@
 
                     </li>
 
@@ -58,18 +69,18 @@
 
             </div>
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-primary"  @onclick="submitSurvey" />
-                @* <button @onclick="submitSurvey">submit1</button> *@
-            </div>
-            @* </EditForm> *@
-            @*</form>*@
+                <div>
+                    <input type="submit" value="Submit" class="btn btn-primary"  @onclick="submitSurvey" />
+                     <input type="cancel" value="Cancel" class="btn btn-primary"   @onclick="cancelSurvey"/>
+                    
+                </div>                                        
+            </div>                        
     </div>
 </div>
 
 @code {
     private string surveyId { get; set; }
     private string title{ get; set; }
-    int AnswerCode = 0;
     private string success = "";
     private string answerTxt;
     private int answerInt;
@@ -78,10 +89,12 @@
     private List<SurveyTranslation> surveyTranslations = new List<SurveyTranslation>();
     private List<Answer> answers = new List<Answer>();
 
+   
+
     private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
 
   
-
+     private string answer1 = "question1";
     
 
     protected override async Task OnInitializedAsync()
@@ -89,29 +102,33 @@
         
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = await db.SurveyTranslations.Where(q =>q.Language == "en" ).ToListAsync();
-       // Refresh();
-        
-        //  Console.WriteLine("count" + surveyTranslations.Count);    
+        answers = await db.Answers.ToListAsync();
+       // Refresh();  
+        //  Console.WriteLine("count" + surveyTranslations.Count);   
+
 
     }
 
-    @* public async Task Refresh()
-    {
-        using (var db = ContextFactory.CreateDbContext())
-        {
-          var survey =  await db.SurveyTranslations.Select(s => new{SurveyTranslation = s}).ToListAsync;
-           
-        }
 
-    } *@
-    private List<Answer> GetAnswerById(int id)
+    public async Task Refresh()
     {
-       
-        using (var db = ContextFactory.CreateDbContext())
+      using var db = ContextFactory.CreateDbContext();
+        surveyTranslations = await db.SurveyTranslations.Where(q =>q.Language == "en" ).ToListAsync();
+
+    }
+    private Answer GetAnswerById(int id)
+    {
+        foreach(var ans in answers) {
+            if (ans.QuestionId == id) {
+                return ans;
+            }
+        }
+        return null;
+        @* using (var db = ContextFactory.CreateDbContext())
         {
             var answers = db.Answers.Where(a => a.QuestionId == id);
-            return answers.ToList();
-        }
+            return answers.FirstOrDefault();
+        } *@
 
     }
 
@@ -130,6 +147,17 @@
 
          @* questionTranslations = await db.QuestionTranslations.ToListAsync(); *@
 
+         answers.Clear();
+         foreach(var q in questionTranslations){
+             answers.Add(new Answer{
+                QuestionId = q.QuestionId,
+                AnswerInt = 0, 
+                AnswerTxt ="No",
+                PersonId = 100
+            
+             });
+         }
+
 
     }
 
@@ -137,15 +165,20 @@
     {
         try
         {
-             using var db = ContextFactory.CreateDbContext();
-            var result = new Answer { AnswerTxt = answerTxt, AnswerInt = answerInt , PersonId =1 };
-         //  db.questionTranslations[0].Question.Answers.Add(result);
+           
+            using (var db = ContextFactory.CreateDbContext())
+            {
+                foreach(var ans in answers){
+                    db.Answers.Add(new Answer{
+                        QuestionId = ans.QuestionId, AnswerInt = ans.AnswerInt,AnswerTxt = ans.AnswerTxt,PersonId = 100
+                    });
+                }
+               
+                 await db.SaveChangesAsync();
 
-           // db.Answers.Add(result);
-            var item = await db.SaveChangesAsync();
+             } 
 
-
-            success = "saved success";
+            success = "saved successfully";
         }
         catch
         {
@@ -154,8 +187,11 @@
         }
 
     }
+    private void cancelSurvey()
+    {
 
-    
+    }
+
 
     @* void FormSubmitted(EditContext editContext)
     {
