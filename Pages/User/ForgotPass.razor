@@ -1,0 +1,64 @@
+﻿@page "/ForgotPass"
+@using Microsoft.EntityFrameworkCore
+@using Model.LoginData
+@using Model
+@using Data
+@inject IDbContextFactory<HelpContext> DbFactory
+
+@inject ForgotPassForm forgotPassUser
+@inject NavigationManager navigate
+@inject SiteUser siteuser
+
+<h1>Forgot your password ?</h1>
+<hr />
+<h4 class="username">@message</h4>
+
+<div class="newsiteuser-form">
+    <EditForm Model=@forgotPassUser OnValidSubmit=@HandleValidSubmit>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="Email">Please enter your email:</label>
+            <InputText id="Email" class="form-control" @bind-Value="forgotPassUser.Email" />
+        </div>
+        <button class="btn btn-primary" type="submit">submit</button>
+    </EditForm>
+</div>
+
+
+@code
+{
+    string message = "";
+    private SiteUser newsiteuser;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        forgotPassUser = new ForgotPassForm();
+    }
+
+
+    private void HandleValidSubmit()
+    {
+        using var _context = DbFactory.CreateDbContext();
+        try
+        {
+            var userInDatabase = _context.SiteUsers.Where(x => x.Email == forgotPassUser.Email).FirstOrDefault();
+
+            if (userInDatabase != null)
+            {
+                navigate.NavigateTo("/ResetPass");
+
+            }
+            else
+            {
+                message = "Wrong email ! Try again";
+            }
+        }
+        catch
+        {
+        }
+    }
+
+}

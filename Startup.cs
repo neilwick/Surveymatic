@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Surveymatic.Services;
 using Blazored.LocalStorage;
+using Surveymatic.Model;
+using Surveymatic.Model.LoginData;
+
 namespace Surveymatic
 {
     public class Startup
@@ -103,6 +106,20 @@ namespace Surveymatic
                             return Task.CompletedTask;
                         }
                 };
+
+            services.AddScoped<SiteUser>();
+            services.AddScoped<RegistrationForm>();
+            services.AddScoped<LoginForm>();
+            services.AddScoped<ForgotPassForm>();
+            services.AddScoped<ResetPassForm>();
+            services.AddScoped<PasswordChange>();
+            services.AddServerSideBlazor();
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
             services.AddHttpContextAccessor();

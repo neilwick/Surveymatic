@@ -1,0 +1,96 @@
+﻿@page "/LogInVerify/{id}"
+@using Microsoft.EntityFrameworkCore
+@using Model.LoginData
+@using Model
+@using Data
+@inject IDbContextFactory<HelpContext> DbFactory
+@using CryptoHelper
+
+@inject NavigationManager navigate
+@inject SiteUser loggedUser
+@inject RegistrationForm registration
+
+<h1>Registration Status</h1>
+<hr />
+
+@message
+<div class="newsiteuser-form">
+    <EditForm Model=@newsiteuser OnValidSubmit=@HandleValidSubmit>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="EmailA">Email</label>
+            <InputText id="Email" class="form-control" @bind-Value="newsiteuser.Email" />
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <InputText id="Password" type="password" class="form-control" @bind-Value="newsiteuser.Password" />
+        </div>
+        <button class="btn btn-primary" type="submit">LogIn</button>
+    </EditForm>
+</div>
+
+
+@code
+{
+    string message = "";
+    private SiteUser newsiteuser;
+
+    [Parameter]
+    public string id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        newsiteuser = new SiteUser();
+    }
+
+
+    private void HandleValidSubmit()
+    {
+        using var _context = DbFactory.CreateDbContext();
+        try
+        {
+            //int id_int = Convert.ToInt32(id);
+            var userInDatabase = _context.SiteUsers.Where(x => x.ID == id).FirstOrDefault();
+
+            //var userInDatabase = _context.SiteUsers.Where(x => x.Email == newsiteuser.Email).FirstOrDefault();
+
+            var encrypedPasswordFromUI = Crypto.HashPassword(newsiteuser.Password);
+
+            //if (userInDatabase != null && userInDatabase.Password == encrypedPasswordFromUI)
+
+
+            // if (userInDatabase != null &&
+            //newsiteuser.Email == userInDatabase.Email &&
+            //Crypto.VerifyHashedPassword(userInDatabase.Password, newsiteuser.Password) &&
+            //(userInDatabase.Role == newsiteuser.Role)
+            //)
+            if (userInDatabase != null &&
+            newsiteuser.Email == userInDatabase.Email &&
+            Crypto.VerifyHashedPassword(userInDatabase.Password, newsiteuser.Password))
+            {
+                userInDatabase.EmailConfirmation = true;
+
+                _context.SaveChanges();
+
+                message = "Successfully registered with " + @registration.Email + " and registration Time is : " +
+                DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString();
+
+                loggedUser = userInDatabase;
+
+            }
+            else
+            {
+                message = "Registration failed. Try again"; ;
+            }
+        }
+        catch
+        {
+        }
+
+    }
+}
