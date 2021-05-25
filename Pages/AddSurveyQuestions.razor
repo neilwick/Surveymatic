@@ -1,0 +1,92 @@
+@page "/add" 
+
+@using Surveymatic.Model;
+@using Surveymatic.Data;
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<HelpContext> DbFactory
+
+@strError
+
+	<div>
+		<h2 style="display:flex; align-items: center;">
+			<button class="btn btn-primary mr-2" title="New Survey" @onclick="OnNewSurveyClick">New</button>
+			@Title
+		</h2>
+
+		@if (ExistingSurveys == null)
+		{
+
+		}
+		else
+		{
+			if (ExistingSurveys.Value == true)
+			{
+				<div>
+
+				</div>
+				<div class="mb-2 d-flex">
+
+					<button id="editsurvey" class="btn btn-outline-primary ml-1" title="Edit Survey" @onclick="OnEditSurveyClick">Edit Survey</button>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+
+					</div>
+				</div>
+			}
+		}
+	</div>
+
+
+@code {
+	string strError = "";
+	bool? ExistingSurveys = null;
+	List<Survey> colSurveys;
+	Survey SelectedSurvey;
+
+	[Parameter]
+	public string Title { get; set; }
+	
+
+	protected override async Task OnInitializedAsync()
+	{
+
+
+
+	}
+
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+		if(string.IsNullOrEmpty(Title))
+		{
+			Title = "Manage Surveys";
+		}
+	}
+
+
+	// SelectedSurveyChange
+
+	async Task SelectedSurveyChange(object value)
+	{
+		//await RefreshSurveys(SelectedSurvey.Id);
+		StateHasChanged();
+	}
+
+	// Refresh RefreshSurveys
+
+	async Task RefreshSurveys(int SurveyId)
+	{
+
+	}
+
+	private void OnNewSurveyClick(MouseEventArgs args)
+	{
+
+	}
+
+	private void OnEditSurveyClick(MouseEventArgs args) {
+
+	}
+}
