@@ -107,26 +107,26 @@ namespace Surveymatic
                         }
                 };
 
-            services.AddScoped<SiteUser>();
-            services.AddScoped<RegistrationForm>();
-            services.AddScoped<LoginForm>();
-            services.AddScoped<ForgotPassForm>();
-            services.AddScoped<ResetPassForm>();
-            services.AddScoped<PasswordChange>();
-            services.AddServerSideBlazor();
+                services.AddScoped<SiteUser>();
+                services.AddScoped<RegistrationForm>();
+                services.AddScoped<LoginForm>();
+                services.AddScoped<ForgotPassForm>();
+                services.AddScoped<ResetPassForm>();
+                services.AddScoped<PasswordChange>();
+                services.AddServerSideBlazor();
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                services.Configure<CookiePolicyOptions>(options =>
+                {
+                    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                    options.CheckConsentNeeded = context => true;
+                    options.MinimumSameSitePolicy = SameSiteMode.None;
+                });
+
+                services.AddHttpContextAccessor();
+                services.AddSingleton<SurveyService>();
+                services.AddScoped<ISessionService, Session>();
             });
-
-            services.AddHttpContextAccessor();
-            services.AddSingleton<SurveyService>();
-            services.AddScoped<ISessionService, Session>();
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -157,3 +157,4 @@ namespace Surveymatic
         }
     }
 }
+

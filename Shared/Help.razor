@@ -7,14 +7,21 @@
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 
 <div>
-    <div title="@HelpTag">
+    <button @onclick="@Show">Help</button>
+    <div hidden="@IsShow" title="@HelpTag">
         <h2>@Title</h2>
         <p>@Content</p>
     </div>
-
 </div>
 
 @code{
+    private bool IsShow { get; set; } = true;
+
+    private void Show()
+
+    {
+        IsShow = !IsShow;
+    }
 
     public int HelpId { get; set; }
 
