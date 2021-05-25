@@ -5,7 +5,14 @@
 @using Microsoft.EntityFrameworkCore
 @inject IDbContextFactory<HelpContext> DbFactory
 
-@strError
+
+<h3>Surveymatic</h3>
+
+
+@code {
+}
+
+
 
 	<div>
 		<h2 style="display:flex; align-items: center;">
@@ -15,6 +22,10 @@
 
 		@if (ExistingSurveys == null)
 		{
+
+<AddSurveys></AddSurveys>
+
+<AddQuestions></AddQuestions>
 
 		}
 		else
