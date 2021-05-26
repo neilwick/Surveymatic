@@ -1,0 +1,79 @@
+@using Data
+@using Model
+
+@using Microsoft.EntityFrameworkCore
+@using Model.SurveyResponse
+@inject IDbContextFactory<HelpContext> DbFactory
+@attribute [Authorize]
+@inject SurveyService SurveyRepository
+
+
+<div>
+    @if (questionContent != null)
+    {
+        <div>
+            <h2>
+
+                @questionContent.Text
+
+
+            </h2>
+            <p> <input @onclick="@(() => setValue(true))" type="radio" id="yes" name="@id" value="Yes" />
+                <label for="true">True</label>
+                <input type="radio" @onclick="@(() => setValue(false))" id="no" name="@id" value="No" />
+                <label for="false">False</label>
+            </p>
+            
+        </div>
+       
+    }
+</div>
+
+@code{
+
+    [Parameter]
+    public EventCallback<QuestionResponse> OnClick { get; set; }
+
+    [Parameter]
+    public string id { get; set; }
+    public int Type { get; set; }
+
+    public bool value { get; set; }
+    public string Language = "en";
+    public QuestionTranslation questionContent { get; set; }
+
+    public Question question { get; set; }
+
+    private void setValue(bool val)
+    {
+        value = val;
+        OnClick.InvokeAsync(new QuestionResponse { value = val, Question = question });
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        using var db = DbFactory.CreateDbContext();
+        int qid = Int16.Parse(id);
+
+        question = await db.Questions.Where(q => q.QuestionId == qid).Include(e =>
+        e.QuestionTranslations).FirstOrDefaultAsync();
+
+
+        foreach (var qt in question.QuestionTranslations)
+        {
+            if (questionContent == null)
+            {
+                questionContent = qt;
+            }
+            else if (qt.Language == Language)
+            {
+                questionContent = qt;
+            }
+        }
+    }
+    public void Refresh()
+    {
+       
+
+    } 
+  
+}

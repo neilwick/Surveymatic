@@ -1,0 +1,65 @@
+@page "/list"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using Model
+@inject IDbContextFactory<HelpContext> ContextFactory
+@using Surveymatic.Data
+@inject SurveyService SurveyRepository
+
+@attribute [Authorize]
+
+
+
+<h1>Survey</h1>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Instruction</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
+            {
+                var url = "/take/" + surveyTranslation.SurveyId.ToString();
+                <tr>
+                    <td>
+                        <NavLink href="@url">@surveyTranslation.SurveyId</NavLink>
+                    </td>
+                    <td>@surveyTranslation.Title</td>
+                    <td>@surveyTranslation.Description</td>
+                    <td>@surveyTranslation.Instruction</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+@code {
+
+    private List<Survey> surveys = new List<Survey>();
+    private List<SurveyTranslation> surveyTranslations = new List<SurveyTranslation>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        using var db = ContextFactory.CreateDbContext();
+        surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();     
+         Refresh();
+    }
+    public void Refresh()
+    {
+        using var db = ContextFactory.CreateDbContext();
+        surveyTranslations =  db.SurveyTranslations.Where(q => q.Language == "en").ToList();     
+
+    } 
+}
