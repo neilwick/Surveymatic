@@ -63,6 +63,10 @@
                     encrypedString = Crypto.HashPassword(registrationFormUser.Password);
                     newsiteuser.Email = registrationFormUser.Email;
                     newsiteuser.Password = encrypedString;
+                    newsiteuser.Roles = new List<SiteRole>();
+                    newsiteuser.Roles.Add(new SiteRole{
+                        RoleName = "public"
+                    });
                     _context.SiteUsers.Add(newsiteuser);
                     await _context.SaveChangesAsync();
 

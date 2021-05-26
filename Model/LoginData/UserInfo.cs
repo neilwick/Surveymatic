@@ -10,5 +10,21 @@ namespace Surveymatic.Model.LoginData
         public static string LoggedIn { get; set; }
         public static string PreferredLanguage { get; set; }
 
+        public static SiteUser User {get;set;}
+
+        public static bool HasRole (string roleName)
+        {        
+            foreach(var role in User.Roles)
+            {
+                if (role.RoleName == roleName)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+
+        }
+
     }
 }
