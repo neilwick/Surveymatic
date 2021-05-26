@@ -24,7 +24,7 @@
     private QuestionTranslation fr { get; set; } = new();
 
 
-    protected override void OnInitializedAsync()
+    protected override void OnInitialized()
     {
 
         foreach (var t in question.QuestionTranslations)
@@ -32,7 +32,6 @@
             if (t.Language == "en") { en = t; }
             else if (t.Language == "fr") { fr = t; }
         }
-
 
 
     }

@@ -9,23 +9,23 @@
     <div class="blog-datetime">
         <span class="blog-date">@Entry.Language</span> -
         <span class="blog-time">@Entry.Text</span>
-        <span class="blog-time">@Entry.Type</span>      
+        <span class="blog-time">@Entry.Type</span>
     </div>
 </div>
 
-    <button @onclick="EditQuestion">Edit</button>
+<button @onclick="EditQuestion">Edit</button>
 
 
 @code {
     [Parameter]
-        public QuestionTranslation Entry { get; set; }
-        public int QuestionTranslatonId { get; set; }
-        public int QuestionId { get; set; }
-        //public string Language { get; set; }
-        public int Type { get; set; }
-        public string Text { get; set; }
+    public QuestionTranslation Entry { get; set; }
+    public int QuestionTranslatonId { get; set; }
+    public int QuestionId { get; set; }
+    //public string Language { get; set; }
+    public int Type { get; set; }
+    public string Text { get; set; }
 
-//////////////////////////////
+    //////////////////////////////
     [Parameter]
     public string id { get; set; }
 
@@ -33,14 +33,14 @@
     public string Language = "en";
     public QuestionTranslation questionContent { get; set; }
 
-    public Question question { get; set; }
+    public Surveymatic.Model.Question question { get; set; }
 
-/////////////////////////////
+    /////////////////////////////
 
     protected override async Task OnInitializedAsync()
     {
 
-//to do get list of questions from questiontranslation
+        //to do get list of questions from questiontranslation
 
         using var db = DbFactory.CreateDbContext();
         int qid = Int16.Parse(id);
