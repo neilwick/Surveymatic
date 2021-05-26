@@ -4,6 +4,9 @@
 @using Microsoft.EntityFrameworkCore
 @using Model.SurveyResponse
 @inject IDbContextFactory<HelpContext> DbFactory
+@attribute [Authorize]
+@inject SurveyService SurveyRepository
+
 
 <div>
     @if (questionContent != null)
@@ -33,6 +36,7 @@
 
     [Parameter]
     public string id { get; set; }
+    public int Type { get; set; }
 
     public bool value { get; set; }
     public string Language = "en";
@@ -49,6 +53,7 @@
     {
         using var db = DbFactory.CreateDbContext();
         int qid = Int16.Parse(id);
+
         question = await db.Questions.Where(q => q.QuestionId == qid).Include(e =>
         e.QuestionTranslations).FirstOrDefaultAsync();
 

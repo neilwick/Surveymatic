@@ -3,11 +3,10 @@
 @using Microsoft.EntityFrameworkCore
 @using Model
 @inject IDbContextFactory<HelpContext> ContextFactory
-
-
-
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
+
+@attribute [Authorize]
 
 
 

@@ -6,6 +6,9 @@
 @using Model.SurveyResponse
 @using Pages
 @using Surveymatic.Data
+@attribute [Authorize]
+@inject SurveyService SurveyRepository
+
 
 <div class="card">
     <h1>Survey Choice</h1>
@@ -18,8 +21,7 @@
                 {
                     @foreach (var q in survey.Questions)
                     {
-
-                        <h3>@q.QuestionId.ToString()</h3>
+                        @* <h3>@q.QuestionId.ToString()</h3> *@
                         <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />
 
                     }
@@ -32,7 +34,7 @@
                     </div>
                     
                 </button>
-                <button>Cancel</button>
+                <button @onclick=OnCancel>>Cancel</button>
             </div>                      
         </form>
         <div>@success</div>
@@ -119,6 +121,12 @@
         }
         answers = new List<Answer>();
          base.StateHasChanged();
+
+    }
+
+     public void OnCancel()
+    {
+         answers.Clear();
 
     }
 
