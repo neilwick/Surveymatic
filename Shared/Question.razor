@@ -24,7 +24,7 @@
     private QuestionTranslation fr { get; set; } = new();
 
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitializedAsync()
     {
 
         foreach (var t in question.QuestionTranslations)
