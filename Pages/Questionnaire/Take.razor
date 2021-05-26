@@ -10,7 +10,7 @@
 <div class="card">
     <h1>Survey Choice</h1>
     <div class="card-body">
-        <form>
+        <form >
 
             <div class="form-group">
 
@@ -23,22 +23,26 @@
                         <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />
 
                     }
-                }
+                } 
             </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+             <div>
+                <button @onclick=OnClick>Submit</button>
+                <button>Cancel</button>
             </div>
+            <div>@success</div>
+           
         </form>
+        
 
     </div>
 </div>
 
 
-
 @code {
-
+    private string success = "";
     public async Task AnswerClick(QuestionResponse response)
     {
+   
         // creates an answer entry in the db, this happens onclick -> should be moved to submit?
         var answer = new Answer
         {
@@ -47,9 +51,11 @@
             PersonId = 1,
             QuestionId = response.Question.QuestionId
         };
-        using var db = dBContextFactory.CreateDbContext();
-        db.Answers.Add(answer);
-        await db.SaveChangesAsync();
+
+        answers.Add(answer);
+
+       
+      
 
     }
 
@@ -70,7 +76,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        answers.Clear();
         using var db = dBContextFactory.CreateDbContext();
         int nid = Int16.Parse(id);
         survey = await (db.Surveys
@@ -98,6 +104,25 @@
         }
 
     }
-    public void HandleValidSubmit() { }
+
+
+    public  async Task OnClick()
+    {
+        try{
+             using var db = dBContextFactory.CreateDbContext();
+             foreach(var answer in answers) {
+                 db.Answers.Add(answer);
+             }
+           
+             await db.SaveChangesAsync();
+         success = "success";
+
+
+        } catch{
+            base.StateHasChanged();
+            success = "no success";
+        }
+
+    }
 
 }

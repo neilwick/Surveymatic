@@ -15,12 +15,14 @@
 
 
             </h2>
-            <p> <input @onclick="@(() => setValue(true))" type="radio" id="true" name="response" value="true" />
+            <p> <input @onclick="@(() => setValue(true))" type="radio" id="true" name="@id" value="true" />
                 <label for="true">True</label>
-                <input type="radio" @onclick="@(() => setValue(false))" id="false" name="response" value="false" />
+                <input type="radio" @onclick="@(() => setValue(false))" id="false" name="@id" value="false" />
                 <label for="false">False</label>
             </p>
+            
         </div>
+       
     }
 </div>
 
@@ -63,8 +65,5 @@
             }
         }
     }
-    private void submitSurvey()
-    {
-
-    }
+  
 }
