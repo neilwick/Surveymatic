@@ -1,0 +1,132 @@
+@page "/take/{id}"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using Model
+@inject IDbContextFactory<SurveymaticContext> dBContextFactory
+@using Model.SurveyResponse
+@using Pages
+@using Surveymatic.Data
+@inject SurveyService SurveyRepository
+
+
+<div class="card">
+    <h1>Survey Choice</h1>
+    <div class="card-body">
+        <form >
+
+            <div class="form-group">
+
+                @if (surveyContent != null)
+                {
+                    @foreach (var q in survey.Questions)
+                    {
+                        @* <h3>@q.QuestionId.ToString()</h3> *@
+                        <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />
+
+                    }
+                } 
+            </div>
+             <div>
+                <button @onclick=OnClick>Submit
+                    <div>
+                        <NavLink href="/list/"></NavLink>
+                    </div>
+                    
+                </button>
+                <button @onclick=OnCancel>Cancel</button>
+            </div>                      
+        </form>
+        <div>@success</div>
+        
+
+    </div>
+</div>
+
+
+@code {
+    private string success = "";
+    public async Task AnswerClick(QuestionResponse response)
+    {
+   
+        // creates an answer entry in the db, this happens onclick -> should be moved to submit?
+        var answer = new Answer
+        {
+            AnswerTxt = "",
+            AnswerInt = response.value ? 1 : 0,
+            PersonId = 1,
+            QuestionId = response.Question.QuestionId
+        };
+
+        answers.Add(answer);     
+
+    }
+
+    [Parameter]
+    public string id { get; set; }
+
+
+    private Survey survey;
+    private SurveyTranslation surveyContent;
+
+    const string Language = "en";
+
+
+    private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
+    private List<Answer> answers = new List<Answer>();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        answers.Clear();
+        using var db = dBContextFactory.CreateDbContext();
+        int nid = Int16.Parse(id);
+        survey = await (db.Surveys
+        .Where(q => q.SurveyId == nid)
+        .Include(q => q.Questions)
+        .FirstAsync());
+
+        var t = await db.SurveyTranslations.Where(q => q.SurveyId == nid).ToListAsync();
+
+        foreach (var st in t)
+        {
+            if (surveyContent == null)
+            {
+                surveyContent = st;
+            }
+            else if (st.Language == Language)
+            {
+                surveyContent = st;
+            }
+        }
+
+    }
+
+    public  async Task OnClick()
+    {
+        try{
+             using var db = dBContextFactory.CreateDbContext();
+             foreach(var answer in answers) {
+                 db.Answers.Add(answer);
+             }
+           
+             await db.SaveChangesAsync();
+         success = "success";
+
+
+        } catch{
+            base.StateHasChanged();
+            success = "no success";
+        }
+        answers = new List<Answer>();
+         base.StateHasChanged();
+
+    }
+
+     public void OnCancel()
+    {
+         answers.Clear();
+
+    }
+
+}
