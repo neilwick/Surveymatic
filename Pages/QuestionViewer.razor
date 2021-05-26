@@ -21,13 +21,44 @@
         public QuestionTranslation Entry { get; set; }
         public int QuestionTranslatonId { get; set; }
         public int QuestionId { get; set; }
-        public string Language { get; set; }
+        //public string Language { get; set; }
         public int Type { get; set; }
         public string Text { get; set; }
+
+//////////////////////////////
+    [Parameter]
+    public string id { get; set; }
+
+    public bool value { get; set; }
+    public string Language = "en";
+    public QuestionTranslation questionContent { get; set; }
+
+    public Question question { get; set; }
+
+/////////////////////////////
 
     protected override async Task OnInitializedAsync()
     {
 
+//to do get list of questions from questiontranslation
+
+        using var db = DbFactory.CreateDbContext();
+        int qid = Int16.Parse(id);
+        question = await db.Questions.Where(q => q.QuestionId == qid).Include(e =>
+        e.QuestionTranslations).FirstOrDefaultAsync();
+
+
+        foreach (var qt in question.QuestionTranslations)
+        {
+            if (questionContent == null)
+            {
+                questionContent = qt;
+            }
+            else if (qt.Language == Language)
+            {
+                questionContent = qt;
+            }
+        }
 
     }
 
