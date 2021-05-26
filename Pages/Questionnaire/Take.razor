@@ -2,11 +2,10 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
-@inject IDbContextFactory<HelpContext> dBContextFactory
+@inject IDbContextFactory<SurveymaticContext> dBContextFactory
 @using Model.SurveyResponse
 @using Pages
 @using Surveymatic.Data
-@attribute [Authorize]
 @inject SurveyService SurveyRepository
 
 

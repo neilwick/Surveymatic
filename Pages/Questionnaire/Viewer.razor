@@ -2,13 +2,9 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
-@inject IDbContextFactory<HelpContext> ContextFactory
+@inject IDbContextFactory<SurveymaticContext> ContextFactory
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
-
-@attribute [Authorize]
-
-
 
 <h1>Survey</h1>
 <div>
