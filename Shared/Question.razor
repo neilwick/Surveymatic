@@ -1,0 +1,39 @@
+@using Data
+@using Model
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<HelpContext> DbFactory
+
+<div>
+    <p>
+        en: @en.Text
+    </p>
+    <p>
+        fr: @fr.Text
+    </p>
+
+</div>
+
+@code{
+
+
+
+    [Parameter]
+    public Surveymatic.Model.Question question { get; set; }
+
+    private QuestionTranslation en { get; set; } = new();
+    private QuestionTranslation fr { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        foreach (var t in question.QuestionTranslations)
+        {
+            if (t.Language == "en") { en = t; }
+            else if (t.Language == "fr") { fr = t; }
+        }
+
+
+
+    }
+}
