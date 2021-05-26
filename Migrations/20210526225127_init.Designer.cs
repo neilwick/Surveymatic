@@ -9,8 +9,8 @@ using Surveymatic.Data;
 namespace Surveymatic.Migrations
 {
     [DbContext(typeof(HelpContext))]
-    [Migration("20210526154057_init2")]
-    partial class init2
+    [Migration("20210526225127_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
