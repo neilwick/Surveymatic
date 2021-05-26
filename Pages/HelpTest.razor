@@ -1,7 +1,9 @@
 @page "/helpTest"
-
+@using Services
+@inject ISessionService Session
 <h1>Help</h1>
 
 <p>This is a sample of Help component.</p>
 
-<Help HelpTag="Create Account" />
+<Help HelpTag="login" />
+@Session.Language
