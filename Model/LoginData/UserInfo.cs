@@ -13,15 +13,17 @@ namespace Surveymatic.Model.LoginData
         public static SiteUser User {get;set;}
 
         public static bool HasRole (string roleName)
-        {        
-            foreach(var role in User.Roles)
+        {   
+            if(User != null && User.Roles != null)     
             {
-                if (role.RoleName == roleName)
+                foreach(var role in User.Roles)
                 {
-                    return true;
+                    if (role.RoleName == roleName)
+                    {
+                        return true;
+                    }
                 }
             }
-            
             return false;
 
         }
