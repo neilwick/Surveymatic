@@ -10,8 +10,8 @@
 
     <div class="main">
         <div class="top-row px-4">
-
-            <a href="/helptest" target="_blank">Help</a>
+            <a @onclick='() => SetLanguage("en")' href="home">English</a>
+            <a @onclick='() => SetLanguage("fr")' href="home">Français</a>
         </div>
 
         <div class="content px-4">
@@ -23,5 +23,10 @@
     protected override async Task OnAfterRenderAsync(bool first)
     {
         Session.Language = await LocalStorage.GetItemAsStringAsync("lang");
+    }
+    protected void SetLanguage(string lang)
+    {
+        Session.Language = lang;
+        LocalStorage.SetItemAsStringAsync("lang", lang);
     }
 }
