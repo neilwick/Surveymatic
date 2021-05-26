@@ -46,16 +46,16 @@
 
 <hr />
 <div class="blog">
-    @foreach (QuestionTranslation entry in listQuestions)
+    @foreach (QuestionTranslation entry in QuestionsList)
     {
-        <AddQuestions Entry="@entry" />
+        <QuestionViewer Entry="@entry" />
     }
 </div>
 
 @code {
 
     private QuestionTranslation questiontranslation = new QuestionTranslation();
-    private List<QuestionTranslation> listQuestions = new List<QuestionTranslation>();
+    private List<QuestionTranslation> QuestionsList = new List<QuestionTranslation>();
     private List<string> CommentStrings = new List<string>();
     
     
@@ -70,25 +70,31 @@
 
     private async Task AddEntry()
     {
+      
 
-            //from Lab5/Pages/Blog.razor
-           // var entry = new QuestionTranslation{ Language = questiontranslation.Language, Text = questiontranslation.Text, Type = questiontranslation.Type };
-          //  using (var ctx = DbFactory.CreateDbContext())
-          //  {
-          //      ctx.QuestionTranslations.Add(entry);
-           //     var item = ctx.SaveChangesAsync();
-          //  }              var entry = new BlogEntry { Title = title, Content = content, Time = DateTime.Now, User = iuser };
-
-
-
-            using var db = DbFactory.CreateDbContext();
+            //using var db = DbFactory.CreateDbContext();
             //var surveytranslaton = await db.SurveyTranslations.Where(u => u.SurveyId == SurveyTranslation.SurveyId).FirstOrDefaultAsync<SurveyTranslation>();
-            var entry = new QuestionTranslation{ Language = questiontranslation.Language, Text = questiontranslation.Text, Type = questiontranslation.Type };
-            db.QuestionTranslations.Add(entry);
-            await db.SaveChangesAsync();
+            //var entry = new QuestionTranslation{ Language = questiontranslation.Language, Text = questiontranslation.Text, Type = questiontranslation.Type };
+            //db.QuestionTranslations.Add(entry);
+            //await db.SaveChangesAsync();
 
-            listQuestions.Clear();
-            listQuestions.AddRange(await db.QuestionTranslations
+            var survey = new Survey();
+            var question = new Question();
+            
+            using var db = DbFactory.CreateDbContext();
+
+            survey.Questions.Add(question);
+            db.Surveys.Add(survey); 
+            db.Questions.Add(question);
+            questiontranslation.Question= question;
+            db.QuestionTranslations.Add(questiontranslation);
+            await db.SaveChangesAsync(); 
+
+
+
+
+            QuestionsList.Clear();
+            QuestionsList.AddRange(await db.QuestionTranslations
                 .Include(u => u.Language)
                 .Include(c => c.Text)
                 .OrderByDescending(b => b.Type)
@@ -96,17 +102,7 @@
 
 
 
-            //var survey = new Survey();
-            //var question = new Question();
-            
-            //using var db = DbFactory.CreateDbContext();
 
-            //survey.Questions.Add(question);
-            //db.Surveys.Add(survey); 
-            //db.Questions.Add(question);
-            //questiontranslation.Question= question;
-            //db.QuestionTranslations.Add(questiontranslation);
-            //await db.SaveChangesAsync(); 
 
     }
 
