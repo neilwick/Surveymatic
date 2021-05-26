@@ -23,9 +23,16 @@
 		@if (ExistingSurveys == null)
 		{
 
-<AddSurveys></AddSurveys>
+            <AddSurveys></AddSurveys>
 
-<AddQuestions></AddQuestions>
+            <button class="btn btn-primary" @onclick="IncrementCount">Add Question</button>
+            <p>Current count: @currentCount</p>
+
+            <AddQuestions></AddQuestions>
+   
+
+
+
 
 		}
 		else
@@ -100,4 +107,28 @@
 	private void OnEditSurveyClick(MouseEventArgs args) {
 
 	}
+
+    int currentCount = 0;
+
+    [Parameter]
+    public int IncrementAmount { get; set; } = 1;
+
+    void IncrementCount()
+    {
+        currentCount+=IncrementAmount;
+    }
+
+///add question
+    private RenderFragment DynamicRender { get; set; }
+    private RenderFragment CreateComponent() => builder =>
+    {
+        builder.OpenComponent(0, typeof(AddQuestions));
+        //builder.AddAttribute(1, "Title", "Enter your text");
+        builder.CloseComponent();
+    };
+
+
+
+
+
 }

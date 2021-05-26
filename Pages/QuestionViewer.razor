@@ -1,0 +1,41 @@
+@using Surveymatic.Model;
+@using Surveymatic.Data;
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<HelpContext> DbFactory
+
+<div class="blog-entry">
+
+
+    <div class="blog-datetime">
+        <span class="blog-date">@Entry.Language</span> -
+        <span class="blog-time">@Entry.Text</span>
+        <span class="blog-time">@Entry.Type</span>      
+    </div>
+</div>
+
+
+    <input @bind="Comment" />
+    <button @onclick="EditQuestion">Edit</button>
+
+
+@code {
+    [Parameter]
+    public QuestionTranslation Entry { get; set; }
+
+    public string Comment { get; set; }
+
+
+    private System.Security.Principal.IIdentity User;
+    protected override async Task OnInitializedAsync()
+    {
+
+
+    }
+
+    public async Task EditQuestion()
+    {
+        using var db = DbFactory.CreateDbContext();
+
+    }
+
+}

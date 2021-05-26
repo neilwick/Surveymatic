@@ -2,6 +2,7 @@
 
 @using Radzen
 @using Surveymatic.Model;
+@using Surveymatic.Components;
 @using Surveymatic.Data;
 @using Microsoft.EntityFrameworkCore
 @using System.Diagnostics;
@@ -12,6 +13,9 @@
 @inject IDbContextFactory<HelpContext> DbFactory
 
 <h1>Admin</h1>
+
+@* example 0 *@
+
 
 @* example 1 *@
 
@@ -28,6 +32,7 @@
     void IncrementCount()
     {
         currentCount+=IncrementAmount;
+        
     }
 }
 
@@ -35,13 +40,14 @@
 
 @* example 2 *@
 
+
 @dynamicComponent()
 
 @functions{
   RenderFragment dynamicComponent() => builder =>
     {
-        builder.OpenComponent(0, typeof(SurveyPrompt));
-        builder.AddAttribute(1, "Title", "Some title");
+        builder.OpenComponent(0, typeof(AddQuestions));
+        //builder.AddAttribute(1, "Title", "Some title");
         builder.CloseComponent();
     };
 }
