@@ -54,10 +54,13 @@
     {
 
         using var db = ContextFactory.CreateDbContext();
-        surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();
-        // Refresh();
-
-        // Console.WriteLine("count" + surveyTranslations.Count);
-
+        surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();     
+         Refresh();
     }
+    public void Refresh()
+    {
+        using var db = ContextFactory.CreateDbContext();
+        surveyTranslations =  db.SurveyTranslations.Where(q => q.Language == "en").ToList();     
+
+    } 
 }
