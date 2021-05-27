@@ -41,7 +41,6 @@
 <dialog>Confirmation</dialog>
 
 @code {
-    private string success = "";
 
 
     [Parameter]
@@ -54,7 +53,7 @@
     private List<Answer> answers = new List<Answer>();
 
 
-    public async Task AnswerClick(QuestionResponse response)
+    public void AnswerClick(QuestionResponse response)
     {
 
         // creates an answer entry in the db, this happens onclick -> should be moved to submit?

@@ -1,13 +1,13 @@
 ﻿@page "/Register"
 @using Microsoft.EntityFrameworkCore
-@using Model
-@using Data
-@inject IDbContextFactory<SurveymaticContext> DbFactory
+@using Surveymatic.Data
+
 @using CryptoHelper
 @using Surveymatic.Model.LoginData
+
+@inject IDbContextFactory<SurveymaticContext> DbFactory
 @inject NavigationManager navigate
 @inject RegistrationForm registrationFormUser
-@using Microsoft.AspNetCore.Components.Web
 
 <h1>Register</h1>
 <hr />
@@ -16,7 +16,7 @@
 <div class="newsiteuser-form">
 
 
-    <EditForm Model=@registrationFormUser OnValidSubmit=@HandleValidSubmit>
+    <EditForm Model="@registrationFormUser" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -33,7 +33,7 @@
         <div class="form-group">
             <label for="ConfirmPassword">Confirm Password</label>
             <InputText id="ConfirmPassword" type="password" class="form-control"
-                @bind-Value="registrationFormUser.ConfirmPassword" />
+                       @bind-Value="registrationFormUser.ConfirmPassword" />
         </div>
         <button class="btn btn-primary" type="submit">Register</button>
     </EditForm>

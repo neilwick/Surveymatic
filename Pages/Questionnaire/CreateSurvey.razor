@@ -71,7 +71,7 @@
             <div class="questions">
                 @foreach (var question in _questions)
                 {
-                    <Question question="@question" />
+                    <Surveymatic.Shared.Question question="@question" />
                 }
             </div>
 
@@ -182,8 +182,6 @@
                     }
                 }
 
-                // Add either missing transation
-                bool dbChange = false;
                 if (FormBilang.en == null)
                 {
                     FormBilang.en = new Surveymatic.Model.SurveyTranslation { SurveyId = _survey.SurveyId, Language = "en" };
