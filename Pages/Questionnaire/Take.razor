@@ -1,4 +1,6 @@
 @page "/take/{id}"
+@inject NavigationManager NavigationManager
+
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
@@ -8,61 +10,77 @@
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
 
-
 <div class="card">
     <h1>Survey Choice</h1>
     <div class="card-body">
-        <form >
+        <form> 
 
             <div class="form-group">
-
                 @if (surveyContent != null)
                 {
                     @foreach (var q in survey.Questions)
                     {
                         @* <h3>@q.QuestionId.ToString()</h3> *@
                         <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />
-
                     }
-                } 
+                }
             </div>
-             <div>
-                <button @onclick=OnClick>Submit
-                    <div>
-                        <NavLink href="/list/"></NavLink>
-                    </div>
-                    
-                </button>
-                <button @onclick=OnCancel>Cancel</button>
-            </div>                      
-        </form>
-        <div>@success</div>
-        
 
+            <div>
+                <button @onclick=OnClick>Submit</button>
+                <button @onclick=OnCancel>Cancel</button>
+            </div>
+
+
+
+        </form>
     </div>
 </div>
-
+<dialog>Confirmation</dialog>
 
 @code {
+
     private string success = "";
+    bool? ExistingAnswers = null;
     public async Task AnswerClick(QuestionResponse response)
     {
-   
+
         // creates an answer entry in the db, this happens onclick -> should be moved to submit?
-        var answer = new Answer
+        var existAnswer = getAnswer(response.Question.QuestionId);
+        if (existAnswer != null)
         {
-            AnswerTxt = "",
-            AnswerInt = response.value ? 1 : 0,
-            PersonId = 1,
-            QuestionId = response.Question.QuestionId
-        };
+            existAnswer.AnswerInt = response.value ? 1 : 0;
+        }
+        else
+        {
+            var answer = new Answer
+            {
+                AnswerTxt = "",
+                AnswerInt = response.value ? 1 : 0,
+                PersonId = 1,
+                QuestionId = response.Question.QuestionId
+            };
+            answers.Add(answer);
+        }
+    }
 
-        answers.Add(answer);     
 
+    Model.Answer getAnswer(int questionId)
+    {
+        Answer result = null;
+        foreach (var ans in answers)
+        {
+            if (ans.QuestionId == questionId)
+            {
+                return ans;
+            }
+        }
+        return result;
     }
 
     [Parameter]
     public string id { get; set; }
+
 
 
     private Survey survey;
@@ -98,35 +116,41 @@
             {
                 surveyContent = st;
             }
+            else
+            {
+                ;
+            }
         }
-
     }
 
-    public  async Task OnClick()
+    public void  OnClick()
     {
-        try{
-             using var db = dBContextFactory.CreateDbContext();
-             foreach(var answer in answers) {
-                 db.Answers.Add(answer);
-             }
-           
-             await db.SaveChangesAsync();
-         success = "success";
-
-
-        } catch{
-            base.StateHasChanged();
-            success = "no success";
+        try
+        {
+            using var db = dBContextFactory.CreateDbContext();
+            foreach (Answer answer in answers)
+            {
+                db.Answers.Add(answer);
+            }
+            db.SaveChanges();
         }
-        answers = new List<Answer>();
-         base.StateHasChanged();
-
+        catch (Exception ex)
+        {
+            
+           Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            NavigationManager.NavigateTo($"/list", forceLoad: true);
+        }
     }
+   
 
-     public void OnCancel()
+    public void OnCancel()
     {
-         answers.Clear();
-
+        answers.Clear();
+        NavigationManager.NavigateTo($"/list", forceLoad: true);
     }
+
 
 }

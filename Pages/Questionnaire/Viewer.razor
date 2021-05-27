@@ -21,6 +21,9 @@
             @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
             {
                 var url = "/take/" + surveyTranslation.SurveyId.ToString();
+                if(IsSurveyTaken(surveyTranslation.SurveyId)) {
+                    url = "javascript:void(0)";
+                }
                 <tr>
                     <td>
                         <NavLink href="@url">@surveyTranslation.SurveyId</NavLink>
@@ -44,13 +47,22 @@
     private List<Survey> surveys = new List<Survey>();
     private List<SurveyTranslation> surveyTranslations = new List<SurveyTranslation>();
 
+    private List<Answer> answers = new List<Answer>();
 
     protected override async Task OnInitializedAsync()
     {
 
+        
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();     
-         Refresh();
+        answers = db.Answers.ToList();
+        foreach(var ans in answers) {
+            var questionEntity = await db.Questions.FindAsync(ans.QuestionId);
+            ans.Question = new Question {
+                SurveyId = questionEntity.SurveyId
+            };
+        }
+        Refresh();
     }
     public void Refresh()
     {
@@ -58,4 +70,8 @@
         surveyTranslations =  db.SurveyTranslations.Where(q => q.Language == "en").ToList();     
 
     } 
+
+    private bool IsSurveyTaken(int surveyId){
+        return answers.Any(a => a.Question?.SurveyId == surveyId);
+    }
 }
