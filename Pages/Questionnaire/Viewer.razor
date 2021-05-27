@@ -2,10 +2,10 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
+
+@using Model.LoginData
 @using Surveymatic.Pages
-{
-    
-}
+
 @inject IDbContextFactory<SurveymaticContext> ContextFactory
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
@@ -18,7 +18,7 @@
             <tr>
                 <th>ID</th>
                 <th>Take</th>
-                 @if(UserInfo.HasRole("admin") || ("public")) {
+                 @if(UserInfo.HasRole("admin") || UserInfo.HasRole("public")) {
                     <th>Edit</th>
                     } 
                 <th>Title</th>
@@ -42,7 +42,7 @@
                         <NavLink href="@url">✔</NavLink>
                     </td>
 
-                    @if(UserInfo.HasRole("admin") || "public" ) {
+                    @if(UserInfo.HasRole("admin") || UserInfo.HasRole("public")) {
 
                         var editUrl = "/addsurvey/" + surveyTranslation.SurveyId;
                         <td><NavLink href="@editUrl">✏</NavLink></td>
@@ -76,7 +76,7 @@
         foreach (var ans in answers)
         {
             var questionEntity = await db.Questions.FindAsync(ans.QuestionId);
-            ans.Question = new Question
+            ans.Question = new Surveymatic.Model.Question
             {
                 SurveyId = questionEntity.SurveyId
             };
