@@ -2,7 +2,14 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
+<<<<<<< HEAD
 @using Model.LoginData
+=======
+@using Surveymatic.Pages
+{
+    
+}
+>>>>>>> 9221d21c2420c98a052dbe3605c083a48557563b
 @inject IDbContextFactory<SurveymaticContext> ContextFactory
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
@@ -14,7 +21,12 @@
         <thead>
             <tr>
                 <th>ID</th>
+<<<<<<< HEAD
                 @if(UserInfo.HasRole("admin") || ("public")) {
+=======
+                <th>Take</th>
+                 @if(UserInfo.HasRole("admin") || ("public")) {
+>>>>>>> 9221d21c2420c98a052dbe3605c083a48557563b
                     <th>Edit</th>
                     } 
                 <th>Title</th>
@@ -38,7 +50,11 @@
                         <NavLink href="@url">✔</NavLink>
                     </td>
 
+<<<<<<< HEAD
                    @if(UserInfo.HasRole("admin") || "public" ) {
+=======
+                    @if(UserInfo.HasRole("admin") || "public" ) {
+>>>>>>> 9221d21c2420c98a052dbe3605c083a48557563b
 
                         var editUrl = "/addsurvey/" + surveyTranslation.SurveyId;
                         <td><NavLink href="@editUrl">✏</NavLink></td>
@@ -62,18 +78,31 @@
     private List<Survey> surveys = new List<Survey>();
     private List<SurveyTranslation> surveyTranslations = new List<SurveyTranslation>();
 
+    private List<Answer> answers = new List<Answer>();
 
     protected override async Task OnInitializedAsync()
     {
-
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();
-        Refresh();
+        answers = db.Answers.ToList();
+        foreach (var ans in answers)
+        {
+            var questionEntity = await db.Questions.FindAsync(ans.QuestionId);
+            ans.Question = new Question
+            {
+                SurveyId = questionEntity.SurveyId
+            };
+        }
+        StateHasChanged();
     }
     public void Refresh()
     {
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = db.SurveyTranslations.Where(q => q.Language == "en").ToList();
+    }
 
+    private bool IsSurveyTaken(int surveyId)
+    {
+        return answers.Any(a => a.Question?.SurveyId == surveyId);
     }
 }
