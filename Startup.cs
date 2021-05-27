@@ -28,24 +28,20 @@ namespace Surveymatic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            // services.AddDbContext<HelpContext>(options =>
-            //        options.UseSqlite(Configuration.GetConnectionString("HelpContext")));
+
             services.AddDbContextFactory<SurveymaticContext>(options =>
             {
-                options.LogTo(Console.WriteLine);
+                //options.LogTo(Console.WriteLine); MariaDB/EFCore Debugging
                 options.UseMySql(
                     Configuration.GetConnectionString("SurveyMaticContext"),
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
                 );
             });
+
+            services.AddBlazoredLocalStorage();
             services.AddServerSideBlazor();
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+
             services.AddScoped<SiteUser>();
             services.AddScoped<RegistrationForm>();
             services.AddScoped<LoginForm>();
