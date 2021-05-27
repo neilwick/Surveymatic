@@ -29,21 +29,20 @@
              @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
             {
                 var url = "/take/" + surveyTranslation.SurveyId.ToString();
-                if (IsSurveyTaken(surveyTranslation.SurveyId))
-                {
-                    url = "javascript:void(0)";
-                }
+
                 <tr>
                     <td>
                         @surveyTranslation.SurveyId
                     </td>
                     <td>
-                        <NavLink href="@url">✔</NavLink>
+                        @if (!IsSurveyTaken(surveyTranslation.SurveyId)) {
+                            <NavLink href="@url">✔</NavLink>
+                        }
                     </td>
 
                     @if(UserInfo.HasRole("admin")) {
 
-                        var editUrl = "/addsurvey/" + surveyTranslation.SurveyId;
+                        var editUrl = "/createsurvey/" + surveyTranslation.SurveyId;
                         <td><NavLink href="@editUrl">✏</NavLink></td>
                         }
                     <td>@surveyTranslation.Title</td>
