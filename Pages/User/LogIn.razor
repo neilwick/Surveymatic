@@ -59,9 +59,9 @@
         try
         {
             var userInDatabase = _context.SiteUsers
-                .Where(x => x.Email == loginformUser.Email)
-                .Include(r => r.Roles)
-                .FirstOrDefault();
+            .Where(x => x.Email == loginformUser.Email)
+            .Include(r => r.Roles)
+            .FirstOrDefault();
 
 
             //if (userInDatabase != null && userInDatabase.Password == encrypedPasswordFromUI)
