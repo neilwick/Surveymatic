@@ -7,8 +7,6 @@
 @using Microsoft.EntityFrameworkCore
 @inject IDbContextFactory<HelpContext> DbFactory
 
-
-
 <div class="card">
     <div class="card-header">
         Add a Survey
@@ -56,18 +54,10 @@
                     <input class="form-control" placeholder="Text" id="Text_en" @bind="FormQuestion.en.Text" />
                 </div>
                 <div class="form-group">
-                    <label for="typeInput_en">Question Type</label>
-                    <InputNumber class="form-control" id="typeInput_en" @bind-Value="FormQuestion.en.Type" />
-                </div>
-                <div class="form-group">
                     <label for="Text_fr">French Text </label>
                     <input class="form-control" placeholder="Text" id="Text_fr" @bind="FormQuestion.fr.Text" />
                 </div>
                 <div>
-                    <div class="form-group">
-                        <label for="amountInput_fr">Question Type</label>
-                        <InputNumber class="form-control" id="typeInput_fr" @bind-Value="FormQuestion.fr.Type" />
-                    </div>
 
                     <button @onclick="AddQuestion">Add</button>
                 </div>
