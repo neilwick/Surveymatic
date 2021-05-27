@@ -30,6 +30,7 @@
                 <button @onclick=OnClick>Submit</button>
                 <button @onclick=OnCancel>Cancel</button>
             </div>
+          
 
 
 
@@ -45,6 +46,7 @@
         private SurveyTranslation surveyContent;
 
         const string Language = "en";
+         string message = "";
         private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
         private List<Answer> answers = new List<Answer>();
 
@@ -125,11 +127,12 @@
                 db.Answers.Add(answer);
             }
             db.SaveChanges();
+            
              NavigationManager.NavigateTo($"/list", forceLoad: true);
         }
         catch (Exception ex)
         {
-            
+             
            Console.WriteLine(ex.Message);
         }        
     }
