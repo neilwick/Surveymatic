@@ -7,6 +7,7 @@
 @inject SurveyService SurveyRepository
 
 <h1>Survey</h1>
+<HelpContent HelpTag="list" />
 <div>
     <table class="table">
         <thead>
@@ -49,13 +50,13 @@
     {
 
         using var db = ContextFactory.CreateDbContext();
-        surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();     
-         Refresh();
+        surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();
+        Refresh();
     }
     public void Refresh()
     {
         using var db = ContextFactory.CreateDbContext();
-        surveyTranslations =  db.SurveyTranslations.Where(q => q.Language == "en").ToList();     
+        surveyTranslations = db.SurveyTranslations.Where(q => q.Language == "en").ToList();
 
-    } 
+    }
 }

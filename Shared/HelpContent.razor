@@ -5,9 +5,9 @@
 @inject IDbContextFactory<SurveymaticContext> DbFactory
 @inject ISessionService Session
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
-
+@* this shows the layout of the help componient *@
 <div>
-    <button @onclick="@Show">Help</button>
+    <button class="btn btn-primary" @onclick="@Show">Help</button>
     <div hidden="@IsShow" title="@HelpTag">
         @if (HelpEntry != null)
         {
@@ -19,6 +19,7 @@
 </div>
 
 @code{
+    @* is show is for the hidden text div for help button *@
     private bool IsShow { get; set; } = true;
 
     private void Show()
@@ -26,7 +27,7 @@
     {
         IsShow = !IsShow;
     }
-
+    @* Starting here is the binding for the database and the help content *@
     public int HelpId { get; set; }
 
     [Parameter]
@@ -40,9 +41,9 @@
         using var db = DbFactory.CreateDbContext();
         var item = await db.Help.Where(h => h.HelpTag == HelpTag).Include(e => e.Entries).FirstOrDefaultAsync();
 
-        @* var he = item.Entries.Where(e => e.Language == Session.Language).ToListAsync(); *@
 
 
+        @* this checks to see if every item is not null or has a language if not it become english and give default help *@
         if (item != null)
         {
             foreach (var entry in item.Entries)
@@ -61,7 +62,7 @@
         {
             if (Session.Language == "fr")
             {
-                HelpEntry = new HelpEntry { Title = "", Content = "" };
+                HelpEntry = new HelpEntry { Title = "Aide introuvable", Content = "Veuillez contacter un administrateur" };
             }
             else
             {
