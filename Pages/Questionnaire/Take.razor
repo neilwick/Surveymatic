@@ -31,7 +31,7 @@
                 <button @onclick=OnClick>Submit</button>
                 <button @onclick=OnCancel>Cancel</button>
             </div>
-          
+
 
 
 
@@ -42,21 +42,7 @@
 
 @code {
     private string success = "";
-    public async Task AnswerClick(QuestionResponse response)
-    {
-   
-        // creates an answer entry in the db, this happens onclick -> should be moved to submit?
-        var answer = new Answer
-        {
-            AnswerTxt = "",
-            AnswerInt = response.value ? 1 : 0,
-            PersonId = UserInfo.User.SiteUserId,
-            QuestionId = response.Question.QuestionId
-        };
 
-        answers.Add(answer);     
-
-    }
 
     [Parameter]
     public string id { get; set; }
@@ -72,22 +58,16 @@
     {
 
         // creates an answer entry in the db, this happens onclick -> should be moved to submit?
-        var existAnswer = getAnswer(response.Question.QuestionId);
-        if (existAnswer != null)
+        var answer = new Answer
         {
-            existAnswer.AnswerInt = response.value ? 1 : 0;
-        }
-        else
-        {
-            var answer = new Answer
-            {
-                AnswerTxt = "",
-                AnswerInt = response.value ? 1 : 0,
-                PersonId = 1,
-                QuestionId = response.Question.QuestionId
-            };
-            answers.Add(answer);
-        }
+            AnswerTxt = "",
+            AnswerInt = response.value ? 1 : 0,
+            PersonId = UserInfo.User.SiteUserId,
+            QuestionId = response.Question.QuestionId
+        };
+
+        answers.Add(answer);
+
     }
 
 
