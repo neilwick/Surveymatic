@@ -1,5 +1,6 @@
 ﻿@page "/ForgotPass"
 @using Microsoft.EntityFrameworkCore
+@using CryptoHelper
 @using Model.LoginData
 @using Model
 @using Data
@@ -58,6 +59,8 @@
 
             if (userInDatabase != null)
             {
+                userInDatabase.Password = Crypto.HashPassword(forgotPassUser.NewPassword);
+                _context.SaveChanges();
                 navigate.NavigateTo("/ChangePassWithoutLoginConfirm");
 
             }
