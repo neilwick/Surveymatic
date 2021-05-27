@@ -11,20 +11,15 @@
     @if (questionContent != null)
     {
         <div>
-            <h2>
-
-                @questionContent.Text
-
-
-            </h2>
-            <p> <input @onclick="@(() => setValue(true))" type="radio" id="yes" name="@id" value="Yes" />
-                <label for="true">True</label>
-                <input type="radio" @onclick="@(() => setValue(false))" id="no" name="@id" value="No" />
-                <label for="false">False</label>
-            </p>
-
-        </div>
-
+           
+            <legend><span class="field-name">
+                 @questionContent.Text
+            </span></legend>
+          
+                
+                <li class="radio"><label for="true-@id"> <input type="radio" @onclick="@(() => setValue(true))" id="true-@id" name="radio-@id" value="Yes" />True</label></li>               
+                <li class="radio"><label for="false-@id"> <input type="radio" @onclick="@(() => setValue(false))" id="false-@id" name="radio-@id" value="No" />False</label></li>                                              
+        </div>      
     }
 </div>
 
@@ -42,6 +37,9 @@
     public QuestionTranslation questionContent { get; set; }
 
     public Surveymatic.Model.Question question { get; set; }
+
+    private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
+
 
     private void setValue(bool val)
     {
@@ -68,9 +66,15 @@
                 questionContent = qt;
             }
         }
+       Refresh();
     }
     public void Refresh()
     {
+
+    using var db = DbFactory.CreateDbContext();
+        
+        questionTranslations = db.QuestionTranslations.Include(qt =>qt.Question).
+       ThenInclude(q =>q.Survey).ToList();
 
 
     }
