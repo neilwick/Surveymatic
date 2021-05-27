@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <label for="typeInput_en">Question Type</label>
-                    <InputNumber class="form-control" id="typeInput" @bind-Value="FormQuestion.en.Type" />
+                    <InputNumber class="form-control" id="typeInput_en" @bind-Value="FormQuestion.en.Type" />
                 </div>
                 <div class="form-group">
                 <label for="Text_fr">French Text </label>
@@ -65,8 +65,8 @@
                 </div>
                 <div>
                 <div class="form-group">
-                    <label for="amountInput">Question Type</label>
-                    <InputNumber class="form-control" id="typeInput" @bind-Value="FormQuestion.fr.Type" />
+                    <label for="amountInput_fr">Question Type</label>
+                    <InputNumber class="form-control" id="typeInput_fr" @bind-Value="FormQuestion.fr.Type" />
                 </div>
 
                     <button @onclick="AddQuestion">Add</button>
@@ -111,7 +111,7 @@
         q.QuestionTranslations.Add(FormQuestion.en);
         q.QuestionTranslations.Add(FormQuestion.fr);
         db.Questions.AddAsync(q);
-        await db.SaveChangesAsync();
+        await db.SaveChangesAsync();  //error when saving second question to survey
 
         _questions.Add(q);
 
@@ -131,8 +131,7 @@
         frTranslation.Description = FormBilang.fr.Description;
         frTranslation.Instruction= FormBilang.fr.Instruction;
 //save to database
-        //db.SurveyTranslations.Add(FormBilang.fr);
-        //await db.SaveChangesAsync();
+        await db.SaveChangesAsync();
 
 
 
@@ -140,11 +139,10 @@
         .Where(en => en.SurveyId == _survey.SurveyId && en.Language == "en").FirstOrDefaultAsync();
         enTranslation.Title = FormBilang.en.Title;
         // other fields
-        frTranslation.Description = FormBilang.en.Description;
-        frTranslation.Instruction= FormBilang.en.Instruction;
+        enTranslation.Description = FormBilang.en.Description;
+        enTranslation.Instruction= FormBilang.en.Instruction;
 //save to database
-        //db.SurveyTranslations.Add(FormBilang.en);
-        //await db.SaveChangesAsync();
+        await db.SaveChangesAsync();
 
 
 
