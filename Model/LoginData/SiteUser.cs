@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 
-namespace Surveymatic.Model
+namespace Surveymatic.Model.LoginData
 {
     public class SiteUser
     {
@@ -31,5 +31,7 @@ namespace Surveymatic.Model
         [Required]
         [DefaultValue(0)]
         public int AccessFailedCount { get; set; }
+
+        public virtual List<SiteRole> Roles {get; set;}
     }
 }

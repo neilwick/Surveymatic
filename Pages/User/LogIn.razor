@@ -57,7 +57,11 @@
         using var _context = DbFactory.CreateDbContext();
         try
         {
-            var userInDatabase = _context.SiteUsers.Where(x => x.Email == loginformUser.Email).FirstOrDefault();
+            var userInDatabase = _context.SiteUsers
+                .Where(x => x.Email == loginformUser.Email)
+                .Include(r => r.Roles)
+                .FirstOrDefault();
+
 
             //if (userInDatabase != null && userInDatabase.Password == encrypedPasswordFromUI)
 
@@ -68,7 +72,7 @@
             {
                 UserInfo.Email = loginformUser.Email;
                 UserInfo.LoggedIn = "Yes";
-
+                UserInfo.User = userInDatabase;
                 loggedUser = userInDatabase;
 
 

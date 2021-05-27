@@ -6,8 +6,28 @@
 <span><a href="Admin">Dashboard</a></span>
 <span><a href="logout">LogOut</a></span>
 <hr />
+@if (UserInfo.HasRole("public"))
+{
+    <div>
+        Has public role !!
 
+    </div>
+}
+@if (UserInfo.HasRole("admin"))
+{
+    <div>
+        Has admin role !!
 
+    </div>
+}
+@if (UserInfo.HasRole("superviser"))
+{
+    <div>
+        Has superviser role !!
+
+    </div>
+}
 @code {
+
 
 }

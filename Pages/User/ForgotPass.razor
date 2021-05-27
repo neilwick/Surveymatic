@@ -1,5 +1,6 @@
 ﻿@page "/ForgotPass"
 @using Microsoft.EntityFrameworkCore
+@using CryptoHelper
 @using Model.LoginData
 @using Model
 @using Data
@@ -21,6 +22,16 @@
         <div class="form-group">
             <label for="Email">Please enter your email:</label>
             <InputText id="Email" class="form-control" @bind-Value="forgotPassUser.Email" />
+        </div>
+         <div class="form-group">
+            <label for="NewPassword">New Password</label>
+            <InputText id="NewPassword" type="password" class="form-control" @bind-Value="forgotPassUser.NewPassword" />
+        </div>
+
+        <div class="form-group">
+            <label for="ConfirmNewPassword">Confirm New Password</label>
+            <InputText id="ConfirmNewPassword" type="password" class="form-control"
+                @bind-Value="forgotPassUser.ConfirmNewPassword" />
         </div>
         <button class="btn btn-primary" type="submit">submit</button>
     </EditForm>
@@ -48,7 +59,9 @@
 
             if (userInDatabase != null)
             {
-                navigate.NavigateTo("/ResetPass");
+                userInDatabase.Password = Crypto.HashPassword(forgotPassUser.NewPassword);
+                _context.SaveChanges();
+                navigate.NavigateTo("/ChangePassWithoutLoginConfirm");
 
             }
             else
