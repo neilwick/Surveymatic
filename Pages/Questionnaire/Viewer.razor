@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
+@using Model.LoginData
 @inject IDbContextFactory<SurveymaticContext> ContextFactory
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
@@ -13,19 +14,35 @@
         <thead>
             <tr>
                 <th>ID</th>
+                @if(UserInfo.HasRole("admin") || ("public")) {
+                    <th>Edit</th>
+                    } 
                 <th>Title</th>
                 <th>Description</th>
                 <th>Instruction</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
+             @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
             {
                 var url = "/take/" + surveyTranslation.SurveyId.ToString();
+                if (IsSurveyTaken(surveyTranslation.SurveyId))
+                {
+                    url = "javascript:void(0)";
+                }
                 <tr>
                     <td>
-                        <NavLink href="@url">@surveyTranslation.SurveyId</NavLink>
+                        @surveyTranslation.SurveyId
                     </td>
+                    <td>
+                        <NavLink href="@url">✔</NavLink>
+                    </td>
+
+                   @if(UserInfo.HasRole("admin") || "public" ) {
+
+                        var editUrl = "/addsurvey/" + surveyTranslation.SurveyId;
+                        <td><NavLink href="@editUrl">✏</NavLink></td>
+                        }
                     <td>@surveyTranslation.Title</td>
                     <td>@surveyTranslation.Description</td>
                     <td>@surveyTranslation.Instruction</td>
