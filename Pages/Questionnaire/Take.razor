@@ -13,7 +13,7 @@
 <div class="card">
     <h1>Survey Choice</h1>
     <div class="card-body">
-        <form> 
+        <form>
 
             <div class="form-group">
                 @if (surveyContent != null)
@@ -40,18 +40,17 @@
 <dialog>Confirmation</dialog>
 
 @code {
-        [Parameter]
-        public string id { get; set; }
-        private Survey survey;
-        private SurveyTranslation surveyContent;
+    [Parameter]
+    public string id { get; set; }
+    private Survey survey;
+    private SurveyTranslation surveyContent;
 
-        const string Language = "en";
-         string message = "";
-        private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
-        private List<Answer> answers = new List<Answer>();
+    const string Language = "en";
+    private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
+    private List<Answer> answers = new List<Answer>();
 
 
-        public async Task AnswerClick(QuestionResponse response)
+    public async Task AnswerClick(QuestionResponse response)
     {
 
         // creates an answer entry in the db, this happens onclick -> should be moved to submit?
@@ -87,7 +86,7 @@
         return result;
     }
 
-    
+
     protected override async Task OnInitializedAsync()
     {
         answers.Clear();
@@ -117,7 +116,7 @@
         }
     }
 
-    public void  OnClick()
+    public void OnClick()
     {
         try
         {
@@ -127,16 +126,15 @@
                 db.Answers.Add(answer);
             }
             db.SaveChanges();
-            
-             NavigationManager.NavigateTo($"/list", forceLoad: true);
+            NavigationManager.NavigateTo($"/list", forceLoad: true);
         }
         catch (Exception ex)
         {
-             
-           Console.WriteLine(ex.Message);
-        }        
+
+            Console.WriteLine(ex.Message);
+        }
     }
-   
+
 
     public void OnCancel()
     {
