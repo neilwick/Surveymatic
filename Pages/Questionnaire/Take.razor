@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using Model
+@using Surveymatic.Model.LoginData
 @inject IDbContextFactory<SurveymaticContext> dBContextFactory
 @using Model.SurveyResponse
 @using Pages
@@ -53,7 +54,7 @@
         {
             AnswerTxt = "",
             AnswerInt = response.value ? 1 : 0,
-            PersonId = 1,
+            PersonId = UserInfo.User.SiteUserId,
             QuestionId = response.Question.QuestionId
         };
 
