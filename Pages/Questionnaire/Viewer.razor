@@ -12,6 +12,10 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Take</th>
+                @* @if(UserInfo.HasRole("admin") || ) {
+                    <th>Edit</th>
+                    } *@
                 <th>Title</th>
                 <th>Description</th>
                 <th>Instruction</th>
@@ -21,13 +25,23 @@
             @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
             {
                 var url = "/take/" + surveyTranslation.SurveyId.ToString();
-                if(IsSurveyTaken(surveyTranslation.SurveyId)) {
+                if (IsSurveyTaken(surveyTranslation.SurveyId))
+                {
                     url = "javascript:void(0)";
                 }
                 <tr>
                     <td>
-                        <NavLink href="@url">@surveyTranslation.SurveyId</NavLink>
+                        @surveyTranslation.SurveyId
                     </td>
+                    <td>
+                        <NavLink href="@url">✔</NavLink>
+                    </td>
+
+                    @* @if(UserInfo.HasRole("admin") || ) {
+
+                        var editUrl = "/createsurvey/" + surveyTranslation.SurveyId;
+                        <td><NavLink href="@editUrl">✏</NavLink></td>
+                        } *@
                     <td>@surveyTranslation.Title</td>
                     <td>@surveyTranslation.Description</td>
                     <td>@surveyTranslation.Instruction</td>
@@ -50,26 +64,29 @@
     private List<Answer> answers = new List<Answer>();
 
     protected override async Task OnInitializedAsync()
-    {       
+    {
         using var db = ContextFactory.CreateDbContext();
-        surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();     
+        surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();
         answers = db.Answers.ToList();
-        foreach(var ans in answers) {
+        foreach (var ans in answers)
+        {
             var questionEntity = await db.Questions.FindAsync(ans.QuestionId);
-            ans.Question = new Question {
+            ans.Question = new Question
+            {
                 SurveyId = questionEntity.SurveyId
             };
         }
-        Refresh();
+        StateHasChanged();
     }
     public void Refresh()
     {
         using var db = ContextFactory.CreateDbContext();
-        surveyTranslations =  db.SurveyTranslations.Where(q => q.Language == "en").ToList();     
+        surveyTranslations = db.SurveyTranslations.Where(q => q.Language == "en").ToList();
 
-    } 
+    }
 
-    private bool IsSurveyTaken(int surveyId){
+    private bool IsSurveyTaken(int surveyId)
+    {
         return answers.Any(a => a.Question?.SurveyId == surveyId);
     }
 }
