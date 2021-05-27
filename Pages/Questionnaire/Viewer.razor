@@ -17,7 +17,7 @@
             <tr>
                 <th>ID</th>
                 <th>Take</th>
-                 @if(UserInfo.HasRole("admin") || UserInfo.HasRole("public")) {
+                 @if(UserInfo.HasRole("admin")) {
                     <th>Edit</th>
                     } 
                 <th>Title</th>
@@ -41,7 +41,7 @@
                         <NavLink href="@url">✔</NavLink>
                     </td>
 
-                    @if(UserInfo.HasRole("admin") || UserInfo.HasRole("public")) {
+                    @if(UserInfo.HasRole("admin")) {
 
                         var editUrl = "/addsurvey/" + surveyTranslation.SurveyId;
                         <td><NavLink href="@editUrl">✏</NavLink></td>
