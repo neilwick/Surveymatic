@@ -19,29 +19,29 @@
             <EditForm Model="@FormBilang" OnSubmit="@HandleSubmit">
 
                 <div class="form-group">
-                <label for="Title_en">English Title </label>
-                <input class="form-control" type="text" id="Title_en" @bind="FormBilang.en.Title" />
+                    <label for="Title_en">English Title </label>
+                    <input class="form-control" type="text" id="Title_en" @bind="FormBilang.en.Title" />
                 </div>
                 <div class="form-group">
-                <label for="Title_fr">French Title </label>
-                 <input class="form-control" type="text" id="Title_fr" @bind="FormBilang.fr.Title" />
+                    <label for="Title_fr">French Title </label>
+                    <input class="form-control" type="text" id="Title_fr" @bind="FormBilang.fr.Title" />
                 </div>
                 <div class="form-group">
-                <label for="Desc_en">English Description</label>
-                 <input class="form-control" type="text" id="Desc_en" @bind="FormBilang.en.Description" />
+                    <label for="Desc_en">English Description</label>
+                    <input class="form-control" type="text" id="Desc_en" @bind="FormBilang.en.Description" />
                 </div>
 
                 <div class="form-group">
-                <label for="Desc_fr">French Description</label>
-               <input class="form-control" type="text" id="Desc_fr" @bind="FormBilang.fr.Description" />
+                    <label for="Desc_fr">French Description</label>
+                    <input class="form-control" type="text" id="Desc_fr" @bind="FormBilang.fr.Description" />
                 </div>
                 <div class="form-group">
-                <label for="Instr_en">English Instruction</label>
-                <input class="form-control" type="text" id="Instr_en" @bind="FormBilang.en.Instruction" />
+                    <label for="Instr_en">English Instruction</label>
+                    <input class="form-control" type="text" id="Instr_en" @bind="FormBilang.en.Instruction" />
                 </div>
                 <div class="form-group">
-                <label for="Instr_fr">English Instruction</label>
-                <input class="form-control" type="text" id="Title_fr" @bind="FormBilang.fr.Instruction" />      
+                    <label for="Instr_fr">English Instruction</label>
+                    <input class="form-control" type="text" id="Title_fr" @bind="FormBilang.fr.Instruction" />
                 </div>
 
                 <button type="submit">Submit</button>
@@ -50,9 +50,9 @@
 
             <EditForm Model="@FormQuestion">
                 <h2>Add Question</h2>
-                
+
                 <div class="form-group">
-                <label for="Text_en">English Text </label>
+                    <label for="Text_en">English Text </label>
                     <input class="form-control" placeholder="Text" id="Text_en" @bind="FormQuestion.en.Text" />
                 </div>
                 <div class="form-group">
@@ -60,14 +60,14 @@
                     <InputNumber class="form-control" id="typeInput_en" @bind-Value="FormQuestion.en.Type" />
                 </div>
                 <div class="form-group">
-                <label for="Text_fr">French Text </label>
+                    <label for="Text_fr">French Text </label>
                     <input class="form-control" placeholder="Text" id="Text_fr" @bind="FormQuestion.fr.Text" />
                 </div>
                 <div>
-                <div class="form-group">
-                    <label for="amountInput_fr">Question Type</label>
-                    <InputNumber class="form-control" id="typeInput_fr" @bind-Value="FormQuestion.fr.Type" />
-                </div>
+                    <div class="form-group">
+                        <label for="amountInput_fr">Question Type</label>
+                        <InputNumber class="form-control" id="typeInput_fr" @bind-Value="FormQuestion.fr.Type" />
+                    </div>
 
                     <button @onclick="AddQuestion">Add</button>
                 </div>
@@ -107,16 +107,14 @@
         // todo save to db
         using var db = DbFactory.CreateDbContext();
 
-        var q = new Surveymatic.Model.Question { SurveyId = SurveyId };
+        var q = new Surveymatic.Model.Question { SurveyId = _survey.SurveyId };
         q.QuestionTranslations.Add(FormQuestion.en);
         q.QuestionTranslations.Add(FormQuestion.fr);
-        db.Questions.AddAsync(q);
-        await db.SaveChangesAsync();  //error when saving second question to survey
-
+        db.Questions.Add(q);
+        await db.SaveChangesAsync(); //error when saving second question to survey
         _questions.Add(q);
 
-
-
+        FormQuestion = new();
     }
 
     private async Task HandleSubmit()
@@ -129,8 +127,8 @@
         frTranslation.Title = FormBilang.fr.Title;
         // other fields
         frTranslation.Description = FormBilang.fr.Description;
-        frTranslation.Instruction= FormBilang.fr.Instruction;
-//save to database
+        frTranslation.Instruction = FormBilang.fr.Instruction;
+        //save to database
         await db.SaveChangesAsync();
 
 
@@ -140,8 +138,8 @@
         enTranslation.Title = FormBilang.en.Title;
         // other fields
         enTranslation.Description = FormBilang.en.Description;
-        enTranslation.Instruction= FormBilang.en.Instruction;
-//save to database
+        enTranslation.Instruction = FormBilang.en.Instruction;
+        //save to database
         await db.SaveChangesAsync();
 
 
