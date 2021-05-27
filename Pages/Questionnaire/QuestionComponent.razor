@@ -18,12 +18,8 @@
           
                 
                 <li class="radio"><label for="true-@id"> <input type="radio" @onclick="@(() => setValue(true))" id="true-@id" name="radio-@id" value="Yes" />True</label></li>               
-                <li class="radio"><label for="false-@id"> <input type="radio" @onclick="@(() => setValue(false))" id="false-@id" name="radio-@id" value="No" />False</label></li>               
-          
-           
-            
-        </div>
-       
+                <li class="radio"><label for="false-@id"> <input type="radio" @onclick="@(() => setValue(false))" id="false-@id" name="radio-@id" value="No" />False</label></li>                                              
+        </div>      
     }
 </div>
 
@@ -78,9 +74,7 @@
         
         questionTranslations = db.QuestionTranslations.Include(qt =>qt.Question).
        ThenInclude(q =>q.Survey).ToList();
-        @* question = db.Questions.Where(q=>q.SurveyId == question.SurveyId).Include(e =>
-        e.QuestionTranslations).ToList(); *@
-
+       
 
     } 
   

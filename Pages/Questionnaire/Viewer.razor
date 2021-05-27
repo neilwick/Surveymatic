@@ -50,9 +50,7 @@
     private List<Answer> answers = new List<Answer>();
 
     protected override async Task OnInitializedAsync()
-    {
-
-        
+    {       
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = await db.SurveyTranslations.Where(q => q.Language == "en").ToListAsync();     
         answers = db.Answers.ToList();
