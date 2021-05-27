@@ -30,7 +30,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
+/* fixed the top nav bar so when its in iphone x version it doesnt fall behind the blazor nav bar */
 @media (max-width: 640.98px) {
      .page { 
         position: relative;
