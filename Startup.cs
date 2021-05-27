@@ -31,11 +31,13 @@ namespace Surveymatic
             // services.AddDbContext<SurveymaticContext>(options =>
             //        options.UseSqlite(Configuration.GetConnectionString("SurveymaticContext")));
             services.AddDbContextFactory<SurveymaticContext>(options =>
+            {
+                // options.LogTo(Console.WriteLine);
                 options.UseMySql(
                     Configuration.GetConnectionString("SurveyMaticContext"),
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
-                )
-            );
+                );
+            });
             services.AddBlazoredLocalStorage();
             services.AddServerSideBlazor();
             services.Configure<CookiePolicyOptions>(options =>

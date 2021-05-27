@@ -12,7 +12,7 @@
 		</ul>
 	</nav>
 	<header role="banner">
-		@* <div id="wb-bnr">
+		<div id="wb-bnr">
 			<div id="wb-bar">
 				<div class="container">
 					<div class="row">
@@ -61,7 +61,7 @@
 					</section>
 				</div>
 			</div>
-		</div> *@
+		</div>
 		<nav role="navigation" id="wb-sm" data-ajax-replace="./ajax/sitemenu-en.html" data-trgt="mb-pnl"
 			class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
 			<div class="container nvbar">
@@ -80,6 +80,8 @@
 		<h1 id="wb-cont" property="name">Web Experience Toolkit (WET)</h1>
 		<section>
 			<h2 id="about">What is the Web Experience Toolkit?</h2>
+
+			<button class="btn btn-primary" @onclick="GoToList">List</button>
             <ShowYouTube Url="https://www.youtube.com/watch?v=9znKJqnFuuY" Title="CoolVideo" Caption="This video has been embedded as a Blazor component" />
 			<p>Table sample</p>
 			<table class="wb-tables table table-striped table-hover" data-wb-tables='{ "ordering" : false }'>
@@ -344,3 +346,8 @@
 		</div>
 	</footer>
 
+@code {
+	private void GoToList() { 
+		NavigationManager.NavigateTo("list"); 
+	}
+}
