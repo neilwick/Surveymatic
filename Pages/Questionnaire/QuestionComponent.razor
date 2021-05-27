@@ -23,7 +23,7 @@
     }
 </div>
 
-@code{
+@code {
 
     [Parameter]
     public EventCallback<QuestionResponse> OnClick { get; set; }
@@ -36,7 +36,7 @@
     public string Language = "en";
     public QuestionTranslation questionContent { get; set; }
 
-    public Question question { get; set; }
+    public Surveymatic.Model.Question question { get; set; }
 
     private List<QuestionTranslation> questionTranslations = new List<QuestionTranslation>();
 
@@ -70,12 +70,13 @@
     }
     public void Refresh()
     {
-        using var db = DbFactory.CreateDbContext();
+
+    using var db = DbFactory.CreateDbContext();
         
         questionTranslations = db.QuestionTranslations.Include(qt =>qt.Question).
        ThenInclude(q =>q.Survey).ToList();
-       
 
-    } 
-  
+
+    }
+
 }

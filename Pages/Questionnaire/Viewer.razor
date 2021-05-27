@@ -11,6 +11,7 @@
 @inject SurveyService SurveyRepository
 
 <h1>Survey</h1>
+<HelpContent HelpTag="list" />
 <div>
     <table class="table">
         <thead>
@@ -86,7 +87,6 @@
     {
         using var db = ContextFactory.CreateDbContext();
         surveyTranslations = db.SurveyTranslations.Where(q => q.Language == "en").ToList();
-
     }
 
     private bool IsSurveyTaken(int surveyId)

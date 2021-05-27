@@ -1,0 +1,80 @@
+@using Data
+@using Model
+@using Services
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<SurveymaticContext> DbFactory
+@inject ISessionService Session
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@* this shows the layout of the help componient *@
+<div>
+    <button class="btn btn-primary" @onclick="@Show">Help</button>
+    <div hidden="@IsShow" title="@HelpTag">
+        @if (HelpEntry != null)
+        {
+            <h2>@HelpEntry.Title</h2>
+            <p>@HelpEntry.Content</p>
+        }
+
+    </div>
+</div>
+
+@code{
+    @* is show is for the hidden text div for help button *@
+    private bool IsShow { get; set; } = true;
+
+    private void Show()
+
+    {
+        IsShow = !IsShow;
+    }
+    @* Starting here is the binding for the database and the help content *@
+    public int HelpId { get; set; }
+
+    [Parameter]
+    public string HelpTag { get; set; }
+
+    public HelpEntry HelpEntry { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        using var db = DbFactory.CreateDbContext();
+        var item = await db.Help.Where(h => h.HelpTag == HelpTag).Include(e => e.Entries).FirstOrDefaultAsync();
+
+
+
+        @* this checks to see if every item is not null or has a language if not it become english and give default help *@
+        if (item != null)
+        {
+            foreach (var entry in item.Entries)
+            {
+                if (HelpEntry == null)
+                {
+                    HelpEntry = entry;
+                }
+                else if (entry.Language == Session.Language)
+                {
+                    HelpEntry = entry;
+                }
+            }//if session .lang == english send
+        }
+        if (HelpEntry == null)
+        {
+            if (Session.Language == "fr")
+            {
+                HelpEntry = new HelpEntry { Title = "Aide introuvable", Content = "Veuillez contacter un administrateur" };
+            }
+            else
+            {
+                HelpEntry = new HelpEntry { Title = "Help Not Found", Content = "Please contact a admin" };
+            }
+
+        }
+
+
+
+
+
+
+    } //check to see if item is not null and make sure that "he" isnt empty for the language we are looking go
+}

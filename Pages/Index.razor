@@ -2,16 +2,14 @@
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject Services.ISessionService Session
 <div class="site-index">
-
-  <h1>Welcome, @Username!</h1>
-  <p>You can only see this content if you're authenticated.</p>
+  <HelpContent HelpTag="splash-page" />
   <main role="main" property="mainContentOfPage" class="container">
     <div class="row mrgn-tp-lg">
       <div class="col-md-12">
         <section class="col-md-6">
           <ul class="list-unstyled">
             <li>
-              <NavLink @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="helptest">
+              <NavLink @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="home">
                 English</NavLink>
             </li>
           </ul>
@@ -19,7 +17,7 @@
         <section class="col-md-6" lang="fr">
           <ul class="list-unstyled">
             <li>
-              <NavLink @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="helptest">
+              <NavLink @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="home">
                 Français</NavLink>
             </li>
           </ul>
@@ -27,28 +25,19 @@
       </div>
     </div>
   </main>
-  <img src="img/SurveyMatic.png">
+  <img src="img/CanadaFlag.png">
+
 </div>
 
 
 @code {
-
-
 
   private string Username = "Anonymous User";
   private string Picture = "";
 
   protected void SetLanguage(string lang)
   {
-
     Session.Language = lang;
     LocalStorage.SetItemAsStringAsync("lang", lang);
-
-
   }
-
-  /* protected override async Task OnInitializedAsync()
-  {
-  } */
-
 }

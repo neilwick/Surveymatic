@@ -1,13 +1,34 @@
 ﻿@page "/UserManage"
-@using Model.LoginData
+@using Surveymatic.Model.LoginData
 <h1>User Manage</h1>
 <hr />
 <h4 class="username">user: @UserInfo.Email</h4>
 <span><a href="Admin">Dashboard</a></span>
 <span><a href="logout">LogOut</a></span>
 <hr />
+@if (UserInfo.HasRole("public"))
+{
+    <div>
+        Has public role !!
+        <a href="/list">take survey</a>
 
+    </div>
+}
+@if (UserInfo.HasRole("admin"))
+{
+    <div>
+        Has admin role !!
 
+    </div>
+}
+@if (UserInfo.HasRole("superviser"))
+{
+    <div>
+        Has superviser role !!
+
+    </div>
+}
 @code {
+
 
 }
