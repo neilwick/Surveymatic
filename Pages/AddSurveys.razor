@@ -53,17 +53,15 @@
     {
         try
         {
-
             var survey = new Survey();
+            
             using var db = DbFactory.CreateDbContext();
 
             db.Surveys.Add(survey);
-            surveytranslation.Survey = survey;
+            surveytranslation.Survey= survey;
             db.SurveyTranslations.Add(surveytranslation);
-            await db.SaveChangesAsync();
 
-            // _context.SurveyTranslations.Add(surveytranslation);
-            // _context.SaveChangesAsync();
+            await db.SaveChangesAsync();
 
             success = "success";
         }
@@ -72,7 +70,7 @@
             base.StateHasChanged();
             success = "no success";
         }
-        surveytranslation = new SurveyTranslation();
+        //surveytranslation = new SurveyTranslation();
         base.StateHasChanged();
 
 
