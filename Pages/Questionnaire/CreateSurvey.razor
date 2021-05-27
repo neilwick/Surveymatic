@@ -4,11 +4,15 @@
 @using Model;
 @using Surveymatic.Data
 @using Model.Questionnaire
+@using Surveymatic.Model.LoginData
 
 @using Microsoft.EntityFrameworkCore
 @inject IDbContextFactory<SurveymaticContext> DbFactory
 
 <div class="card">
+
+
+
     <div class="card-header">
         Add a Survey
     </div>
@@ -141,60 +145,64 @@
 
     protected override async Task OnAfterRenderAsync(bool first)
     {
-        if (first)
+        if (UserInfo.HasRole("admin"))
         {
-            using var db = DbFactory.CreateDbContext();
 
-            // if a survey is specified
-            if (SurveyId != 0)
+            if (first)
             {
-                _survey = await db.Surveys
-                .Where(s => s.SurveyId == SurveyId)
-                .Include(st => st.SurveyTranslations)
-                .FirstOrDefaultAsync();
+                using var db = DbFactory.CreateDbContext();
 
-            }
-            else
-            {
-                _survey = new Surveymatic.Model.Survey { UserId = 1 }; // update with logged in userid when available
-                db.Surveys.Add(_survey);
-                await db.SaveChangesAsync();
-
-            }
-            SurveyId = _survey.SurveyId;
-            // get translations in en and fr
-            foreach (var translation in _survey.SurveyTranslations)
-            {
-                if (translation.Language == "en")
+                // if a survey is specified
+                if (SurveyId != 0)
                 {
-                    FormBilang.en = translation;
+                    _survey = await db.Surveys
+                    .Where(s => s.SurveyId == SurveyId)
+                    .Include(st => st.SurveyTranslations)
+                    .FirstOrDefaultAsync();
+
                 }
-                else if (translation.Language == "fr")
+                else
                 {
-                    FormBilang.fr = translation;
+                    _survey = new Surveymatic.Model.Survey { UserId = UserInfo.User.SiteUserId };
+                    db.Surveys.Add(_survey);
+                    await db.SaveChangesAsync();
+
                 }
+                SurveyId = _survey.SurveyId;
+                // get translations in en and fr
+                foreach (var translation in _survey.SurveyTranslations)
+                {
+                    if (translation.Language == "en")
+                    {
+                        FormBilang.en = translation;
+                    }
+                    else if (translation.Language == "fr")
+                    {
+                        FormBilang.fr = translation;
+                    }
+                }
+
+                // Add either missing transation
+                bool dbChange = false;
+                if (FormBilang.en == null)
+                {
+                    FormBilang.en = new Surveymatic.Model.SurveyTranslation { SurveyId = _survey.SurveyId, Language = "en" };
+                    db.SurveyTranslations.Add(FormBilang.en);
+                    await db.SaveChangesAsync();
+                }
+
+                if (FormBilang.fr == null)
+                {
+                    FormBilang.fr = new Surveymatic.Model.SurveyTranslation { SurveyId = _survey.SurveyId, Language = "fr" };
+                    db.SurveyTranslations.Add(FormBilang.fr);
+                    await db.SaveChangesAsync();
+                }
+
+
+
+                _questions = await db.Questions.Where(q => q.SurveyId == SurveyId).Include(qt => qt.QuestionTranslations).ToListAsync();
+                StateHasChanged();
             }
-
-            // Add either missing transation
-            bool dbChange = false;
-            if (FormBilang.en == null)
-            {
-                FormBilang.en = new Surveymatic.Model.SurveyTranslation { SurveyId = _survey.SurveyId, Language = "en" };
-                db.SurveyTranslations.Add(FormBilang.en);
-                await db.SaveChangesAsync();
-            }
-
-            if (FormBilang.fr == null)
-            {
-                FormBilang.fr = new Surveymatic.Model.SurveyTranslation { SurveyId = _survey.SurveyId, Language = "fr" };
-                db.SurveyTranslations.Add(FormBilang.fr);
-                await db.SaveChangesAsync();
-            }
-
-
-
-            _questions = await db.Questions.Where(q => q.SurveyId == SurveyId).Include(qt => qt.QuestionTranslations).ToListAsync();
-            StateHasChanged();
         }
 
     }

@@ -8,6 +8,12 @@ namespace Surveymatic.Model
 {
     public partial class SurveyTranslation
     {
+        public SurveyTranslation()
+        {
+            Description = "";
+            Title = "";
+            Instruction = "";
+        }
         [Key]
         public int SurveyTranslationId { get; set; }
         public int SurveyId { get; set; }
