@@ -16,13 +16,22 @@
             @if (UserInfo.LoggedIn == "Yes")
             {
                 <a href="logout">logout</a>
+
             }
             else
             {
                 <a href="login">login</a>
             }
-            <a @onclick='() => SetLanguage("en")' href="home">English</a>
-            <a @onclick='() => SetLanguage("fr")' href="home">Français</a>
+            @if (Session.Language == "en")
+            {
+                <a @onclick='() => SetLanguage("fr")' href="home">Français</a>
+            }
+            else
+            {
+                <a @onclick='() => SetLanguage("en")' href="home">English</a>
+            }
+
+
         </div>
 
         <div class="content px-4">
