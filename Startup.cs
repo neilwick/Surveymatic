@@ -39,7 +39,6 @@ namespace Surveymatic
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
                 );
             });
-
             services.AddBlazoredLocalStorage();
             services.AddServerSideBlazor();
 

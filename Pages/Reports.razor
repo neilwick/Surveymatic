@@ -1,0 +1,86 @@
+@page "/reports"
+@inject NavigationManager NavigationManager
+
+	<header role="banner">
+		<div id="wb-bnr">
+			<div id="wb-bar">
+				<div class="container">
+						<section class="wb-mb-links col-xs-12 visible-sm visible-xs" id="wb-glb-mn">
+							<h2></h2>
+						</section>
+					</div>
+				</div>
+			</div>
+	</header>
+	<main role="main" property="mainContentOfPage" resource="#wb-main" class="container">
+		<h1 id="wb-cont" property="name">COVID-19 survey results</h1>
+		<section>
+			<h3>I am currently isolating or quarantining due to COVID-19</h3>
+			<table class="wb-tables table table-striped table-hover" data-wb-tables='{ "ordering" : false }'>
+				<tr>
+					<td> </td>
+					<th>True</th>
+					<th>False</th>
+				</tr>
+				<tr>
+					<th>Ontario</th>
+					<td>34</td>
+					<td>24</td>
+				</tr>
+				<tr>
+					<th>Quebec</th>
+					<td>16</td>
+					<td>20</td>
+				</tr>
+				<tr>
+					<th>British Columbia</th>
+					<td>21</td>
+					<td>14</td>
+				</tr>
+				<tr>
+					<th>Alberta</th>
+					<td>21</td>
+					<td>16</td>
+				</tr>
+			</table>
+		</section>
+
+		<hr class="brdr-bttm">
+
+		<section>
+			<h3>The federal government has managed the pandemic well</h3>
+			<table class="wb-tables table table-striped table-hover" data-wb-tables='{ "ordering" : false }'>
+				<tr>
+					<td> </td>
+					<th>True</th>
+					<th>False</th>
+				</tr>
+				<tr>
+					<th>Ontario</th>
+					<td>20</td>
+					<td>14</td>
+				</tr>
+				<tr>
+					<th>Quebec</th>
+					<td>12</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<th>British Columbia</th>
+					<td>6</td>
+					<td>20</td>
+				</tr>
+				<tr>
+					<th>Alberta</th>
+					<td>10</td>
+					<td>24</td>
+				</tr>
+			</table>
+		</section>
+	</main>
+
+@code {
+	private void GoToList() { 
+		NavigationManager.NavigateTo("list"); 
+	}
+}
