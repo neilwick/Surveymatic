@@ -10,35 +10,42 @@
 @using Pages
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
+<main role="main" property="mainContentOfPage" class="container">
+    <h1 id="wb-cont" property="name">Survey Choice</h1>
+    <div class="card">
+        <div class="card-body">
+            <form>
 
-<div class="card">
-    <h1>Survey Choice</h1>
-    <div class="card-body">
-        <form>
-
-            <div class="form-group">
-                @if (surveyContent != null)
-                {
-                    @foreach (var q in survey.Questions)
+                <div class="form-group">
+                    @if (surveyContent != null)
                     {
-                        @* <h3>@q.QuestionId.ToString()</h3> *@
-                        <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />
+                        @foreach (var q in survey.Questions)
+                        {
+                            @* <h3>@q.QuestionId.ToString()</h3> *@
+                            <QuestionComponent id="@q.QuestionId.ToString()" OnClick="AnswerClick" />
+                        }
                     }
-                }
-            </div>
+                </div>
+                <section>
+                    <div>
+                        <button @onclick=OnClick>Submit</button>
+                        <button @onclick=OnCancel>Cancel</button>
+                    </div>
+                </section>
+                <section>
+                    <dialog>Confirmation</dialog>
+                </section>
 
-            <div>
-                <button @onclick=OnClick>Submit</button>
-                <button @onclick=OnCancel>Cancel</button>
-            </div>
 
-
-
-
-        </form>
+            </form>
+        </div>
+        <div>
+            <HelpContent HelpTag="takesurvey" />
+        </div>
     </div>
-</div>
-<dialog>Confirmation</dialog>
+</main>
+
+
 
 @code {
 

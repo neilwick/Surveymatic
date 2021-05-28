@@ -9,23 +9,23 @@
 @using Surveymatic.Data
 @inject SurveyService SurveyRepository
 
-<h1>Survey</h1>
 
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Take</th>
-                 @if(UserInfo.HasRole("admin")) {
+<main role="main" property="mainContentOfPage" class="container">
+      <h1 id="wb-cont" property="name">Survey</h1>
+      <HelpContent HelpTag="surveylist" />
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">ID</th>
+<th scope="col">Take</th>
+<th scope="col">@if(UserInfo.HasRole("admin")) {
                     <th>Edit</th>
-                    } 
-                <th>Title</th>
-                <th>Description</th>
-                <th>Instruction</th>
-            </tr>
-        </thead>
-        <tbody>
+                    } </th>
+<th scope="col">Description</th>
+<th scope="col">Instruction</th>
+</tr>
+</thead>
+ <tbody>
              @foreach (SurveyTranslation surveyTranslation in surveyTranslations)
             {
                 var url = "/take/" + surveyTranslation.SurveyId.ToString();
@@ -52,10 +52,10 @@
             }
 
         </tbody>
-    </table>
-</div>
 
+</table>
 
+</main>
 
 
 

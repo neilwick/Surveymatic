@@ -8,12 +8,10 @@
         <section>
             <h4 class="username">@UserInfo.Email <br /> logged in time : @DateTime.Now</h4>
         </section>
+        <HelpContent HelpTag="admin" />
         <br />
-        <table class="table table-striped" style="width:85%">
+        <table class="table table-striped">
             <tbody>
-                <thead>
-                    <caption>Table Of Content</caption>
-                </thead>
                 <tr>
                     <td><a href="UserManage">User Manage</a></td>
                     <td><a href="Logout">Log out</a></td>
@@ -22,6 +20,7 @@
                 </tr>
             </tbody>
         </table>
+
     </main>
 }
 else

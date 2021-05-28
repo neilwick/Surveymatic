@@ -2,44 +2,47 @@
 @using Surveymatic.Model.LoginData
 
 <main role="main" property="mainContentOfPage" class="container">
-    <h1 id="wb-cont" property="name">Registration completed</h1>
+    <h1 id="wb-cont" property="name">User Manage</h1>
     <section>
-        <h3>User Manage</h3>
-        <section>
-            <h4 class="username"> @UserInfo.Email</h4>
-            <p>Please go back to home page and log in.</p>
-        </section>
+        <h4 class="username"> @UserInfo.Email</h4>
+        <p>Please go back to home page and log in.</p>
     </section>
     <ul>
         <li><a href="Admin">Dashboard</a></li>
         <li><a href="logout">LogOut</a></li>
     </ul>
+
+
+    <section>
+        @if (UserInfo.HasRole("public"))
+        {
+            <div>
+                Has public role !!
+                <a href="list">take survey</a>
+            </div>
+        }
+        @if (UserInfo.HasRole("admin"))
+        {
+            <div>
+                Has admin role !!
+                <a href="createsurvey">Create survey</a>
+
+            </div>
+        }
+        @if (UserInfo.HasRole("superviser"))
+        {
+            <div>
+                Has superviser role !!
+
+            </div>
+        }
+    </section>
 </main>
 
 
 
 
-@if (UserInfo.HasRole("public"))
-{
-    <div>
-        Has public role !!
-        <a href="/list">take survey</a>
-    </div>
-}
-@if (UserInfo.HasRole("admin"))
-{
-    <div>
-        Has admin role !!
 
-    </div>
-}
-@if (UserInfo.HasRole("superviser"))
-{
-    <div>
-        Has superviser role !!
-
-    </div>
-}
 @code {
 
 
