@@ -2,6 +2,15 @@
 @using Model.LoginData
 <h4 class="username">logged out successfully</h4>
 
+<main role="main" property="mainContentOfPage" class="container">
+    <h1 id="wb-cont" property="name">logged out successfully</h1>
+    <section>
+        <br />
+        <a href="login">Login</a>
+        <br />
+        <a href="home">Home</a>
+    </section>
+</main>
 @code
 {
 
@@ -10,8 +19,6 @@
         UserInfo.Email = "";
         UserInfo.PreferredLanguage = "";
         UserInfo.LoggedIn = "";
-
-
     }
 
 

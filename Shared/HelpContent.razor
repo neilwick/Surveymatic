@@ -9,8 +9,8 @@
 @* this shows the layout of the help componient *@
 <div>
     <br />
-    <br />
-    <button class="btn btn-primary" @onclick="@Show">?</button>
+
+    <button @onclick="@Show">?</button>
     <div hidden="@IsShow" title="@HelpTag">
         @if (HelpEntry != null)
         {
