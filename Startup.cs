@@ -31,7 +31,7 @@ namespace Surveymatic
 
             services.AddDbContextFactory<SurveymaticContext>(options =>
             {
-                options.LogTo(Console.WriteLine); // MariaDB / EFCore Debugging
+                // options.LogTo(Console.WriteLine); // MariaDB / EFCore Debugging
                 options.UseMySql(
                     Configuration.GetConnectionString("SurveyMaticContext"),
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
