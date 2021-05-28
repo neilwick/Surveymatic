@@ -1,0 +1,52 @@
+@page "/reports"
+@inject NavigationManager NavigationManager
+
+	<header role="banner">
+		<div id="wb-bnr">
+			<div id="wb-bar">
+				<div class="container">
+						<section class="wb-mb-links col-xs-12 visible-sm visible-xs" id="wb-glb-mn">
+							<h2>Search and menus</h2>
+						</section>
+					</div>
+				</div>
+			</div>
+	</header>
+	<main role="main" property="mainContentOfPage" resource="#wb-main" class="container">
+		<h1 id="wb-cont" property="name">Reports</h1>
+		<section>
+			<p>Report table</p>
+			<table class="wb-tables table table-striped table-hover" data-wb-tables='{ "ordering" : false }'>
+				<tr>
+					<td> </td>
+					<th>Monday</th>
+					<th>Tuesday</th>
+					<th>Wednesday</th>
+					<th>Thursday</th>
+					<th>Friday</th>
+				</tr>
+				<tr>
+					<th>8:00-9:00</th>
+					<td>Meet with Sam</td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+					<td> </td>
+				</tr>
+				<tr>
+					<th>9:00-10:00</th>
+					<td> </td>
+					<td> </td>
+					<td>Doctor Williams</td>
+					<td>Sam again</td>
+					<td>Leave for San Antonio</td>
+				</tr>
+			</table>
+		</section>
+	</main>
+
+@code {
+	private void GoToList() { 
+		NavigationManager.NavigateTo("list"); 
+	}
+}
