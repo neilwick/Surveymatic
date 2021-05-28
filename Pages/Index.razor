@@ -1,33 +1,28 @@
 @page "/"
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject Services.ISessionService Session
-<div class="site-index">
-  <HelpContent HelpTag="splash-page" />
-  <main role="main" property="mainContentOfPage" class="container">
-    <div class="row mrgn-tp-lg">
-      <div class="col-md-12">
-        <section class="col-md-6">
-          <ul class="list-unstyled">
-            <li>
-              <NavLink @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="home">
-                English</NavLink>
-            </li>
-          </ul>
-        </section>
-        <section class="col-md-6" lang="fr">
-          <ul class="list-unstyled">
-            <li>
-              <NavLink @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="home">
-                Français</NavLink>
-            </li>
-          </ul>
-        </section>
-      </div>
-    </div>
-  </main>
-  <img src="img/CanadaFlag.png">
 
-</div>
+<main role="main" property="mainContentOfPage" class="container">
+  <img src="img/CanadaFlag.png">
+  <div class="row mrgn-tp-lg">
+    <div class="col-md-12">
+      <section class="col-md-6">
+        <ul class="list-unstyled">
+          <li><a @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="home">English</a>
+          </li>
+        </ul>
+      </section>
+      <section class="col-md-6" lang="fr">
+        <ul class="list-unstyled">
+          <li><a @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="home">Français</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>
+
+
 
 
 @code {

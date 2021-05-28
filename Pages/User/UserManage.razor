@@ -1,17 +1,29 @@
 ﻿@page "/UserManage"
 @using Surveymatic.Model.LoginData
-<h1>User Manage</h1>
-<hr />
-<h4 class="username">user: @UserInfo.Email</h4>
-<span><a href="Admin">Dashboard</a></span>
-<span><a href="logout">LogOut</a></span>
-<hr />
+
+<main role="main" property="mainContentOfPage" class="container">
+    <h1 id="wb-cont" property="name">Registration completed</h1>
+    <section>
+        <h3>User Manage</h3>
+        <section>
+            <h4 class="username"> @UserInfo.Email</h4>
+            <p>Please go back to home page and log in.</p>
+        </section>
+    </section>
+    <ul>
+        <li><a href="Admin">Dashboard</a></li>
+        <li><a href="logout">LogOut</a></li>
+    </ul>
+</main>
+
+
+
+
 @if (UserInfo.HasRole("public"))
 {
     <div>
         Has public role !!
         <a href="/list">take survey</a>
-
     </div>
 }
 @if (UserInfo.HasRole("admin"))

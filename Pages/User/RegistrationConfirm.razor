@@ -1,19 +1,26 @@
 ﻿@page "/RegistrationConfirm"
-@using Model.LoginData
+@using Surveymatic.Model.LoginData
 
+<main role="main" property="mainContentOfPage" class="container">
+    <h1 id="wb-cont" property="name">Registration completed</h1>
+    <section>
+        <h3 class="username"> Registered Email: @UserInfo.Email</h3>
+        <section>
+            <h4 class="username">Registered Time: @DateTime.Now</h4>
+            <p>Please go back to home page and log in.</p>
+        </section>
+    </section>
 
-<h1> Registration completed </h1>
-<hr />
-<h4></h4>
-<h4 class="username">Registered Email: @UserInfo.Email</h4>
-<h4 class="username">Registered Time: @DateTime.Now</h4>
-<hr />
-<h4>Please go back to home page and log in.</h4>
-
-<NavLink class="nav-link" href="home" Match="NavLinkMatch.All">
-    <span class="oi oi-home" aria-hidden="true"></span> Home
-</NavLink>
-
+    <p></p>
+    <ul>
+        <li><a href="login">Login</a>
+            <ul>
+                <li><a href="Home">Home</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</main>
 @code {
 
 }

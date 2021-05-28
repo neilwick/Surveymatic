@@ -5,9 +5,12 @@
 @inject IDbContextFactory<SurveymaticContext> DbFactory
 @inject ISessionService Session
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+
 @* this shows the layout of the help componient *@
 <div>
-    <button class="btn btn-primary" @onclick="@Show">Help</button>
+    <br />
+
+    <button @onclick="@Show">?</button>
     <div hidden="@IsShow" title="@HelpTag">
         @if (HelpEntry != null)
         {
@@ -18,7 +21,7 @@
     </div>
 </div>
 
-@code{
+@code {
     @* is show is for the hidden text div for help button *@
     private bool IsShow { get; set; } = true;
 
@@ -66,7 +69,7 @@
             }
             else
             {
-                HelpEntry = new HelpEntry { Title = "Help Not Found", Content = "Please contact a admin" };
+                HelpEntry = new HelpEntry { Title = "Help Not Found", Content = "Please contact an admin" };
             }
 
         }

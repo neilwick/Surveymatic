@@ -14,6 +14,8 @@ using Surveymatic.Services;
 using Blazored.LocalStorage;
 using Surveymatic.Model;
 using Surveymatic.Model.LoginData;
+using Surveymatic.Shared;
+
 namespace Surveymatic
 {
     public class Startup
@@ -56,6 +58,7 @@ namespace Surveymatic
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddHttpContextAccessor();
+            services.AddScoped<IRefreshService, RefreshService>();
             services.AddSingleton<SurveyService>();
             services.AddScoped<ISessionService, Session>();
         }
