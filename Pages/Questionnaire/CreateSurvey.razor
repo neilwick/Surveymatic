@@ -1,9 +1,9 @@
 @page "/createsurvey"
 @page "/createsurvey/{SurveyId:int}"
 
-@using Model;
+@using Surveymatic.Model;
 @using Surveymatic.Data
-@using Model.Questionnaire
+@using Surveymatic.Model.Questionnaire
 @using Surveymatic.Model.LoginData
 
 @using Microsoft.EntityFrameworkCore
@@ -14,7 +14,7 @@
 
 
     <div class="card-header">
-        Add a Survey
+        <h2>Add a Survey</h2>
     </div>
     <div class="card-body">
         @if (_survey != null && FormBilang.en != null && FormBilang.fr != null)
@@ -23,32 +23,52 @@
 
                 <div class="form-group">
                     <label for="Title_en">English Title </label>
-                    <input class="form-control" type="text" id="Title_en" @bind="FormBilang.en.Title" />
+                    <input class="form-control" type="text" id="Title_en" disabled="@isDisable"
+                    @bind="FormBilang.en.Title" />
                 </div>
                 <div class="form-group">
                     <label for="Title_fr">French Title </label>
-                    <input class="form-control" type="text" id="Title_fr" @bind="FormBilang.fr.Title" />
+                    <input class="form-control" type="text" id="Title_fr" disabled="@isDisable"
+                    @bind="FormBilang.fr.Title" />
                 </div>
                 <div class="form-group">
                     <label for="Desc_en">English Description</label>
-                    <input class="form-control" type="text" id="Desc_en" @bind="FormBilang.en.Description" />
+                    <input class="form-control" type="text" id="Desc_en" disabled="@isDisable"
+                    @bind="FormBilang.en.Description" />
                 </div>
 
                 <div class="form-group">
                     <label for="Desc_fr">French Description</label>
-                    <input class="form-control" type="text" id="Desc_fr" @bind="FormBilang.fr.Description" />
+                    <input class="form-control" type="text" id="Desc_fr" disabled="@isDisable"
+                    @bind="FormBilang.fr.Description" />
                 </div>
                 <div class="form-group">
                     <label for="Instr_en">English Instruction</label>
-                    <input class="form-control" type="text" id="Instr_en" @bind="FormBilang.en.Instruction" />
+                    <input class="form-control" type="text" id="Instr_en" disabled="@isDisable"
+                    @bind="FormBilang.en.Instruction" />
                 </div>
                 <div class="form-group">
-                    <label for="Instr_fr">English Instruction</label>
-                    <input class="form-control" type="text" id="Title_fr" @bind="FormBilang.fr.Instruction" />
+                    <label for="Instr_fr">French Instruction</label>
+                    <input class="form-control" type="text" id="Title_fr" disabled="@isDisable"
+                    @bind="FormBilang.fr.Instruction" />
                 </div>
 
-                <button type="submit">Submit</button>
+                <button type="submit" disabled="@isDisable">Submit</button>
             </EditForm>
+            <div>@success</div>
+
+
+            <div>
+                <h2>@success1</h2>
+            </div>
+
+            <div class="questions">
+                @foreach (var question in _questions)
+                {
+                    @counter
+                    <Question question="@question" />
+                }
+            </div>
 
 
             <EditForm Model="@FormQuestion">
@@ -68,12 +88,6 @@
                 </div>
             </EditForm>
 
-            <div class="questions">
-                @foreach (var question in _questions)
-                {
-                    <Surveymatic.Shared.Question question="@question" />
-                }
-            </div>
 
         }
         else
@@ -85,10 +99,14 @@
 
 @code {
 
+
+    private bool isDisable { get; set; }
     public Surveymatic.Model.Survey _survey;
     public List<Surveymatic.Model.Question> _questions = new();
 
-
+    static string counter = "-----------------------";
+    private string success = "";
+    private string success1 = "";
     public SurveyBilang FormBilang = new();
     public QuestionBilang FormQuestion = new();
 
@@ -99,45 +117,66 @@
 
     private async Task AddQuestion()
     {
-        // todo save to db
-        using var db = DbFactory.CreateDbContext();
+        try
+        {
+            // todo save to db
+            using var db = DbFactory.CreateDbContext();
 
-        var q = new Surveymatic.Model.Question { SurveyId = _survey.SurveyId };
-        q.QuestionTranslations.Add(FormQuestion.en);
-        q.QuestionTranslations.Add(FormQuestion.fr);
-        db.Questions.Add(q);
-        await db.SaveChangesAsync(); //error when saving second question to survey
-        _questions.Add(q);
+            var q = new Surveymatic.Model.Question { SurveyId = _survey.SurveyId };
+            q.QuestionTranslations.Add(FormQuestion.en);
+            q.QuestionTranslations.Add(FormQuestion.fr);
+            db.Questions.Add(q);
+            await db.SaveChangesAsync(); //error when saving second question to survey
+            _questions.Add(q);
 
-        FormQuestion = new();
+            FormQuestion = new();
+
+            success1 = "Questions added";
+
+        }
+        catch
+        {
+            base.StateHasChanged();
+            success1 = "Question was not saved";
+        }
+
     }
 
     private async Task HandleSubmit()
     {
         using var db = DbFactory.CreateDbContext();
 
+        try
+        {
 
-        var frTranslation = await db.SurveyTranslations
-        .Where(fr => fr.SurveyId == _survey.SurveyId && fr.Language == "fr").FirstOrDefaultAsync();
-        frTranslation.Title = FormBilang.fr.Title;
-        // other fields
-        frTranslation.Description = FormBilang.fr.Description;
-        frTranslation.Instruction = FormBilang.fr.Instruction;
-        //save to database
-        await db.SaveChangesAsync();
-
-
-
-        var enTranslation = await db.SurveyTranslations
-        .Where(en => en.SurveyId == _survey.SurveyId && en.Language == "en").FirstOrDefaultAsync();
-        enTranslation.Title = FormBilang.en.Title;
-        // other fields
-        enTranslation.Description = FormBilang.en.Description;
-        enTranslation.Instruction = FormBilang.en.Instruction;
-        //save to database
-        await db.SaveChangesAsync();
+            var frTranslation = await db.SurveyTranslations
+            .Where(fr => fr.SurveyId == _survey.SurveyId && fr.Language == "fr").FirstOrDefaultAsync();
+            frTranslation.Title = FormBilang.fr.Title;
+            // other fields
+            frTranslation.Description = FormBilang.fr.Description;
+            frTranslation.Instruction = FormBilang.fr.Instruction;
+            //save to database
+            await db.SaveChangesAsync();
 
 
+
+            var enTranslation = await db.SurveyTranslations
+            .Where(en => en.SurveyId == _survey.SurveyId && en.Language == "en").FirstOrDefaultAsync();
+            enTranslation.Title = FormBilang.en.Title;
+            // other fields
+            enTranslation.Description = FormBilang.en.Description;
+            enTranslation.Instruction = FormBilang.en.Instruction;
+            //save to database
+            await db.SaveChangesAsync();
+
+            success = "Survey saved";
+            this.isDisable = true;
+        }
+        catch
+        {
+            base.StateHasChanged();
+            success = "Survey was not saved";
+        }
 
 
 
@@ -181,6 +220,7 @@
                         FormBilang.fr = translation;
                     }
                 }
+
 
                 if (FormBilang.en == null)
                 {
