@@ -3,44 +3,48 @@
 
 @if (UserInfo.LoggedIn == "Yes")
 {
-    <h1>Welcome</h1>
-    <h4 class="username">user: @UserInfo.Email, logged in time : @DateTime.Now</h4>
-    <hr />
-    <h4>Dashboard </h4>
-    <hr />
-    <table style="width:85%">
-        <tr>
-            <td>
-                <div>
-                    <a href="UserManage">User Manage</a>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <a href="SurveyManage">Survey Manage</a>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <a href="ReportManage">Report Manage</a>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <a href="Logout">Log out</a>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-    <a href="ChangePassword">Change Password </a>
+    <main role="main" property="mainContentOfPage" class="container">
+        <h1 id="wb-cont" property="name">Welcome</h1>
+        <section>
+            <h4 class="username">@UserInfo.Email <br /> logged in time : @DateTime.Now</h4>
+        </section>
+        <br />
+        <table class="table table-striped" style="width:85%">
+            <tbody>
+                <thead>
+                    <caption>Table Of Content</caption>
+                </thead>
+                <tr>
+                    <td><a href="UserManage">User Manage</a></td>
+                    <td><a href="Logout">Log out</a></td>
+                    <td><a href="ChangePassword">Change Password </a></td>
+                    <td><a>Change User role </a></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
 }
 else
 {
-    <h2>Please sign in</h2>
-    @*<a href="ChangePassword">Change Password </a>*@
+    <main role="main" property="mainContentOfPage" class="container">
+        <h1 id="wb-cont" property="name">Home</h1>
+        <section>
+            <h2>Please sign in</h2>
+        </section>
+        <section>
+            <ul>
+                <li>
+                    <a href="login">Sign In</a>
+                    <ul>
+                        <li>
+                            <a href="register">Register</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </main>
 }
-
 
 @code
 {
@@ -48,6 +52,4 @@ else
     {
         //UserInfo.LoggedIn
     }
-
-
 }

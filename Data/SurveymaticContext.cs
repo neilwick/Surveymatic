@@ -1,6 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Surveymatic.Model;
+using Surveymatic.Model.LoginData;
 
 namespace Surveymatic.Data
 {

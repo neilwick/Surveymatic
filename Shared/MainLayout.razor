@@ -1,7 +1,9 @@
 @using Services
+@using Surveymatic.Model.LoginData
 @inherits LayoutComponentBase
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject ISessionService Session
+
 
 <div class="page">
     <div class="sidebar">
@@ -10,8 +12,25 @@
 
     <div class="main">
         <div class="top-row px-4">
+            @if (UserInfo.LoggedIn == "Yes")
+            {
+                <a href="logout">logout</a>
 
-            <a href="/helptest" target="_blank">Help</a>
+            }
+            else
+            {
+                <a href="login">login</a>
+            }
+            @if (Session.Language == "en")
+            {
+                <a @onclick='() => SetLanguage("fr")' href="home">Français</a>
+            }
+            else
+            {
+                <a @onclick='() => SetLanguage("en")' href="home">English</a>
+            }
+
+
         </div>
 
         <div class="content px-4">
@@ -19,9 +38,16 @@
         </div>
     </div>
 </div>
-@code{
+@code {
     protected override async Task OnAfterRenderAsync(bool first)
     {
+
         Session.Language = await LocalStorage.GetItemAsStringAsync("lang");
     }
+    protected void SetLanguage(string lang)
+    {
+        Session.Language = lang;
+        LocalStorage.SetItemAsStringAsync("lang", lang);
+    }
+
 }

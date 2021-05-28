@@ -31,8 +31,7 @@ namespace Surveymatic.Model.LoginData
         //[Required]
         //public string LanguageChoice { get; set; }
 
-
-
+     
 
         protected void OnInitialized()
         {

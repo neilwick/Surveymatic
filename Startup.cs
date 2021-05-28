@@ -14,6 +14,8 @@ using Surveymatic.Services;
 using Blazored.LocalStorage;
 using Surveymatic.Model;
 using Surveymatic.Model.LoginData;
+
+
 namespace Surveymatic
 {
     public class Startup
@@ -28,24 +30,27 @@ namespace Surveymatic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            // services.AddDbContext<SurveymaticContext>(options =>
-            //        options.UseSqlite(Configuration.GetConnectionString("SurveymaticContext")));
+
             services.AddDbContextFactory<SurveymaticContext>(options =>
             {
+<<<<<<< HEAD
                 // options.LogTo(Console.WriteLine);
+=======
+                // options.LogTo(Console.WriteLine); // MariaDB / EFCore Debugging
+>>>>>>> main
                 options.UseMySql(
                     Configuration.GetConnectionString("SurveyMaticContext"),
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
                 );
             });
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
             services.AddBlazoredLocalStorage();
             services.AddServerSideBlazor();
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+
+
             services.AddScoped<SiteUser>();
             services.AddScoped<RegistrationForm>();
             services.AddScoped<LoginForm>();
@@ -60,6 +65,7 @@ namespace Surveymatic
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddHttpContextAccessor();
+            services.AddScoped<IRefreshService, RefreshService>();
             services.AddSingleton<SurveyService>();
             services.AddScoped<ISessionService, Session>();
         }

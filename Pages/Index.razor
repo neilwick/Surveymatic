@@ -1,52 +1,36 @@
 @page "/"
 @inject Blazored.LocalStorage.ILocalStorageService LocalStorage
 @inject Services.ISessionService Session
-<div class="site-index">
 
-  <h1>Welcome, @Username!</h1>
-  <p>You can only see this content if you're authenticated.</p>
-  <main role="main" property="mainContentOfPage" class="container">
-    <div class="row mrgn-tp-lg">
-      <div class="col-md-12">
-        <section class="col-md-6">
-          <ul class="list-unstyled">
-            <li>
-              <NavLink @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="helptest">
-                English</NavLink>
-            </li>
-          </ul>
-        </section>
-        <section class="col-md-6" lang="fr">
-          <ul class="list-unstyled">
-            <li>
-              <NavLink @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="helptest">
-                Français</NavLink>
-            </li>
-          </ul>
-        </section>
-      </div>
+<main role="main" property="mainContentOfPage" class="container">
+  <img src="img/CanadaFlag.png">
+  <div class="row mrgn-tp-lg">
+    <div class="col-md-12">
+      <section class="col-md-6">
+        <ul class="list-unstyled">
+          <li><a @onclick='() => SetLanguage("en")' class="btn btn-lg btn-primary btn-block" href="home">English</a>
+          </li>
+        </ul>
+      </section>
+      <section class="col-md-6" lang="fr">
+        <ul class="list-unstyled">
+          <li><a @onclick='() => SetLanguage("fr")' class="btn btn-lg btn-primary btn-block" href="home">Français</a>
+          </li>
+        </ul>
+      </section>
     </div>
-  </main>
-  <img src="img/SurveyMatic.png">
-</div>
+  </div>
+</main>
+
+
 
 
 @code {
 
-  private string Username = "Anonymous User";
-  private string Picture = "";
 
   protected void SetLanguage(string lang)
   {
-
     Session.Language = lang;
     LocalStorage.SetItemAsStringAsync("lang", lang);
-
-
   }
-
-  /* protected override async Task OnInitializedAsync()
-  {
-    } */
-
 }

@@ -12,37 +12,46 @@
 @inject NavigationManager navigate
 @inject SiteUser loggedUser
 @inject LoginForm loginformUser
+@inject Surveymatic.Services.IRefreshService Refresh
 
 
 
-<h1>LogIn</h1>
-<hr />
-<h4>@message</h4>
-<div class="newsiteuser-form">
-    <EditForm Model=@loginformUser OnValidSubmit=@HandleValidSubmit>
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group">
-            <label for="Email">Email</label>
-            <InputText id="Email" class="form-control" @bind-Value="loginformUser.Email" />
+<main role="main" property="mainContentOfPage" class="container">
+    <h1 id="wb-cont" property="name">Login</h1>
+    <section>
+        <h4>@message</h4>
+    </section>
+    <section>
+        <div class="newsiteuser-form">
+            <EditForm Model=@loginformUser OnValidSubmit=@HandleValidSubmit>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group">
+                    <label for="Email">Email</label>
+                    <InputText id="Email" class="form-control" @bind-Value="loginformUser.Email" />
+                </div>
+
+                <div class="form-group">
+                    <label for="Password">Password</label>
+                    <InputText id="Password" type="password" class="form-control"
+                        @bind-Value="loginformUser.Password" />
+                </div>
+
+                <button class="btn btn-primary" type="submit">LogIn</button>
+            </EditForm>
         </div>
-
-        <div class="form-group">
-            <label for="Password">Password</label>
-            <InputText id="Password" type="password" class="form-control" @bind-Value="loginformUser.Password" />
-        </div>
-
-        <button class="btn btn-primary" type="submit">LogIn</button>
-    </EditForm>
-</div>
-<br />
-<a href="ForgotPass">Forgot Password ?</a>
-
-
+    </section>
+    <section>
+        <br />
+        <a href="ForgotPass">Forgot Password ?</a>
+        <br />
+        <a href="register">Register</a>
+    </section>
+</main>
 @code
 {
     string message = "";
-    private SiteUser newsiteuser;
+    //private SiteUser newsiteuser;
 
     protected override void OnInitialized()
     {
@@ -57,7 +66,11 @@
         using var _context = DbFactory.CreateDbContext();
         try
         {
-            var userInDatabase = _context.SiteUsers.Where(x => x.Email == loginformUser.Email).FirstOrDefault();
+            var userInDatabase = _context.SiteUsers
+            .Where(x => x.Email == loginformUser.Email)
+            .Include(r => r.Roles)
+            .FirstOrDefault();
+
 
             //if (userInDatabase != null && userInDatabase.Password == encrypedPasswordFromUI)
 
@@ -68,11 +81,11 @@
             {
                 UserInfo.Email = loginformUser.Email;
                 UserInfo.LoggedIn = "Yes";
-
+                UserInfo.User = userInDatabase;
                 loggedUser = userInDatabase;
+                //Menu.InvokeAsync(StateHasChanged);
 
-
-
+                Refresh.CallRequestRefresh();
                 navigate.NavigateTo("/Admin");
                 //navigate.NavigateTo("/Admin/" + loggedUser.Email);
             }

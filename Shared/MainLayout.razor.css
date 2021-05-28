@@ -30,26 +30,21 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
+/* fixed the top nav bar so when its in iphone x version it doesnt fall behind the blazor nav bar */
 @media (max-width: 640.98px) {
-    .top-row:not(.auth) {
-        display: none;
-    }
-
-    .top-row.auth {
-        justify-content: space-between;
-    }
-
-    .top-row a, .top-row .btn-link {
-        margin-left: 0;
+     .page { 
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 }
 
 @media (min-width: 641px) {
-    .page {
+   
+ .page {
         flex-direction: row;
     }
-
     .sidebar {
         width: 250px;
         height: 100vh;
@@ -67,4 +62,24 @@
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
+
+    * {
+        box-sizing: border-box;
+        }
+
+        /* Create three equal columns that floats next to each other */
+        .column {
+        float: left;
+        width: 33.33%;
+        padding: 10px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+
 }
