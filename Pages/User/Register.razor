@@ -1,10 +1,11 @@
 ﻿@page "/Register"
 @using Microsoft.EntityFrameworkCore
-@using Model.LoginData
-@using Model
-@using Data
-@inject IDbContextFactory<SurveymaticContext> DbFactory
+@using Surveymatic.Data
+
 @using CryptoHelper
+@using Surveymatic.Model.LoginData
+
+@inject IDbContextFactory<SurveymaticContext> DbFactory
 @inject NavigationManager navigate
 @inject RegistrationForm registrationFormUser
 
@@ -46,10 +47,8 @@
     string message = "";
     string encrypedString = "";
     public SiteUser newsiteuser = new SiteUser();
-    private string passwordToConfirm = "";
 
-    // LogInVerify
-    string baseUrl = "https://localhost:44304/LogInVerify/";
+
 
 
     private async void HandleValidSubmit()
@@ -76,13 +75,14 @@
 
                     UserInfo.Email = registrationFormUser.Email;
 
-                    navigate.NavigateTo("/RegistrationConfirm");
+                    navigate.NavigateTo($"/RegistrationConfirm");
+
                 }
 
             }
             else
             {
-                message = "Exsit email address! Please use another one ! ";
+                message = "Email address already registered! Please use another! ";
             }
 
         }
@@ -96,8 +96,8 @@
 
             base.StateHasChanged();
         }
-        newsiteuser = new SiteUser();
-        base.StateHasChanged();
+        registrationFormUser = new();
+        StateHasChanged();
     }
 
 
