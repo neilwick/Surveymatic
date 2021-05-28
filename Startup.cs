@@ -33,20 +33,12 @@ namespace Surveymatic
 
             services.AddDbContextFactory<SurveymaticContext>(options =>
             {
-<<<<<<< HEAD
-                // options.LogTo(Console.WriteLine);
-=======
                 // options.LogTo(Console.WriteLine); // MariaDB / EFCore Debugging
->>>>>>> main
                 options.UseMySql(
                     Configuration.GetConnectionString("SurveyMaticContext"),
                     new MySqlServerVersion(Configuration.GetValue<string>("MariaDbVersion"))
                 );
             });
-<<<<<<< HEAD
-=======
-
->>>>>>> main
             services.AddBlazoredLocalStorage();
             services.AddServerSideBlazor();
 
