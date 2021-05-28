@@ -12,6 +12,8 @@
 @inject NavigationManager navigate
 @inject SiteUser loggedUser
 @inject LoginForm loginformUser
+@inject Surveymatic.Services.IRefreshService Refresh
+
 
 
 <main role="main" property="mainContentOfPage" class="container">
@@ -81,9 +83,9 @@
                 UserInfo.LoggedIn = "Yes";
                 UserInfo.User = userInDatabase;
                 loggedUser = userInDatabase;
+                //Menu.InvokeAsync(StateHasChanged);
 
-
-
+                Refresh.CallRequestRefresh();
                 navigate.NavigateTo("/Admin");
                 //navigate.NavigateTo("/Admin/" + loggedUser.Email);
             }

@@ -1,5 +1,6 @@
 ﻿@page "/LogOut"
 @using Model.LoginData
+@inject Surveymatic.Services.IRefreshService Refresh
 <h4 class="username">logged out successfully</h4>
 
 <main role="main" property="mainContentOfPage" class="container">
@@ -16,9 +17,11 @@
 
     protected override void OnInitialized()
     {
+        UserInfo.User = new();
         UserInfo.Email = "";
         UserInfo.PreferredLanguage = "";
         UserInfo.LoggedIn = "";
+        Refresh.CallRequestRefresh();
     }
 
 

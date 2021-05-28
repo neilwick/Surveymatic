@@ -5,7 +5,6 @@
 @inject ISessionService Session
 
 
-
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -42,6 +41,7 @@
 @code {
     protected override async Task OnAfterRenderAsync(bool first)
     {
+
         Session.Language = await LocalStorage.GetItemAsStringAsync("lang");
     }
     protected void SetLanguage(string lang)
@@ -49,4 +49,5 @@
         Session.Language = lang;
         LocalStorage.SetItemAsStringAsync("lang", lang);
     }
+
 }
