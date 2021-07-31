@@ -1,25 +1,56 @@
 @page "/home"
+@using Services
+@using Surveymatic.Model.LoginData
+@inject ISessionService Session
+@inject Blazored.LocalStorage.ILocalStorageService LocalStorage
+@inject IRefreshService Refresh
 
 <main role="main" property="mainContentOfPage" class="container">
     <h1 id="wb-cont" property="name">Home</h1>
-    <section>
-        <h2>Welcome to SurveyMatic</h2>
-        <p>SurveyMatic, a friendly way for various departments of the Government of Canada to gather
-            public information from their consultients in which, including graphical charts for
-            better analysis.
-        </p>
-    </section>
-    <section>
-        <ul>
-            <li>
-                <p><a href="login">Login</a></p>
-                <ul>
-                    <li>
-                        <p><a href="register">Register</a></p>
+    @if (Session.Language == "fr")
+    {
+        <section>
+            <h2>Bienvenue sur SurveyMatic</h2>
+            <p>SurveyMatic, un moyen convivial pour divers ministères du gouvernement du Canada de se réunir
+                informations publiques de leurs consultants dans lesquelles, y compris des graphiques pour
+                meilleure analyse.
+            </p>
+        </section>
+        <section>
+            <ul>
+                <li>
+                    <p><a href="login">Connexion</a></p>
+                    <ul>
+                        <li>
+                            <p><a href="register">S'inscrire</a></p>
 
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </section>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    }
+    else
+    {
+        <section>
+            <h2>Welcome to SurveyMatic</h2>
+            <p>SurveyMatic, a friendly way for various departments of the Government of Canada to gather
+                public information from their consultients in which, including graphical charts for
+                better analysis.
+            </p>
+        </section>
+        <section>
+            <ul>
+                <li>
+                    <p><a href="login">Login</a></p>
+                    <ul>
+                        <li>
+                            <p><a href="register">Register</a></p>
+
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    }
 </main>
